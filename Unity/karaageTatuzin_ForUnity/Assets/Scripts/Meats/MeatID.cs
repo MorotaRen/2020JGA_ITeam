@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Meat : MonoBehaviour
+public class MeatID : MonoBehaviour
 {
-    [SerializeField] private int ID;
+    [SerializeField] private int m_Id;
     public void SetID(int id)
     {
-        ID = id;
+        m_Id = id;
     }
     public int GetID()
     {
-        return ID;
+        return m_Id;
     }
+
 }

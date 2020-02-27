@@ -40,13 +40,17 @@ public class Area : MonoBehaviour
                 {
                     case 0:
                         obj = Instantiate(WObj, new Vector3(GenerationPos.x, GenerationPos.y, 0), Quaternion.identity);
-                        obj.transform.parent = this.transform;
+                        //obj.transform.parent = this.transform;
+                        obj.tag = "Map";
+                        obj.AddComponent<BoxCollider>();
                         GenerationPos.x += 1;
                         num = 1;
                         break;
                     case 1:
                         obj = Instantiate(BObj, new Vector3(GenerationPos.x, GenerationPos.y, 0), Quaternion.identity);
-                        obj.transform.parent = this.transform;
+                        //obj.transform.parent = this.transform;
+                        obj.tag = "Map";
+                        obj.AddComponent<BoxCollider>();
                         GenerationPos.x += 1;
                         num = 0;
                         break;

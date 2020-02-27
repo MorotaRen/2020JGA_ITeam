@@ -9,6 +9,7 @@ TagManager:
   - Meat_1x2
   - Meat_2x2
   - Meat_3x3
+  - Map
   layers:
   - Default
   - TransparentFX
