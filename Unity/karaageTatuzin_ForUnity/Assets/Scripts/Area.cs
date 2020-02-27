@@ -16,6 +16,7 @@ public class Area : MonoBehaviour
 
     private int[,] map;
     private int num;
+    private GameObject obj;
 
     private void Start()
     {
@@ -38,12 +39,14 @@ public class Area : MonoBehaviour
                 switch (num)
                 {
                     case 0:
-                        Instantiate(WObj, new Vector3(GenerationPos.x, GenerationPos.y, 0), Quaternion.identity);
+                        obj = Instantiate(WObj, new Vector3(GenerationPos.x, GenerationPos.y, 0), Quaternion.identity);
+                        obj.transform.parent = this.transform;
                         GenerationPos.x += 1;
                         num = 1;
                         break;
                     case 1:
-                        Instantiate(BObj, new Vector3(GenerationPos.x, GenerationPos.y, 0), Quaternion.identity);
+                        obj = Instantiate(BObj, new Vector3(GenerationPos.x, GenerationPos.y, 0), Quaternion.identity);
+                        obj.transform.parent = this.transform;
                         GenerationPos.x += 1;
                         num = 0;
                         break;
