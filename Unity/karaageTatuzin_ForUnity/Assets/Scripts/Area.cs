@@ -43,6 +43,7 @@ public class Area : MonoBehaviour
                         //obj.transform.parent = this.transform;
                         obj.tag = "Map";
                         obj.AddComponent<BoxCollider>();
+                        obj.AddComponent<Mapchip>();
                         GenerationPos.x += 1;
                         num = 1;
                         break;
@@ -51,10 +52,20 @@ public class Area : MonoBehaviour
                         //obj.transform.parent = this.transform;
                         obj.tag = "Map";
                         obj.AddComponent<BoxCollider>();
+                        obj.AddComponent<Mapchip>();
                         GenerationPos.x += 1;
                         num = 0;
                         break;
                 }
+                if (k == 4 && num == 0)
+                {
+                    num = 1;
+                }else
+                if (k == 4 && num == 1)
+                {
+                    num = 0;
+                }
+
             }
             GenerationPos.y -= 1;
             GenerationPos.x = StartPos.x;

@@ -7,6 +7,6 @@ public class MeatController : MonoBehaviour
     private void Update()
     {
         Vector3 WorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        this.transform.position = new Vector3(WorldPos.x,WorldPos.y,0);
+        this.transform.position = new Vector3(WorldPos.x,WorldPos.y,-5);
     }
 }
