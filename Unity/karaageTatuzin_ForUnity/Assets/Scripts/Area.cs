@@ -17,6 +17,7 @@ public class Area : MonoBehaviour
     private int[,] map;
     private int num;
     private GameObject obj;
+    private List<GameObject> maps　= new List<GameObject>();
 
     private void Start()
     {
@@ -44,6 +45,7 @@ public class Area : MonoBehaviour
                         obj.tag = "Map";
                         obj.AddComponent<BoxCollider>();
                         obj.AddComponent<Mapchip>();
+                        maps.Add(obj);
                         GenerationPos.x += 1;
                         num = 1;
                         break;
@@ -53,6 +55,7 @@ public class Area : MonoBehaviour
                         obj.tag = "Map";
                         obj.AddComponent<BoxCollider>();
                         obj.AddComponent<Mapchip>();
+                        maps.Add(obj);
                         GenerationPos.x += 1;
                         num = 0;
                         break;
@@ -78,6 +81,13 @@ public class Area : MonoBehaviour
                     num = 0;
                     break;
             }
+        }
+    }
+    public void ResetMaps()
+    {
+        foreach (var map in maps)
+        {
+            map.GetComponent<Mapchip>().m_Installed = false;
         }
     }
 }

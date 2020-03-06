@@ -2,25 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// -----------------------------------------------<summary>
+/// マウス関連
+/// </summary>-----------------------------------------------
+
 public class MouseController : MonoBehaviour
 {
-    //監視用
+    [Header("選択状態のオブジェクト(監視用)")]
     [SerializeField] private GameObject m_SelectedObject;
-    //MainCamera
+
+    [Header("メインカメラ")]
     [SerializeField] private Camera m_Camera;
-    //Rayのヒットしたヤツ格納用
+
+    [Header("レイがヒットしたものの格納用(監視用)")]
     [SerializeField] private RaycastHit m_Hit;
+
     //生成したかをBool
     private bool m_IsGeneration = false;
+
     //複製オブジェクト
     private GameObject m_CopyObject;
+
     //ゲームマスター
     [SerializeField]private GameMaster m_GameMaster;
-    //選択中のオブジェクト
+
     private void Update()
     {
+
         MouseRayCast();
     }
+
+    /// -----------------------------------------------<summary>
+    /// マウスのレイキャスト
+    /// </summary>-----------------------------------------------
     int MouseRayCast()
     {
         //RayカメラからのRay
@@ -34,49 +48,9 @@ public class MouseController : MonoBehaviour
                     //マップが選択されていたら
                     if (m_Hit.collider.gameObject.tag == "Map")
                     {
-                        //そのマップマスの所に実際の配置生成物の生成をする
-                        //作成POS
-                        Vector3 CreatePos = new Vector3(m_Hit.collider.gameObject.transform.localPosition.x, m_Hit.collider.gameObject.transform.localPosition.y,-1);
-                        if (Installation_Try(m_Hit.collider.gameObject))
-                        {
-                            Debug.Log("置けるよ");
-                            //次に周りのブロックの置けるか検知
-                            RaycastHit raycastHit;
-                            //子供を全部取得
-                            foreach (Transform childTransform in m_SelectedObject.transform)
-                            {
-                                int Distance = 100;
-                                Ray Childray = new Ray(childTransform.gameObject.transform.position, new Vector3(0, 0, 100));
-                                Debug.DrawLine(Childray.origin, Childray.direction * Distance, Color.red);
-
-                                if (Physics.Raycast(Childray, out raycastHit))
-                                {
-                                    if (!Installation_Try(raycastHit.collider.gameObject))
-                                    {
-                                        Debug.Log("子供が被ってるんでダメです");
-                                        return 0;
-                                    }
-                                }
-                                //設置可能
-                                if (raycastHit.collider) {
-                                    Debug.Log("子供の前にあるのは" + raycastHit.collider.gameObject);
-                                }
-
-                            }
-
-
-
-
-                            //選択中オブジェクトを生成
-                            var obj = Instantiate(m_SelectedObject, CreatePos, m_SelectedObject.transform.rotation);
-                            //後始末
-                            Send_GameMaster(obj);
-                            Destroy(obj.GetComponent<MeatController>());
-                            Destroy(m_SelectedObject);
-                            m_IsGeneration = false;
-                            return 0;
-                        }
-                        Debug.Log("置けないよ");
+                        //作成場所
+                        Vector3 CreatePos = new Vector3(m_Hit.collider.gameObject.transform.localPosition.x, m_Hit.collider.gameObject.transform.localPosition.y, -1);
+                        GenerationSet_Object(CreatePos);
                         return 0;
                     }
                     //選択中のIDと新規選択のIDの比較
@@ -101,10 +75,6 @@ public class MouseController : MonoBehaviour
                     if (parent)
                     {
                         m_CopyObject = parent;
-                        foreach (Transform childTransform in parent.transform)
-                        {
-                            childTransform.gameObject.tag = "Meat_Installed";
-                        }
                     }
                     else
                     {
@@ -113,7 +83,6 @@ public class MouseController : MonoBehaviour
                     m_SelectedObject = Instantiate(m_CopyObject, mousepos, Quaternion.identity);
                     m_SelectedObject.AddComponent<MeatController>();
                     m_SelectedObject.layer = 2;
-                    m_SelectedObject.tag = "Meat_Installed";
                     m_GameMaster.SetSelectingObject(m_SelectedObject);
                     m_IsGeneration = true;
                 }
@@ -165,8 +134,65 @@ public class MouseController : MonoBehaviour
                 Debug.Log("Lの肉設置");
                 break;
             default:
+                Debug.Log("タグが一致しません…Tagは"+ sendobj.tag);
                 break;
         }
+    }
+    //送られてきた所に設置する
+    int GenerationSet_Object(Vector3 createPos)
+    {
+
+        if (Installation_Try(m_Hit.collider.gameObject))
+        {
+            Debug.Log("！！！設置可能！！！");
+
+            //------次に周りのブロックの置けるか検知------//
+
+            //レイに接触したものが入る
+            RaycastHit raycastHit;
+            //子供を全部取得
+            foreach (Transform childTransform in m_SelectedObject.transform)
+            {
+                //長さ
+                int Distance = 100;
+                //子供からレイを発射
+                Ray Childray = new Ray(childTransform.gameObject.transform.position, new Vector3(0, 0, Distance));
+                //レイを飛ばしてキャスト
+                if (Physics.Raycast(Childray, out raycastHit))
+                {
+                    //設置不可
+                    if (!Installation_Try(raycastHit.collider.gameObject))
+                    {
+                        Debug.Log("！！！子供が被ってるんでダメです！！！");
+                        return 0;
+                    }
+                }
+            }
+            //-------------------------------------------//
+
+
+            //------実際に生成して設置------//
+            //選択中オブジェクトを生成
+            var obj = Instantiate(m_SelectedObject, createPos, m_SelectedObject.transform.rotation);
+            //ゲームマスターに設置した肉を送る
+            Send_GameMaster(obj);
+            //タグをもう設置済みにする
+            obj.tag = "Meat_Installed";
+            Transform Children = obj.gameObject.transform;
+            foreach (Transform childTransform in Children.transform)
+            {
+                childTransform.gameObject.tag = "Meat_Installed";
+            }
+            //マウスでコントロールするためのスクリプトを削除
+            Destroy(obj.GetComponent<MeatController>());
+            //今選択していた肉を消す
+            Destroy(m_SelectedObject);
+            //選択状態を解除
+            m_IsGeneration = false;
+            return 0;
+        }
+        Debug.Log("！！！置けないよ！！！");
+        return 0;
     }
 
 }
