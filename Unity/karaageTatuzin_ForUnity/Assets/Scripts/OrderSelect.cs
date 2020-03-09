@@ -50,7 +50,10 @@ public class OrderSelect : MonoBehaviour
         GetOrder();
 
         //比較して大丈夫だったらオーダー完了
-
+        if (Comparison())
+        {
+            Debug.Log("同じ！！");
+        }
     }
 
     //ゲームマスターから在庫をとってくる
@@ -67,15 +70,32 @@ public class OrderSelect : MonoBehaviour
     private void GetOrder()
     {
         var Order = m_OrderTimer.GetNowDemandCount();
-        m_demand.Max_1x1 = Order.Max_1x1;
-        m_demand.Max_1x1 = Order.Max_1x2;
-        m_demand.Max_1x1 = Order.Max_2x2;
-        m_demand.Max_1x1 = Order.Max_3x3;
-        m_demand.Max_1x1 = Order.Max_L;
+        m_demand.Max_1x1 = (int)Order.Max_1x1;
+        m_demand.Max_1x1 = (int)Order.Max_1x2;
+        m_demand.Max_1x1 = (int)Order.Max_2x2;
+        m_demand.Max_1x1 = (int)Order.Max_3x3;
+        m_demand.Max_1x1 = (int)Order.Max_L;
     }
     //比較<返り値は大丈夫か>
     private bool Comparison()
     {
+        if (m_Meats.Meat_1x1 == m_demand.Max_1x1)
+        {
+            if (m_Meats.Meat_1x2 == m_demand.Max_1x2)
+            {
+                if (m_Meats.Meat_2x2 == m_demand.Max_2x2)
+                {
+                    if (m_Meats.Meat_3x3 == m_demand.Max_3x3)
+                    {
+                        if (m_Meats.Meat_L == m_demand.Max_L)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        Debug.Log("同じではない");
         return false;
     }
 }
