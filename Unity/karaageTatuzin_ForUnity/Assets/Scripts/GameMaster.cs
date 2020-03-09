@@ -36,6 +36,7 @@ public class GameMaster : MonoBehaviour
         public int Meat_3x3;
         public int Meat_L;
     }
+
     public Meats meats = new Meats();
 
 
@@ -75,7 +76,7 @@ public class GameMaster : MonoBehaviour
     /// -----------------------------------------------<summary>
     /// 揚げる
     /// </summary>-----------------------------------------------
-    void Fry()
+    private void Fry()
     {
         m_Meattexts[0].text = meats.Meat_1x1.ToString();
         m_Meattexts[1].text = meats.Meat_1x2.ToString();
@@ -92,5 +93,8 @@ public class GameMaster : MonoBehaviour
         }
     }
 
-
+    public Meats GetMeats()
+    {
+        return meats;
+    }
 }
