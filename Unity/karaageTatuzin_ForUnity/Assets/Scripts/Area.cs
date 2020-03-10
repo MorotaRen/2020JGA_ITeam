@@ -11,6 +11,8 @@ public class Area : MonoBehaviour
     [SerializeField] private Vector2 StartPos;
     [SerializeField] private Vector2 IntervalPos;
     [SerializeField] private Vector2 GenerationPos;
+    [SerializeField] private List<GameObject> m_Meats;
+    [SerializeField] private GameMaster m_GM;
 
 
 
@@ -24,6 +26,10 @@ public class Area : MonoBehaviour
         map = new int[XSize, YSize];
         GenerationPos = StartPos;
         MapCreate();
+        SetRandMeat();
+        SetRandMeat();
+        SetRandMeat();
+
     }
 
     private void Update()
@@ -88,6 +94,57 @@ public class Area : MonoBehaviour
         foreach (var map in maps)
         {
             map.GetComponent<Mapchip>().m_Installed = false;
+            map.GetComponent<SpriteRenderer>().color = Color.white;
         }
+    }
+
+    void Send_GameMaster(GameObject sendobj)
+    {
+        switch (sendobj.gameObject.tag)
+        {
+            case "Meat_1x1":
+                m_GM.meats.Meat_1x1++;
+                Debug.Log("1x1の肉設置");
+                break;
+            case "Meat_1x2":
+                m_GM.meats.Meat_1x2++;
+                Debug.Log("1x2の肉設置");
+                break;
+            case "Meat_2x2":
+                m_GM.meats.Meat_2x2++;
+                Debug.Log("2x2の肉設置");
+                break;
+            case "Meat_3x3":
+                m_GM.meats.Meat_3x3++;
+                Debug.Log("3x3の肉設置");
+                break;
+            case "Meat_L":
+                m_GM.meats.Meat_L++;
+                Debug.Log("Lの肉設置");
+                break;
+            default:
+                Debug.Log("タグが一致しません…Tagは" + sendobj.tag);
+                break;
+        }
+    }
+
+    //マップにデフォルトでランダムな肉を設置する
+    private void SetRandMeat()
+    {
+        int Randampnum = Random.Range(0,maps.Count);
+        int RandamMeatNum = Random.Range(0,m_Meats.Count);
+        var SetMapPos = maps[Randampnum].gameObject.transform.position;
+        //上の座標へランダムな肉を設置する…
+        var obj = Instantiate(m_Meats[RandamMeatNum],new Vector3(SetMapPos.x,SetMapPos.y,SetMapPos.z),m_Meats[RandamMeatNum].gameObject.transform.rotation);
+        Send_GameMaster(obj);
+        obj.tag = "Meat_Installed";
+        Transform Children = obj.gameObject.transform;
+        foreach (Transform childTransform in Children.transform)
+        {
+            childTransform.gameObject.tag = "Meat_Installed";
+        }
+        //マウスでコントロールするためのスクリプトを削除
+        Destroy(obj.GetComponent<MeatController>());
+        maps[Randampnum].gameObject.GetComponent<Mapchip>().m_Installed = true;
     }
 }

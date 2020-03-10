@@ -44,9 +44,14 @@ public class GameMaster : MonoBehaviour
     {
         if (m_SelectingObject)
         {
-            if (Input.GetKeyDown(m_RotateCode))
+            float Scroll = Input.GetAxis("Mouse ScrollWheel");
+            if (Scroll > 0)
             {
                 RightRotation90(m_SelectingObject);
+            }
+            if (Scroll < 0)
+            {
+                LeftRotation90(m_SelectingObject);
             }
         }
         if (Input.GetKeyDown(m_FryCode))
@@ -62,6 +67,15 @@ public class GameMaster : MonoBehaviour
     public void RightRotation90(GameObject obj)
     {
         obj.transform.Rotate(new Vector3(0.0f, 0.0f, 90.0f));
+    }
+
+    /// -----------------------------------------------<summary>
+    /// 90度回転する
+    /// </summary>-----------------------------------------------
+    /// <param name="obj">回転するオブジェクト</param>
+    public void LeftRotation90(GameObject obj)
+    {
+        obj.transform.Rotate(new Vector3(0.0f, 0.0f, -90.0f));
     }
 
     /// -----------------------------------------------<summary>
