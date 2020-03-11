@@ -147,4 +147,8 @@ public class Area : MonoBehaviour
         Destroy(obj.GetComponent<MeatController>());
         maps[Randampnum].gameObject.GetComponent<Mapchip>().m_Installed = true;
     }
+    private bool CheckLocate()
+    {
+        return false;
+    }
 }
