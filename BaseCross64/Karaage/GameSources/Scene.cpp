@@ -54,8 +54,8 @@ namespace basecross{
 	void Scene::OnCreate(){
 		try {
 			//リソース設定
-			CreateResourse resourse;
-			resourse.CreateResourses();
+			//CreateResourse resourse;
+			//resourse.CreateResourses();
 
 			//クリアする色を設定
 			Col4 Col;
