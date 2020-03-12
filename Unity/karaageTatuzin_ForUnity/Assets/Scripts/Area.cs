@@ -137,12 +137,13 @@ public class Area : MonoBehaviour
     //マップにデフォルトでランダムな肉を設置する
     private int SetRandMeat(int meatCount)
     {
-        for (int i = 0; i <= meatCount; i++)
+        for (int i = 0; i < meatCount; i++)
         {
             int Randampnum = Random.Range(0, maps.Count);
             int RandamMeatNum = Random.Range(0, m_Meats.Count);
             var SetMapPos = maps[Randampnum].gameObject.transform.position;
             var obj = Instantiate(m_Meats[RandamMeatNum], new Vector3(SetMapPos.x, SetMapPos.y, -5), m_Meats[RandamMeatNum].gameObject.transform.rotation);
+            bool IsGeneration = true;
 
             //------周りのブロックの置けるか検知------//
 
@@ -163,33 +164,35 @@ public class Area : MonoBehaviour
                     if (!Installation_Try(raycastHit.collider.gameObject))
                     {
                         Debug.Log("！！！子供が被ってるんでダメです！！！");
-                        Destroy(obj);
-                        SetRandMeat(3);
-                        continue;
+                        IsGeneration = false;
                     }
                 }
                 else
                 {
                     Debug.Log("！！！どっかがマップに重なってないよ！！！");
-                    Destroy(obj);
-                    SetRandMeat(3);
-                    continue;
+                    IsGeneration = false;
                 }
 
                 Debug.Log("！！！設置可能！！！");
 
                 //-------------------------------------//
+                if (IsGeneration) {
+                    Send_GameMaster(obj);
 
-                Send_GameMaster(obj);
-                obj.tag = "Meat_Installed";
-                Transform Children = obj.gameObject.transform;
-                foreach (Transform ctf in Children.transform)
-                {
-                    ctf.gameObject.tag = "Meat_Installed";
+                    obj.tag = "Meat_Installed";
+                    Transform Children = obj.gameObject.transform;
+                    foreach (Transform ctf in Children.transform)
+                    {
+                        ctf.gameObject.tag = "Meat_Installed";
+                    }
+                    //マウスでコントロールするためのスクリプトを削除
+                    Destroy(obj.GetComponent<MeatController>());
+                    maps[Randampnum].gameObject.GetComponent<Mapchip>().m_Installed = true;
                 }
-                //マウスでコントロールするためのスクリプトを削除
-                Destroy(obj.GetComponent<MeatController>());
-                maps[Randampnum].gameObject.GetComponent<Mapchip>().m_Installed = true;
+                else
+                {
+                    Destroy(obj);
+                }
             }
         }
         return 0;
