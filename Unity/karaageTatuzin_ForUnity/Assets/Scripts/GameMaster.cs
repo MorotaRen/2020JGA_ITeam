@@ -97,14 +97,15 @@ public class GameMaster : MonoBehaviour
         m_Meattexts[2].text = meats.Meat_2x2.ToString();
         m_Meattexts[3].text = meats.Meat_3x3.ToString();
         m_Meattexts[4].text = meats.Meat_L.ToString();
-        //マップのリセット
-        m_area.ResetMaps();
         //設置されてる肉を全部削除
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Meat_Installed");
         foreach (var obj in gameObjects)
         {
             Destroy(obj.gameObject);
         }
+        //マップのリセット
+        m_area.ResetMaps();
+
     }
 
     public Meats GetMeats()

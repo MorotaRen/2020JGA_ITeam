@@ -154,23 +154,18 @@ public class MouseController : MonoBehaviour
         {
             case "Meat_1x1":
                 m_GameMaster.meats.Meat_1x1++;
-                Debug.Log("1x1の肉設置");
                 break;
             case "Meat_1x2":
                 m_GameMaster.meats.Meat_1x2++;
-                Debug.Log("1x2の肉設置");
                 break;
             case "Meat_2x2":
                 m_GameMaster.meats.Meat_2x2++;
-                Debug.Log("2x2の肉設置");
                 break;
             case "Meat_3x3":
                 m_GameMaster.meats.Meat_3x3++;
-                Debug.Log("3x3の肉設置");
                 break;
             case "Meat_L":
                 m_GameMaster.meats.Meat_L++;
-                Debug.Log("Lの肉設置");
                 break;
             default:
                 Debug.Log("タグが一致しません…Tagは"+ sendobj.tag);
@@ -183,7 +178,6 @@ public class MouseController : MonoBehaviour
 
         if (Installation_Try(m_Hit.collider.gameObject))
         {
-            Debug.Log("！！！設置可能！！！");
 
             //------次に周りのブロックの置けるか検知------//
 
@@ -202,11 +196,16 @@ public class MouseController : MonoBehaviour
                     //設置不可
                     if (!Installation_Try(raycastHit.collider.gameObject))
                     {
-                        Debug.Log("！！！子供が被ってるんでダメです！！！");
                         return 0;
                     }
                 }
+                else
+                {
+                    return 0;
+                }
+
             }
+
             //-------------------------------------------//
 
 
@@ -236,7 +235,6 @@ public class MouseController : MonoBehaviour
 
             return 0;
         }
-        Debug.Log("！！！置けないよ！！！");
         return 0;
     }
 
