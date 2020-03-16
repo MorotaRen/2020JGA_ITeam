@@ -7,6 +7,8 @@
 /// </summary>----------------------------------------
 
 #include "stdafx.h"
+//揚げた後のリキャスト時間
+#define FLY_RECAST_TIME 20
 
 namespace basecross {
 	//各種肉の個数情報
@@ -18,7 +20,6 @@ namespace basecross {
 		unsigned int Meat_3x3;
 		unsigned int Meat_L;
 	};
-
 
 	class FlyMaster	final{
 	private:
@@ -35,6 +36,8 @@ namespace basecross {
 		MeatsData m_meatsStockData;
 		//今設置されてる各種肉
 		MeatsData m_meatsInstallationData;
+		//フィールド構造体
+		list<int> m_gameField;
 
 		//----------------------------------------//
 
@@ -45,7 +48,16 @@ namespace basecross {
 			return inst;
 		}
 		//在庫の追加
-		void AddStockMeat();
+		void Add_StockMeat();
+		//設置済み肉数の初期化
+		void Clear_InstallationMeat();
+		//在庫のリセット
+		void Clear_StockMeat();
+		//フィールドの生成
+		void Create_GameField();
+		//揚げる
+		void Fly();
+		//
 
 		//------------ゲッターセッター--------------//
 		void SetStockData(const MeatsData md) {
