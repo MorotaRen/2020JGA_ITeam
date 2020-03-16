@@ -32,7 +32,12 @@ namespace basecross {
 		try {
 			//ビューとライトの作成
 			CreateViewLight();
+
+			auto WatchUI = AddGameObject<UIWatch>(Vec2(-64.0f, 800.0 * 0.5f));
+
+			//debugBoard = AddGameObject<DebugBoard>();
 		}
+
 		catch (...) {
 			throw;
 		}
