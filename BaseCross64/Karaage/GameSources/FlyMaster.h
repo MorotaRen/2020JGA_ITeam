@@ -7,6 +7,10 @@
 /// </summary>----------------------------------------
 
 #include "stdafx.h"
+//ゲームフィールドの縦
+#define GAMEFIELD_X 10
+//ゲームフィールドの横
+#define GAMEFIELD_Y 5
 //揚げた後のリキャスト時間
 #define FLY_RECAST_TIME 20
 
@@ -37,7 +41,7 @@ namespace basecross {
 		//今設置されてる各種肉
 		MeatsData m_meatsInstallationData;
 		//フィールド構造体
-		list<int> m_gameField;
+		int m_gameField[GAMEFIELD_X][GAMEFIELD_Y] = {0};
 
 		//----------------------------------------//
 
