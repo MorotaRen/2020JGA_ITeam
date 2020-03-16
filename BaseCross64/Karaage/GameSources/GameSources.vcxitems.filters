@@ -30,7 +30,11 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ProjectBehavior.h">
       <Filter>Headers</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="$(MSBuildThisFileDirectory)Meat.h">
+=======
+    <ClInclude Include="$(MSBuildThisFileDirectory)FlyMaster.h">
+>>>>>>> 858c5c118e8084b8ded1095cfefaa82d8cd4141c
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
@@ -56,7 +60,11 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ProjectBehavior.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="$(MSBuildThisFileDirectory)Meat.cpp">
+=======
+    <ClCompile Include="$(MSBuildThisFileDirectory)FlyMaster.cpp">
+>>>>>>> 858c5c118e8084b8ded1095cfefaa82d8cd4141c
       <Filter>Sources</Filter>
     </ClCompile>
   </ItemGroup>
