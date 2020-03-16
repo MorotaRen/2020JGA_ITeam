@@ -12,7 +12,7 @@ namespace basecross {
 	//	ゲームステージクラス実体
 	//--------------------------------------------------------------------------------------
 	void GameStage::CreateViewLight() {
-		const Vec3 eye(0.0f, 5.0f, -5.0f);
+		const Vec3 eye(0.0f, 20.0f, -0.5f);
 		const Vec3 at(0.0f);
 		auto PtrView = CreateView<SingleView>();
 		//ビューのカメラの設定
@@ -26,22 +26,19 @@ namespace basecross {
 		PtrMultiLight->SetDefaultLighting();
 	}
 
-
-
 	void GameStage::OnCreate() {
 		try {
 			//ビューとライトの作成
 			CreateViewLight();
-
-			auto WatchUI = AddGameObject<UIWatch>(Vec2(-64.0f, 800.0 * 0.5f));
-
-			//debugBoard = AddGameObject<DebugBoard>();
+			AddGameObject<Karaage>(Vec3(1, 0, 1), Vec3(8, 0, 6), Vec3(0));
+			AddGameObject<Drum>(Vec3(1, 0, 2), Vec3(8, 0, 3), Vec3(0));
+			AddGameObject<Wing>(Vec3(2, 0, 1), Vec3(8, 0, 0), Vec3(0));
+			AddGameObject<Lib>(Vec3(2, 0, 2), Vec3(8, 0, -3), Vec3(0));
+			AddGameObject<Keel>(Vec3(2, 0, 2), Vec3(8, 0, -6), Vec3(0));
 		}
-
 		catch (...) {
 			throw;
 		}
 	}
-
 }
 //end basecross
