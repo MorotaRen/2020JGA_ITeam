@@ -17,6 +17,11 @@ public class MouseController : MonoBehaviour
     [Header("レイがヒットしたものの格納用(監視用)")]
     [SerializeField] private RaycastHit m_Hit;
 
+    [Header("肉達")]
+    [SerializeField] private List<GameObject> m_Meats;
+
+    int m_MeatCount = 0;
+
     //生成したかをBool
     private bool m_IsGeneration = false;
 
@@ -30,6 +35,41 @@ public class MouseController : MonoBehaviour
     {
 
         MouseRayCast();
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            Change_Meat();
+        }
+    }
+
+    /// -----------------------------------------------<summary>
+    /// キーで変わるように…
+    /// </summary>-----------------------------------------------
+    void Change_Meat()
+    {
+        Destroy(m_SelectedObject);
+        //ヒットしたやつを複製してみる
+        Vector3 mousepos = Input.mousePosition;
+        mousepos.z = -5;
+
+        m_CopyObject = m_Meats[m_MeatCount];
+
+        //まず子供じゃないか検査
+        GameObject parent = m_CopyObject;
+        //親がいた場合は親を複製オブジェクトにする
+        if (parent)
+        {
+            m_CopyObject = parent;
+        }
+        m_SelectedObject = Instantiate(m_CopyObject, mousepos, Quaternion.identity);
+        m_SelectedObject.AddComponent<MeatController>();
+        m_SelectedObject.layer = 2;
+        m_GameMaster.SetSelectingObject(m_SelectedObject);
+        m_IsGeneration = true;
+        m_MeatCount++;
+        if (m_MeatCount >= m_Meats.Count)
+        {
+            m_MeatCount = 0;
+        }
     }
 
     /// -----------------------------------------------<summary>
@@ -98,7 +138,6 @@ public class MouseController : MonoBehaviour
         {
             if (!mapchip.m_Installed)
             {
-                mapchip.m_Installed = true;
                 return true;
             }
             else
@@ -115,23 +154,18 @@ public class MouseController : MonoBehaviour
         {
             case "Meat_1x1":
                 m_GameMaster.meats.Meat_1x1++;
-                Debug.Log("1x1の肉設置");
                 break;
             case "Meat_1x2":
                 m_GameMaster.meats.Meat_1x2++;
-                Debug.Log("1x2の肉設置");
                 break;
             case "Meat_2x2":
                 m_GameMaster.meats.Meat_2x2++;
-                Debug.Log("2x2の肉設置");
                 break;
             case "Meat_3x3":
                 m_GameMaster.meats.Meat_3x3++;
-                Debug.Log("3x3の肉設置");
                 break;
             case "Meat_L":
                 m_GameMaster.meats.Meat_L++;
-                Debug.Log("Lの肉設置");
                 break;
             default:
                 Debug.Log("タグが一致しません…Tagは"+ sendobj.tag);
@@ -144,7 +178,6 @@ public class MouseController : MonoBehaviour
 
         if (Installation_Try(m_Hit.collider.gameObject))
         {
-            Debug.Log("！！！設置可能！！！");
 
             //------次に周りのブロックの置けるか検知------//
 
@@ -163,11 +196,16 @@ public class MouseController : MonoBehaviour
                     //設置不可
                     if (!Installation_Try(raycastHit.collider.gameObject))
                     {
-                        Debug.Log("！！！子供が被ってるんでダメです！！！");
                         return 0;
                     }
                 }
+                else
+                {
+                    return 0;
+                }
+
             }
+
             //-------------------------------------------//
 
 
@@ -186,12 +224,17 @@ public class MouseController : MonoBehaviour
             //マウスでコントロールするためのスクリプトを削除
             Destroy(obj.GetComponent<MeatController>());
             //今選択していた肉を消す
-            Destroy(m_SelectedObject);
+            //Destroy(m_SelectedObject);
             //選択状態を解除
             m_IsGeneration = false;
+            //キーボード選択用の数字の初期化
+            //m_MeatCount = 0;
+            //設置したから置けないように
+            m_Hit.collider.GetComponent<Mapchip>().m_Installed = true;
+            m_Hit.collider.GetComponent<SpriteRenderer>().color = Color.red;
+
             return 0;
         }
-        Debug.Log("！！！置けないよ！！！");
         return 0;
     }
 

@@ -33,11 +33,16 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ProjectBehavior.h">
       <Filter>Headers</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="$(MSBuildThisFileDirectory)Number.h">
       <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)UIWatch.h">
       <Filter>UI</Filter>
+=======
+    <ClInclude Include="$(MSBuildThisFileDirectory)FlyMaster.h">
+      <Filter>Headers</Filter>
+>>>>>>> 858c5c118e8084b8ded1095cfefaa82d8cd4141c
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -62,11 +67,16 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ProjectBehavior.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="$(MSBuildThisFileDirectory)Number.cpp">
       <Filter>UI</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)UIWatch.cpp">
       <Filter>UI</Filter>
+=======
+    <ClCompile Include="$(MSBuildThisFileDirectory)FlyMaster.cpp">
+      <Filter>Sources</Filter>
+>>>>>>> 858c5c118e8084b8ded1095cfefaa82d8cd4141c
     </ClCompile>
   </ItemGroup>
 </Project>
