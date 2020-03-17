@@ -1,9 +1,0 @@
-diff a/BaseCross64/Karaage/GameSources/Project.h b/BaseCross64/Karaage/GameSources/Project.h	(rejected hunks)
-@@ -19,6 +19,7 @@
- //�L�����N�^
- #include "Character.h"
- #include "Player.h"
-+<<<<<<< HEAD
- #include "Meat.h"
- =======
- #include "MouseManager.h"
