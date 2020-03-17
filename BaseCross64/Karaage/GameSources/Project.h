@@ -11,7 +11,7 @@
 
 //システム系
 #include "FlyMaster.h"
-#include "MouseManager.h"
+//#include "MouseManager.h"
 
 //シーンやステージ
 #include "Scene.h"
@@ -22,9 +22,6 @@
 #include "Player.h"
 #include "Meat.h"
 
-//<<<<<<< HEAD
 #include "Number.h"
 #include "UIWatch.h"
-//=======
-//>>>>>>> 858c5c118e8084b8ded1095cfefaa82d8cd4141c
 
