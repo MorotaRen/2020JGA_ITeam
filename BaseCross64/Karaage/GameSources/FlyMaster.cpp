@@ -44,8 +44,11 @@ namespace basecross {
 		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
 		for (int x = 0; x < GAMEFIELD_X;x++) {
 			for (int y = 0; y < GAMEFIELD_X;y++) {
+				//マップチップを升目で配置して
+				//肉に1マス分の当たり判定を追加してそこからレイキャスして選択されてるオブジェクトと
+				//ステージのマス目を比較して当たってるところを1にする…？
+				//つまりマップチップにはマップ番号と設置済みのフラグを持たせると
 				//stage->AddGameObject<MapChip>();
-				
 			}
 		}
 
@@ -57,6 +60,14 @@ namespace basecross {
 
 	}
 
+	/// ----------------------------------------<summary>
+	/// 渡された座標からマップ方向にレイを飛ばし接触したオブジェクトのマップ番号を返す
+	/// </summary>----------------------------------------
+	int* FlyMaster::Send_RayCastToMapChip(int *returnNum,Vec3 sendPos) {
+		returnNum[0] = 1;
+		returnNum[1] = 1;
+		return returnNum;
+	}
 
 }
 //end basecross

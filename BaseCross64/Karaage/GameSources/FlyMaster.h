@@ -42,7 +42,8 @@ namespace basecross {
 		MeatsData m_meatsInstallationData;
 		//フィールド構造体
 		int m_gameField[GAMEFIELD_X][GAMEFIELD_Y] = {0};
-
+		//接触マップチップ番号
+		int *m_hittingMapChipNum[2];
 		//----------------------------------------//
 
 	public:
@@ -61,7 +62,8 @@ namespace basecross {
 		void Create_GameField();
 		//揚げる
 		void Fly();
-		//
+		//渡された座標からマップ方向にレイを飛ばし接触したオブジェクトのマップ番号を返す
+		int* Send_RayCastToMapChip(int *returnNum,Vec3 sendPos);
 
 		//------------ゲッターセッター--------------//
 		void SetStockData(const MeatsData md) {
