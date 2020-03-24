@@ -15,6 +15,7 @@ namespace basecross {
 		//ƒrƒ…[‚Ìì¬
 		void CreateViewLight();
 
+		bool m_trigger = false;
 
 	public:
 
@@ -23,6 +24,7 @@ namespace basecross {
 		virtual ~GameStage() {}
 		//‰Šú‰»
 		virtual void OnCreate() override;
+		virtual void OnUpdate() override;
 	};
 
 

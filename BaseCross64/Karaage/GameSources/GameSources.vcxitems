@@ -17,6 +17,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Character.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)FlyMaster.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameStage.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MapChip.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Meat.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MouseManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Number.h" />
@@ -31,6 +32,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Character.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)FlyMaster.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameStage.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)MapChip.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Meat.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Number.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Player.cpp" />

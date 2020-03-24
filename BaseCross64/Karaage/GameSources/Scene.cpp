@@ -41,8 +41,9 @@ namespace basecross{
 			App::GetApp()->GetAssetsDirectory(dataDir);
 
 			//テクスチャ
-			SetTexture(L"RANK_UI", L"Rank2.png");
-
+			//SetTexture(L"RANK_UI", L"Rank2.png");
+			SetTexture(L"Black_TEST",L"Black.png");
+			SetTexture(L"White_TEST",L"White.png");
 			//音楽
 
 		}
@@ -54,9 +55,9 @@ namespace basecross{
 	void Scene::OnCreate(){
 		try {
 			//リソース設定
-			//CreateResourse resourse;
-			//resourse.CreateResourses();
-
+			CreateResourse resourse;
+			resourse.CreateResourses();
+			
 			//クリアする色を設定
 			Col4 Col;
 			Col.set(31.0f / 255.0f, 30.0f / 255.0f, 71.0f / 255.0f, 255.0f / 255.0f);

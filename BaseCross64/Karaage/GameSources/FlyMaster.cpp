@@ -42,13 +42,21 @@ namespace basecross {
 	void FlyMaster::Create_GameField() {
 		//アクティブステージの取得
 		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
-		for (int x = 0; x < GAMEFIELD_X;x++) {
-			for (int y = 0; y < GAMEFIELD_X;y++) {
+		for (int y = 0; y < GAMEFIELD_Y;y++) {
+			for (int x = 0; x < GAMEFIELD_X;x++) {
 				//マップチップを升目で配置して
 				//肉に1マス分の当たり判定を追加してそこからレイキャスして選択されてるオブジェクトと
 				//ステージのマス目を比較して当たってるところを1にする…？
 				//つまりマップチップにはマップ番号と設置済みのフラグを持たせると
-				//stage->AddGameObject<MapChip>();
+				stage->AddGameObject<MapChip>(Vec2(MAPCHIP_START_X + x * MAPCHIP_SIZE_X, 
+												   MAPCHIP_START_Y + -y *MAPCHIP_SIZE_Y),
+												   m_TEST_w);
+				if (m_TEST_w) {
+					m_TEST_w = false;
+				}
+				else {
+					m_TEST_w = true;
+				}
 			}
 		}
 
@@ -68,6 +76,7 @@ namespace basecross {
 		returnNum[1] = 1;
 		return returnNum;
 	}
+
 
 }
 //end basecross

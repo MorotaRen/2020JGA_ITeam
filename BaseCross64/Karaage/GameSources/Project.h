@@ -25,3 +25,5 @@
 #include "Number.h"
 #include "UIWatch.h"
 
+#include "MapChip.h"
+

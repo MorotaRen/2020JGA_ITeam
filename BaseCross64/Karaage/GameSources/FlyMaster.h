@@ -7,12 +7,17 @@
 /// </summary>----------------------------------------
 
 #include "stdafx.h"
-//ゲームフィールドの縦
-#define GAMEFIELD_X 10
-//ゲームフィールドの横
-#define GAMEFIELD_Y 5
+//ゲームフィールドの縦横
+#define GAMEFIELD_X 5
+#define GAMEFIELD_Y 10
 //揚げた後のリキャスト時間
 #define FLY_RECAST_TIME 20
+//マップチップのサイズ
+#define MAPCHIP_SIZE_X 70.0f
+#define MAPCHIP_SIZE_Y 70.0f
+//マップチップの開始地点
+#define MAPCHIP_START_X -100.0f
+#define MAPCHIP_START_Y 300.0f
 
 namespace basecross {
 	//各種肉の個数情報
@@ -44,6 +49,8 @@ namespace basecross {
 		int m_gameField[GAMEFIELD_X][GAMEFIELD_Y] = {0};
 		//接触マップチップ番号
 		int *m_hittingMapChipNum[2];
+		//テスト用の数値
+		bool m_TEST_w;
 		//----------------------------------------//
 
 	public:
