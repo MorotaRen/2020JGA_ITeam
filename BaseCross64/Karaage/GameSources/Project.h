@@ -16,3 +16,5 @@
 #include "Number.h"
 #include "UIWatch.h"
 
+#include "GameSelect.h"
+#include "GameTitle.h"
