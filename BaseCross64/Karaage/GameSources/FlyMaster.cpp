@@ -80,14 +80,25 @@ namespace basecross {
 	/// ----------------------------------------<summary>
 	/// Š“÷‚Ì¶¬
 	/// </summary>----------------------------------------
-	void FlyMaster::Create_PossessionMeat() {
+	void FlyMaster::Create_PossessionMeat(int createMeatID) {
+		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
+		shared_ptr<GameObject> newMeat;
+		switch (createMeatID)
+		{
+		case 1:
+			newMeat = stage->AddGameObject<Karaage>(Vec3(1, 0, 1), Vec3(8, 0, 6), Vec3(0));
+			break;
+		default:
+			break;
+		}
+		Reset_PossessionMeat(newMeat);
 
 	}
 
 	/// ----------------------------------------<summary>
 	/// Š“÷‚ÌƒŠƒZƒbƒg
 	/// </summary>----------------------------------------
-	void Create_PossessionMeat(shared_ptr<GameObject> obj){
+	void FlyMaster::Reset_PossessionMeat(shared_ptr<GameObject> obj){
 		//Šù‚ÉŠ‚µ‚Ä‚¢‚½‚ç‚»‚ê‚ÆŒğŠ·
 		auto possessionmeat = FlyMaster::GetInstans().GetPossessionMeat();
 		if (possessionmeat) {

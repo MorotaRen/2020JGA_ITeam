@@ -45,7 +45,12 @@ namespace basecross {
 		if (!m_trigger) {
 			FlyMaster::GetInstans().Create_GameField();
 			m_trigger = true;
-			
+		}
+
+		//-----以下テスト用のキーボード操作------//
+		auto keyState = App::GetApp()->GetInputDevice().GetKeyState();
+		if (keyState.m_bPressedKeyTbl['D']) {
+			FlyMaster::GetInstans().Create_PossessionMeat(1);
 		}
 	}
 }

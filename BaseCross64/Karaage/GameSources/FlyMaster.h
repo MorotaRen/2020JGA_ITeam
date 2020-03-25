@@ -55,6 +55,8 @@ namespace basecross {
 		bool m_TEST_w;
 		//現在解放中の肉数
 		int m_releaseMeatCount;
+		//現在の所持肉のID
+		int m_possessionMeatID;
 		//----------------------------------------//
 
 	public:
@@ -78,7 +80,7 @@ namespace basecross {
 		//所持肉のリセット
 		void Reset_PossessionMeat(shared_ptr<GameObject> obj);
 		//所持肉の生成
-		void Create_PossessionMeat();
+		void Create_PossessionMeat(int createMeatID);
 		//------------ゲッターセッター--------------//
 		void SetStockData(const MeatsData md) {
 			m_meatsStockData = md;

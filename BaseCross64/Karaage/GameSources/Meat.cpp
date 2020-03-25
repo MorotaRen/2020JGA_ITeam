@@ -22,9 +22,9 @@ namespace basecross {
 		//頂点配列(縦横5個ずつ表示)
 		vector<VertexPositionColorTexture> vertices = {
 			{ VertexPositionColorTexture(Vec3(-helfSize, helfSize, 0),Col4(1.0f,1.0f,1.0f,1.0f), Vec2(0.0f, 0.0f)) },
-			{ VertexPositionColorTexture(Vec3(helfSize, helfSize, 0), Col4(0.0f, 1.0f, 1.0f, 1.0f), Vec2(5.0f, 0.0f)) },
-			{ VertexPositionColorTexture(Vec3(-helfSize, -helfSize, 0), Col4(1.0f, 0.0f, 1.0f, 1.0f), Vec2(0.0f, 5.0f)) },
-			{ VertexPositionColorTexture(Vec3(helfSize, -helfSize, 0), Col4(0.0f, 0.0f, 0, 1.0f), Vec2(5.0f, 5.0f)) },
+			{ VertexPositionColorTexture(Vec3(helfSize, helfSize, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(1.0f, 0.0f)) },
+			{ VertexPositionColorTexture(Vec3(-helfSize, -helfSize, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(0.0f, 1.0f)) },
+			{ VertexPositionColorTexture(Vec3(helfSize, -helfSize, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(1.0f, 1.0f)) },
 		};
 		//インデックス配列
 		vector<uint16_t> indices = { 0, 1, 2, 1, 3, 2 };
@@ -34,8 +34,8 @@ namespace basecross {
 		ptrTrans->SetPosition(m_Position.x, m_Position.y, 0.0f);
 		//頂点とインデックスを指定してスプライト作成
 		auto ptrDraw = AddComponent<PCTSpriteDraw>(vertices, indices);
-		ptrDraw->SetSamplerState(SamplerState::LinearWrap);
 		ptrDraw->SetTextureResource(L"RawMeat_Chicken_Line");
+		SetAlphaActive(true);
 	}
 
 	void Karaage::OnUpdate()
@@ -165,13 +165,13 @@ namespace basecross {
 
 	void Karaage::DrawString()
 	{
-		wstring strRandOder(L"Oder :");
-		int Rand = rand() % KaraageOder;
-		strRandOder += Util::IntToWStr(Rand);
+		//wstring strRandOder(L"Oder :");
+		//int Rand = rand() % KaraageOder;
+		//strRandOder += Util::IntToWStr(Rand);
 
-		wstring str = strRandOder;
-		auto ptrString = GetComponent<StringSprite>();
-		ptrString->SetText(str);
+		//wstring str = strRandOder;
+		//auto ptrString = GetComponent<StringSprite>();
+		//ptrString->SetText(str);
 	}
 }
 //end basecross

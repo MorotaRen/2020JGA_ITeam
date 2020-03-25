@@ -9,13 +9,6 @@
 #include "ProjectShader.h"
 #include "ProjectBehavior.h"
 
-//システム系
-#include "FlyMaster.h"
-//#include "MouseManager.h"
-
-//シーンやステージ
-#include "Scene.h"
-#include "GameStage.h"
 
 //キャラクタ
 #include "Character.h"
@@ -26,4 +19,13 @@
 #include "UIWatch.h"
 
 #include "MapChip.h"
+
+//システム系
+#include "FlyMaster.h"
+//#include "MouseManager.h"
+
+//シーンやステージ
+#include "Scene.h"
+#include "GameStage.h"
+
 
