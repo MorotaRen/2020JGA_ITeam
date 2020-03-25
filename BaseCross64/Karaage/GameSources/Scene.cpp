@@ -34,6 +34,11 @@ namespace basecross{
 			strSound = dataDir + L"Sound\\" + filename;
 			App::GetApp()->RegisterWav(name, strSound);
 		}
+		//線ありの肉読み込み
+		void SetMeat_Line(wstring name,wstring filename) {
+			strTexture = dataDir + L"Texture\\Meats\\IsLine\\" + filename;
+			App::GetApp()->RegisterTexture(name, strTexture);
+		}
 		//全リソース適用
 		void CreateResourses()
 		{
@@ -44,6 +49,19 @@ namespace basecross{
 			//SetTexture(L"RANK_UI", L"Rank2.png");
 			SetTexture(L"Black_TEST",L"Black.png");
 			SetTexture(L"White_TEST",L"White.png");
+
+			//肉(線あり)
+			SetMeat_Line(L"Meat_Drum_Line",L"Chicken_Drum2.png");
+			SetMeat_Line(L"Meat_Keel_Line",L"Chicken_Keel2.png");
+			SetMeat_Line(L"Meat_Rib_Line",L"Chicken_Rib2.png");
+			SetMeat_Line(L"Meat_Wing_Line",L"Chicken_Wing2.png");
+			SetMeat_Line(L"Meat_Chicken_Line",L"FriedChicken2.png");
+			SetMeat_Line(L"RawMeat_Drum_Line",L"RawMeat_Drum2.png");
+			SetMeat_Line(L"RawMeat_Chicken_Line",L"RawMeat_FridChikin2.png");
+			SetMeat_Line(L"RawMeat_Keel_Line",L"RawMeat_Keel2.png");
+			SetMeat_Line(L"RawMeat_Rib_Line",L"RawMeat_Rib2.png");
+			SetMeat_Line(L"RawMeat_Wing_Line",L"RawMeat_Wing2.png");
+
 			//音楽
 
 		}

@@ -45,6 +45,7 @@ namespace basecross {
 		if (!m_trigger) {
 			FlyMaster::GetInstans().Create_GameField();
 			m_trigger = true;
+			
 		}
 	}
 }

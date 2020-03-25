@@ -49,8 +49,12 @@ namespace basecross {
 		int m_gameField[GAMEFIELD_X][GAMEFIELD_Y] = {0};
 		//接触マップチップ番号
 		int *m_hittingMapChipNum[2];
+		//所持中の肉
+		shared_ptr<GameObject> m_possessionMeat;
 		//テスト用の数値
 		bool m_TEST_w;
+		//現在解放中の肉数
+		int m_releaseMeatCount;
 		//----------------------------------------//
 
 	public:
@@ -71,7 +75,10 @@ namespace basecross {
 		void Fly();
 		//渡された座標からマップ方向にレイを飛ばし接触したオブジェクトのマップ番号を返す
 		int* Send_RayCastToMapChip(int *returnNum,Vec3 sendPos);
-
+		//所持肉のリセット
+		void Reset_PossessionMeat(shared_ptr<GameObject> obj);
+		//所持肉の生成
+		void Create_PossessionMeat();
 		//------------ゲッターセッター--------------//
 		void SetStockData(const MeatsData md) {
 			m_meatsStockData = md;
@@ -84,6 +91,12 @@ namespace basecross {
 		}
 		MeatsData GetMeatsInstallationData() {
 			return m_meatsInstallationData;
+		}
+		void SetPossessionMeat(shared_ptr<GameObject> obj) {
+			m_possessionMeat = obj;
+		}
+		shared_ptr<GameObject> GetPossessionMeat() {
+			return m_possessionMeat;
 		}
 		//----------------------------------------//
 

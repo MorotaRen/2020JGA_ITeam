@@ -77,6 +77,28 @@ namespace basecross {
 		return returnNum;
 	}
 
+	/// ----------------------------------------<summary>
+	/// Š“÷‚Ì¶¬
+	/// </summary>----------------------------------------
+	void FlyMaster::Create_PossessionMeat() {
+
+	}
+
+	/// ----------------------------------------<summary>
+	/// Š“÷‚ÌƒŠƒZƒbƒg
+	/// </summary>----------------------------------------
+	void Create_PossessionMeat(shared_ptr<GameObject> obj){
+		//Šù‚ÉŠ‚µ‚Ä‚¢‚½‚ç‚»‚ê‚ÆŒğŠ·
+		auto possessionmeat = FlyMaster::GetInstans().GetPossessionMeat();
+		if (possessionmeat) {
+			//‚Ü‚¸Šù‘¶‚Ì‚â‚Â‚ğíœ
+			possessionmeat->DestroyGameObject();
+			//Š“÷‚ğİ’è
+			FlyMaster::GetInstans().SetPossessionMeat(obj);
+		}
+		//Š‚È‚µ‚Ìê‡
+		FlyMaster::GetInstans().SetPossessionMeat(obj);
+	}
 
 }
 //end basecross
