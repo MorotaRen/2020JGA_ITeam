@@ -18,6 +18,9 @@
 //マップチップの開始地点
 #define MAPCHIP_START_X -100.0f
 #define MAPCHIP_START_Y 300.0f
+//左右
+#define LEFT 4
+#define RIGHT 6
 
 namespace basecross {
 	//各種肉の個数情報
@@ -57,6 +60,8 @@ namespace basecross {
 		int m_releaseMeatCount;
 		//現在の所持肉のID
 		int m_possessionMeatID;
+		//移動のリキャストが済んでるか
+		bool m_isMove;
 		//----------------------------------------//
 
 	public:
@@ -81,6 +86,10 @@ namespace basecross {
 		void Reset_PossessionMeat(shared_ptr<GameObject> obj);
 		//所持肉の生成
 		void Create_PossessionMeat(int createMeatID);
+		//所持肉の移動
+		void Move_PossessionMeat(int direction);
+		//リキャストタイマー
+		void Recast_Move();
 		//------------ゲッターセッター--------------//
 		void SetStockData(const MeatsData md) {
 			m_meatsStockData = md;

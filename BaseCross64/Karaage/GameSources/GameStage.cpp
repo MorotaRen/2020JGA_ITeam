@@ -44,14 +44,24 @@ namespace basecross {
 	void GameStage::OnUpdate() {
 		if (!m_trigger) {
 			FlyMaster::GetInstans().Create_GameField();
+			FlyMaster::GetInstans().Create_PossessionMeat(1);
 			m_trigger = true;
 		}
 
-		//-----以下テスト用のキーボード操作------//
-		auto keyState = App::GetApp()->GetInputDevice().GetKeyState();
-		if (keyState.m_bPressedKeyTbl['D']) {
-			FlyMaster::GetInstans().Create_PossessionMeat(1);
+				//----PAD情報取得----//
+		auto pad = App::GetApp()->GetInputDevice().GetControlerVec();
+		//右	
+		if (pad[0].fThumbLX > 0.5f) {
+			FlyMaster::GetInstans().Move_PossessionMeat(RIGHT);
+		}else
+		//左
+		if (pad[0].fThumbLX < -0.5f) {
+			FlyMaster::GetInstans().Move_PossessionMeat(LEFT);
 		}
+		if (pad[0].wPressedButtons & XINPUT_GAMEPAD_A) {
+		}
+
+		FlyMaster::GetInstans().Recast_Move();
 	}
 }
 //end basecross

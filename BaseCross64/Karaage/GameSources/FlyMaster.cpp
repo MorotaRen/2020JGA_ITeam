@@ -86,7 +86,7 @@ namespace basecross {
 		switch (createMeatID)
 		{
 		case 1:
-			newMeat = stage->AddGameObject<Karaage>(Vec3(1, 0, 1), Vec3(8, 0, 6), Vec3(0));
+			newMeat = stage->AddGameObject<Karaage>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), Vec3(0));
 			break;
 		default:
 			break;
@@ -111,5 +111,40 @@ namespace basecross {
 		FlyMaster::GetInstans().SetPossessionMeat(obj);
 	}
 
+	/// ----------------------------------------<summary>
+	/// 所持肉の移動
+	/// </summary>----------------------------------------
+	void FlyMaster::Move_PossessionMeat(int direction) {
+		Vec3 pos;
+		if (!m_isMove) {
+			switch (direction)
+			{
+			case RIGHT:
+				pos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
+				pos.x += MAPCHIP_SIZE_X;
+				m_possessionMeat->GetComponent<Transform>()->SetPosition(pos);
+				m_isMove = true;
+				break;
+			case LEFT:
+				pos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
+				pos.x -= MAPCHIP_SIZE_X;
+				m_possessionMeat->GetComponent<Transform>()->SetPosition(pos);
+				m_isMove = true;
+				break;
+			default:
+				break;
+			}
+		}
+	}
+
+	/// ----------------------------------------<summary>
+	/// リキャストタイマー
+	/// </summary>----------------------------------------
+	void FlyMaster::Recast_Move() {
+		auto pad = App::GetApp()->GetInputDevice().GetControlerVec();
+		if (pad[0].fThumbLX < 0.1f && pad[0].fThumbLX > -0.1f) {
+			m_isMove = false;
+		}
+	}
 }
 //end basecross

@@ -33,6 +33,16 @@ namespace basecross{
 		virtual void OnUpdate() override;
 		virtual void OnUpdate2() override;
 		void DrawString();
+		//----ゲッターセッター----///
+		void SetPosition(const Vec3 pos) {
+			auto posComp = GetComponent<Transform>();
+			posComp->SetPosition(pos);
+		}
+		Vec3 GetPosition() {
+			auto posComp = GetComponent<Transform>();
+			Vec3 pos = posComp->GetPosition();
+			return pos;
+		}
 	};
 
 	//ドラム
