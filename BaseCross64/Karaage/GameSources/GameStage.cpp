@@ -57,10 +57,16 @@ namespace basecross {
 		//ç∂
 		if (pad[0].fThumbLX < -0.5f) {
 			FlyMaster::GetInstans().Move_PossessionMeat(LEFT);
-		}
-		if (pad[0].wPressedButtons & XINPUT_GAMEPAD_A) {
+		}else
+		if (pad[0].fThumbLY > 0.5f) {
+			FlyMaster::GetInstans().Move_PossessionMeat(UP);
+		}else
+		if (pad[0].fThumbLY < -0.5f) {
+			FlyMaster::GetInstans().Move_PossessionMeat(DOWN);
 		}
 
+		
+		FlyMaster::GetInstans(). Change_PossessionMeat();
 		FlyMaster::GetInstans().Recast_Move();
 	}
 }

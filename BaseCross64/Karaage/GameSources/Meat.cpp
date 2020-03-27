@@ -7,7 +7,7 @@
 #include "Project.h"
 
 namespace basecross {
-	// 唐揚げ
+	//--------------------------唐揚げ--------------------------//
 	Karaage::Karaage(const shared_ptr<Stage>& stagePtr, const Vec3& Scale, const Vec3& Position, const Vec3& Rotation) :
 		GameObject(stagePtr),
 		m_Scale(Scale),
@@ -48,7 +48,9 @@ namespace basecross {
 		DrawString();
 	}
 
-	// ドラム
+	//------------------------------------------------------------------------------//
+
+	//--------------------------ドラム--------------------------//
 	Drum::Drum(const shared_ptr<Stage>& stagePtr, const Vec3& Scale, const Vec3& Position, const Vec3& Rotation) :
 		GameObject(stagePtr),
 		m_Scale(Scale),
@@ -60,13 +62,24 @@ namespace basecross {
 
 	void Drum::OnCreate()
 	{
+		float helfSize = 0.5f;
+		//頂点配列(縦横5個ずつ表示)
+		vector<VertexPositionColorTexture> vertices = {
+			{ VertexPositionColorTexture(Vec3(-helfSize, helfSize, 0),Col4(1.0f,1.0f,1.0f,1.0f), Vec2(0.0f, 0.0f)) },
+			{ VertexPositionColorTexture(Vec3(helfSize, helfSize, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(1.0f, 0.0f)) },
+			{ VertexPositionColorTexture(Vec3(-helfSize, -helfSize, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(0.0f, 1.0f)) },
+			{ VertexPositionColorTexture(Vec3(helfSize, -helfSize, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(1.0f, 1.0f)) },
+		};
+		//インデックス配列
+		vector<uint16_t> indices = { 0, 1, 2, 1, 3, 2 };
 		auto ptrTrans = GetComponent<Transform>();
-		ptrTrans->SetScale(m_Scale);
-		ptrTrans->SetPosition(m_Position);
-		ptrTrans->SetRotation(m_Rotation);
-
-		auto ptrDraw = AddComponent<PNTStaticDraw>();
-		ptrDraw->SetMeshResource(L"DEFAULT_SPHERE");
+		ptrTrans->SetScale(MAPCHIP_SIZE_X, MAPCHIP_SIZE_Y, 1.0f);
+		ptrTrans->SetRotation(0, 0, 0);
+		ptrTrans->SetPosition(m_Position.x, m_Position.y, 0.0f);
+		//頂点とインデックスを指定してスプライト作成
+		auto ptrDraw = AddComponent<PCTSpriteDraw>(vertices, indices);
+		ptrDraw->SetTextureResource(L"RawMeat_Drum_Line");
+		SetAlphaActive(true);
 	}
 
 	void Drum::OnUpdate()
@@ -87,8 +100,9 @@ namespace basecross {
 		GetComponent<Transform>()->SetRotation(YRota);
 
 	}
+	//------------------------------------------------------------------------------//
 
-	// 手羽先
+	//--------------------------手羽先--------------------------//
 	Wing::Wing(const shared_ptr<Stage>& stagePtr, const Vec3& Scale, const Vec3& Position, const Vec3& Rotation) :
 		GameObject(stagePtr),
 		m_Scale(Scale),
@@ -99,22 +113,34 @@ namespace basecross {
 
 	void Wing::OnCreate()
 	{
+		float helfSize = 0.5f;
+		//頂点配列(縦横5個ずつ表示)
+		vector<VertexPositionColorTexture> vertices = {
+			{ VertexPositionColorTexture(Vec3(-helfSize, helfSize, 0),Col4(1.0f,1.0f,1.0f,1.0f), Vec2(0.0f, 0.0f)) },
+			{ VertexPositionColorTexture(Vec3(helfSize, helfSize, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(1.0f, 0.0f)) },
+			{ VertexPositionColorTexture(Vec3(-helfSize, -helfSize, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(0.0f, 1.0f)) },
+			{ VertexPositionColorTexture(Vec3(helfSize, -helfSize, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(1.0f, 1.0f)) },
+		};
+		//インデックス配列
+		vector<uint16_t> indices = { 0, 1, 2, 1, 3, 2 };
 		auto ptrTrans = GetComponent<Transform>();
-		ptrTrans->SetScale(m_Scale);
-		ptrTrans->SetPosition(m_Position);
-		ptrTrans->SetRotation(m_Rotation);
-
-		auto ptrDraw = AddComponent<PNTStaticDraw>();
-		ptrDraw->SetMeshResource(L"DEFAULT_SPHERE");
+		ptrTrans->SetScale(MAPCHIP_SIZE_X, MAPCHIP_SIZE_Y, 1.0f);
+		ptrTrans->SetRotation(0, 0, 0);
+		ptrTrans->SetPosition(m_Position.x, m_Position.y, 0.0f);
+		//頂点とインデックスを指定してスプライト作成
+		auto ptrDraw = AddComponent<PCTSpriteDraw>(vertices, indices);
+		ptrDraw->SetTextureResource(L"RawMeat_Wing_Line");
+		SetAlphaActive(true);
 	}
 
 	void Wing::OnUpdate()
 	{
 
 	}
+	//------------------------------------------------------------------------------//
 
-	// リブ
-	Lib::Lib(const shared_ptr<Stage>& stagePtr, const Vec3& Scale, const Vec3& Position, const Vec3& Rotation) :
+	//--------------------------リブ--------------------------//
+	Rib::Rib(const shared_ptr<Stage>& stagePtr, const Vec3& Scale, const Vec3& Position, const Vec3& Rotation) :
 		GameObject(stagePtr),
 		m_Scale(Scale),
 		m_Position(Position),
@@ -122,23 +148,35 @@ namespace basecross {
 	{
 	}
 
-	void Lib::OnCreate()
+	void Rib::OnCreate()
 	{
+		float helfSize = 0.5f;
+		//頂点配列(縦横5個ずつ表示)
+		vector<VertexPositionColorTexture> vertices = {
+			{ VertexPositionColorTexture(Vec3(-helfSize, helfSize, 0),Col4(1.0f,1.0f,1.0f,1.0f), Vec2(0.0f, 0.0f)) },
+			{ VertexPositionColorTexture(Vec3(helfSize, helfSize, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(1.0f, 0.0f)) },
+			{ VertexPositionColorTexture(Vec3(-helfSize, -helfSize, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(0.0f, 1.0f)) },
+			{ VertexPositionColorTexture(Vec3(helfSize, -helfSize, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(1.0f, 1.0f)) },
+		};
+		//インデックス配列
+		vector<uint16_t> indices = { 0, 1, 2, 1, 3, 2 };
 		auto ptrTrans = GetComponent<Transform>();
-		ptrTrans->SetScale(m_Scale);
-		ptrTrans->SetPosition(m_Position);
-		ptrTrans->SetRotation(m_Rotation);
-
-		auto ptrDraw = AddComponent<PNTStaticDraw>();
-		ptrDraw->SetMeshResource(L"DEFAULT_CUBE");
+		ptrTrans->SetScale(MAPCHIP_SIZE_X, MAPCHIP_SIZE_Y, 1.0f);
+		ptrTrans->SetRotation(0, 0, 0);
+		ptrTrans->SetPosition(m_Position.x, m_Position.y, 0.0f);
+		//頂点とインデックスを指定してスプライト作成
+		auto ptrDraw = AddComponent<PCTSpriteDraw>(vertices, indices);
+		ptrDraw->SetTextureResource(L"RawMeat_Rib_Line");
+		SetAlphaActive(true);
 	}
 
-	void Lib::OnUpdate()
+	void Rib::OnUpdate()
 	{
 
 	}
+	//------------------------------------------------------------------------------//
 
-	// キール
+	//--------------------------キール--------------------------//
 	Keel::Keel(const shared_ptr<Stage>& stagePtr, const Vec3& Scale, const Vec3& Position, const Vec3& Rotation) :
 		GameObject(stagePtr),
 		m_Scale(Scale),
@@ -149,19 +187,31 @@ namespace basecross {
 
 	void Keel::OnCreate()
 	{
+		float helfSize = 0.5f;
+		//頂点配列(縦横5個ずつ表示)
+		vector<VertexPositionColorTexture> vertices = {
+			{ VertexPositionColorTexture(Vec3(-helfSize, helfSize, 0),Col4(1.0f,1.0f,1.0f,1.0f), Vec2(0.0f, 0.0f)) },
+			{ VertexPositionColorTexture(Vec3(helfSize, helfSize, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(1.0f, 0.0f)) },
+			{ VertexPositionColorTexture(Vec3(-helfSize, -helfSize, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(0.0f, 1.0f)) },
+			{ VertexPositionColorTexture(Vec3(helfSize, -helfSize, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(1.0f, 1.0f)) },
+		};
+		//インデックス配列
+		vector<uint16_t> indices = { 0, 1, 2, 1, 3, 2 };
 		auto ptrTrans = GetComponent<Transform>();
-		ptrTrans->SetScale(m_Scale);
-		ptrTrans->SetPosition(m_Position);
-		ptrTrans->SetRotation(m_Rotation);
-
-		auto ptrDraw = AddComponent<PNTStaticDraw>();
-		ptrDraw->SetMeshResource(L"DEFAULT_CUBE");
+		ptrTrans->SetScale(MAPCHIP_SIZE_X, MAPCHIP_SIZE_Y, 1.0f);
+		ptrTrans->SetRotation(0, 0, 0);
+		ptrTrans->SetPosition(m_Position.x, m_Position.y, 0.0f);
+		//頂点とインデックスを指定してスプライト作成
+		auto ptrDraw = AddComponent<PCTSpriteDraw>(vertices, indices);
+		ptrDraw->SetTextureResource(L"RawMeat_Keel_Line");
+		SetAlphaActive(true);
 	}
 
 	void Keel::OnUpdate()
 	{
 
 	}
+	//----------------------------------------------------//
 
 	void Karaage::DrawString()
 	{

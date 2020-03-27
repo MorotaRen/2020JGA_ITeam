@@ -21,6 +21,12 @@
 //左右
 #define LEFT 4
 #define RIGHT 6
+#define UP 8
+#define DOWN 2
+//デフォルトで解放されてる肉の種類数
+#define DEFAULT_RELEASE_MEATS 3
+//肉の種類の最大値
+#define MAX_MEATCOUNT 5
 
 namespace basecross {
 	//各種肉の個数情報
@@ -57,7 +63,7 @@ namespace basecross {
 		//テスト用の数値
 		bool m_TEST_w;
 		//現在解放中の肉数
-		int m_releaseMeatCount;
+		int m_releaseMeatCount = DEFAULT_RELEASE_MEATS;
 		//現在の所持肉のID
 		int m_possessionMeatID;
 		//移動のリキャストが済んでるか
@@ -90,6 +96,8 @@ namespace basecross {
 		void Move_PossessionMeat(int direction);
 		//リキャストタイマー
 		void Recast_Move();
+		//所持肉の切り替え
+		void Change_PossessionMeat();
 		//------------ゲッターセッター--------------//
 		void SetStockData(const MeatsData md) {
 			m_meatsStockData = md;

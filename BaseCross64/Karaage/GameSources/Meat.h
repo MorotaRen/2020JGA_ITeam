@@ -79,16 +79,16 @@ namespace basecross{
 	};
 
 	// ƒŠƒu
-	class Lib : public GameObject {
+	class Rib : public GameObject {
 		Vec3 m_Scale;
 		Vec3 m_Position;
 		Vec3 m_Rotation;
 	public:
-		Lib(const shared_ptr<Stage>& stagePtr,
+		Rib(const shared_ptr<Stage>& stagePtr,
 			const Vec3& Scale,
 			const Vec3& Position,
 			const Vec3& Rotation);
-		virtual ~Lib() {}
+		virtual ~Rib() {}
 		virtual void OnCreate() override;
 		virtual void OnUpdate() override;
 	};

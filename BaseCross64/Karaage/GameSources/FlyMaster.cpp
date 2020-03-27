@@ -44,10 +44,6 @@ namespace basecross {
 		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
 		for (int y = 0; y < GAMEFIELD_Y;y++) {
 			for (int x = 0; x < GAMEFIELD_X;x++) {
-				//マップチップを升目で配置して
-				//肉に1マス分の当たり判定を追加してそこからレイキャスして選択されてるオブジェクトと
-				//ステージのマス目を比較して当たってるところを1にする…？
-				//つまりマップチップにはマップ番号と設置済みのフラグを持たせると
 				stage->AddGameObject<MapChip>(Vec2(MAPCHIP_START_X + x * MAPCHIP_SIZE_X, 
 												   MAPCHIP_START_Y + -y *MAPCHIP_SIZE_Y),
 												   m_TEST_w);
@@ -83,15 +79,33 @@ namespace basecross {
 	void FlyMaster::Create_PossessionMeat(int createMeatID) {
 		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
 		shared_ptr<GameObject> newMeat;
+		m_possessionMeatID = createMeatID;
 		switch (createMeatID)
 		{
 		case 1:
 			newMeat = stage->AddGameObject<Karaage>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), Vec3(0));
+			Reset_PossessionMeat(newMeat);
 			break;
+		case 2:
+			newMeat = stage->AddGameObject<Drum>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), Vec3(0));
+			Reset_PossessionMeat(newMeat);
+			break;
+		case 3:
+			newMeat = stage->AddGameObject<Keel>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), Vec3(0));
+			Reset_PossessionMeat(newMeat);
+			break;
+		case 4:
+			newMeat = stage->AddGameObject<Rib>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), Vec3(0));
+			Reset_PossessionMeat(newMeat);
+			break;
+		case 5:
+			newMeat = stage->AddGameObject<Wing>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), Vec3(0));
+			Reset_PossessionMeat(newMeat);
+			break;
+		
 		default:
 			break;
 		}
-		Reset_PossessionMeat(newMeat);
 
 	}
 
@@ -99,7 +113,6 @@ namespace basecross {
 	/// 所持肉のリセット
 	/// </summary>----------------------------------------
 	void FlyMaster::Reset_PossessionMeat(shared_ptr<GameObject> obj){
-		//既に所持していたらそれと交換
 		auto possessionmeat = FlyMaster::GetInstans().GetPossessionMeat();
 		if (possessionmeat) {
 			//まず既存のやつを削除
@@ -131,6 +144,18 @@ namespace basecross {
 				m_possessionMeat->GetComponent<Transform>()->SetPosition(pos);
 				m_isMove = true;
 				break;
+			case UP:
+				pos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
+				pos.y += MAPCHIP_SIZE_Y;
+				m_possessionMeat->GetComponent<Transform>()->SetPosition(pos);
+				m_isMove = true;
+				break;
+			case DOWN:
+				pos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
+				pos.y -= MAPCHIP_SIZE_Y;
+				m_possessionMeat->GetComponent<Transform>()->SetPosition(pos);
+				m_isMove = true;
+				break;
 			default:
 				break;
 			}
@@ -142,8 +167,25 @@ namespace basecross {
 	/// </summary>----------------------------------------
 	void FlyMaster::Recast_Move() {
 		auto pad = App::GetApp()->GetInputDevice().GetControlerVec();
-		if (pad[0].fThumbLX < 0.1f && pad[0].fThumbLX > -0.1f) {
+		if (pad[0].fThumbLX < 0.1f && pad[0].fThumbLX > -0.1f &&
+			pad[0].fThumbLY < 0.1f && pad[0].fThumbLY > -0.1f) {
 			m_isMove = false;
+		}
+	}
+
+	/// ----------------------------------------<summary>
+	/// 所持肉の切り替え
+	/// </summary>----------------------------------------
+	void FlyMaster::Change_PossessionMeat() {
+		auto pad = App::GetApp()->GetInputDevice().GetControlerVec();
+		if (pad[0].wPressedButtons & XINPUT_GAMEPAD_LEFT_SHOULDER) {
+			if (m_possessionMeatID >= MAX_MEATCOUNT) {
+				m_possessionMeatID = 1;
+			}
+			else {
+				m_possessionMeatID++;
+			}
+			FlyMaster::Create_PossessionMeat(m_possessionMeatID);
 		}
 	}
 }
