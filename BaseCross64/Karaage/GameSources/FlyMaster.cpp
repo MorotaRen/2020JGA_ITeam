@@ -116,6 +116,7 @@ namespace basecross {
 		auto possessionmeat = FlyMaster::GetInstans().GetPossessionMeat();
 		if (possessionmeat) {
 			//‚Ü‚¸Šù‘¶‚Ì‚â‚Â‚ğíœ
+			App::GetApp()->GetScene<Scene>()->GetActiveStage()->RemoveGameObject<GameObject>(possessionmeat);
 			possessionmeat->DestroyGameObject();
 			//Š“÷‚ğİ’è
 			FlyMaster::GetInstans().SetPossessionMeat(obj);
