@@ -189,5 +189,27 @@ namespace basecross {
 			FlyMaster::Create_PossessionMeat(m_possessionMeatID);
 		}
 	}
+	/// ----------------------------------------<summary>
+	/// 所持肉をステージに設置する
+	/// </summary>----------------------------------------
+	void FlyMaster::Set_PossessionMeat() {
+		//肉に回転角度っていうか回転を何回してってのを保存して、それみて自分の判定データを
+		//照合してあるかないか見るか
+
+		//まずは設置する所を取得して
+		Vec3 SetupPos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
+		//設置してみる(テストで)
+		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
+		//所持肉IDで
+		switch (m_possessionMeatID)
+		{
+			//唐揚げ
+		case 1:
+			break;
+		default:
+			break;
+		}
+
+	}
 }
 //end basecross

@@ -38,6 +38,11 @@ namespace basecross {
 		unsigned int Meat_3x3;
 		unsigned int Meat_L;
 	};
+	//肉のID
+	enum MeatID
+	{
+		唐揚げ,ドラム,キール,リブ,ウィング
+	};
 
 	class FlyMaster	final{
 	private:
@@ -98,6 +103,8 @@ namespace basecross {
 		void Recast_Move();
 		//所持肉の切り替え
 		void Change_PossessionMeat();
+		//肉の設置
+		void Set_PossessionMeat();
 		//------------ゲッターセッター--------------//
 		void SetStockData(const MeatsData md) {
 			m_meatsStockData = md;
