@@ -27,6 +27,11 @@
 #define DEFAULT_RELEASE_MEATS 3
 //肉の種類の最大値
 #define MAX_MEATCOUNT 5
+//移動リミット
+#define MOVELIMIT_MIN_X -100
+#define MOVELIMIT_MIN_Y -330
+#define MOVELIMIT_MAX_X  180
+#define MOVELIMIT_MAX_Y  300
 
 namespace basecross {
 	//各種肉の個数情報
@@ -70,7 +75,7 @@ namespace basecross {
 		//現在解放中の肉数
 		int m_releaseMeatCount = DEFAULT_RELEASE_MEATS;
 		//現在の所持肉のID
-		int m_possessionMeatID;
+		int m_possessionMeatID = 0;
 		//移動のリキャストが済んでるか
 		bool m_isMove;
 		//----------------------------------------//

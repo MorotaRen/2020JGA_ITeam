@@ -82,23 +82,23 @@ namespace basecross {
 		m_possessionMeatID = createMeatID;
 		switch (createMeatID)
 		{
-		case 1:
+		case 唐揚げ:
 			newMeat = stage->AddGameObject<Karaage>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), Vec3(0));
 			Reset_PossessionMeat(newMeat);
 			break;
-		case 2:
+		case ドラム:
 			newMeat = stage->AddGameObject<Drum>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), Vec3(0));
 			Reset_PossessionMeat(newMeat);
 			break;
-		case 3:
+		case キール:
 			newMeat = stage->AddGameObject<Keel>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), Vec3(0));
 			Reset_PossessionMeat(newMeat);
 			break;
-		case 4:
+		case リブ:
 			newMeat = stage->AddGameObject<Rib>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), Vec3(0));
 			Reset_PossessionMeat(newMeat);
 			break;
-		case 5:
+		case ウィング:
 			newMeat = stage->AddGameObject<Wing>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), Vec3(0));
 			Reset_PossessionMeat(newMeat);
 			break;
@@ -129,37 +129,46 @@ namespace basecross {
 	/// 所持肉の移動
 	/// </summary>----------------------------------------
 	void FlyMaster::Move_PossessionMeat(int direction) {
-		Vec3 pos;
+		Vec3 pos,possessionMeatPos;
+		possessionMeatPos = m_possessionMeat->GetComponent<Transform>()->GetWorldPosition();
 		if (!m_isMove) {
-			switch (direction)
-			{
-			case RIGHT:
-				pos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
-				pos.x += MAPCHIP_SIZE_X;
-				m_possessionMeat->GetComponent<Transform>()->SetPosition(pos);
-				m_isMove = true;
-				break;
-			case LEFT:
-				pos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
-				pos.x -= MAPCHIP_SIZE_X;
-				m_possessionMeat->GetComponent<Transform>()->SetPosition(pos);
-				m_isMove = true;
-				break;
-			case UP:
-				pos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
-				pos.y += MAPCHIP_SIZE_Y;
-				m_possessionMeat->GetComponent<Transform>()->SetPosition(pos);
-				m_isMove = true;
-				break;
-			case DOWN:
-				pos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
-				pos.y -= MAPCHIP_SIZE_Y;
-				m_possessionMeat->GetComponent<Transform>()->SetPosition(pos);
-				m_isMove = true;
-				break;
-			default:
-				break;
-			}
+				switch (direction)
+				{
+				case RIGHT:
+					if (possessionMeatPos.x < MOVELIMIT_MAX_X) {
+						pos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
+						pos.x += MAPCHIP_SIZE_X;
+						m_possessionMeat->GetComponent<Transform>()->SetPosition(pos);
+						m_isMove = true;
+					}
+					break;
+				case LEFT:
+					if (possessionMeatPos.x > MOVELIMIT_MIN_X) {
+						pos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
+						pos.x -= MAPCHIP_SIZE_X;
+						m_possessionMeat->GetComponent<Transform>()->SetPosition(pos);
+						m_isMove = true;
+					}
+					break;
+				case UP:
+					if (possessionMeatPos.y < MOVELIMIT_MAX_Y) {
+						pos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
+						pos.y += MAPCHIP_SIZE_Y;
+						m_possessionMeat->GetComponent<Transform>()->SetPosition(pos);
+						m_isMove = true;
+					}
+					break;
+				case DOWN:
+					if (possessionMeatPos.y > MOVELIMIT_MIN_Y) {
+						pos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
+						pos.y -= MAPCHIP_SIZE_Y;
+						m_possessionMeat->GetComponent<Transform>()->SetPosition(pos);
+						m_isMove = true;
+					}
+					break;
+				default:
+					break;
+				}
 		}
 	}
 
@@ -181,7 +190,7 @@ namespace basecross {
 		auto pad = App::GetApp()->GetInputDevice().GetControlerVec();
 		if (pad[0].wPressedButtons & XINPUT_GAMEPAD_LEFT_SHOULDER) {
 			if (m_possessionMeatID >= MAX_MEATCOUNT) {
-				m_possessionMeatID = 1;
+				m_possessionMeatID = 0;
 			}
 			else {
 				m_possessionMeatID++;
@@ -200,13 +209,28 @@ namespace basecross {
 		Vec3 SetupPos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
 		//設置してみる(テストで)
 		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
+		//所持肉の位置
+		Vec3 possessoionPos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
 		//所持肉IDで
 		switch (m_possessionMeatID)
 		{
-			//唐揚げ
-		case 1:
+		case 唐揚げ:
+			stage->AddGameObject<Karaage>(Vec3(1,0,1),Vec3(possessoionPos.x,possessoionPos.y,0),Vec3(1));
+			break;
+		case ドラム:
+			stage->AddGameObject<Drum>(Vec3(1,0,1),Vec3(possessoionPos.x,possessoionPos.y,0),Vec3(1));
+			break;
+		case キール:
+			stage->AddGameObject<Keel>(Vec3(1,0,1),Vec3(possessoionPos.x,possessoionPos.y,0),Vec3(1));
+			break;
+		case リブ:
+			stage->AddGameObject<Rib>(Vec3(1,0,1),Vec3(possessoionPos.x,possessoionPos.y,0),Vec3(1));
+			break;
+		case ウィング:
+			stage->AddGameObject<Wing>(Vec3(1,0,1),Vec3(possessoionPos.x,possessoionPos.y,0),Vec3(1));
 			break;
 		default:
+			MessageBox(0,L"所持肉IDの不一致です。生成に失敗しました！",0,0);
 			break;
 		}
 

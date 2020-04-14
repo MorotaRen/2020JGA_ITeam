@@ -44,17 +44,17 @@ namespace basecross {
 	void GameStage::OnUpdate() {
 		if (!m_trigger) {
 			FlyMaster::GetInstans().Create_GameField();
-			FlyMaster::GetInstans().Create_PossessionMeat(1);
+			FlyMaster::GetInstans().Create_PossessionMeat(0);
 			m_trigger = true;
 		}
 
 				//----PADèÓïÒéÊìæ----//
 		auto pad = App::GetApp()->GetInputDevice().GetControlerVec();
-		//âE	
+
+		//------------------è„â∫à⁄ìÆ------------------//
 		if (pad[0].fThumbLX > 0.5f) {
 			FlyMaster::GetInstans().Move_PossessionMeat(RIGHT);
 		}else
-		//ç∂
 		if (pad[0].fThumbLX < -0.5f) {
 			FlyMaster::GetInstans().Move_PossessionMeat(LEFT);
 		}else
@@ -64,8 +64,14 @@ namespace basecross {
 		if (pad[0].fThumbLY < -0.5f) {
 			FlyMaster::GetInstans().Move_PossessionMeat(DOWN);
 		}
+		//---------------------------------------------//
 
-		
+		//-------------------ì˜ÇÃîzíu-------------------//
+		if (pad[0].wPressedButtons & XINPUT_GAMEPAD_A) {
+			FlyMaster::GetInstans().Set_PossessionMeat();
+		}
+		//---------------------------------------------//
+
 		FlyMaster::GetInstans(). Change_PossessionMeat();
 		FlyMaster::GetInstans().Recast_Move();
 	}
