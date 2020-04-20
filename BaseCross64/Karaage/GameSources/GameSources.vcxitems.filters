@@ -13,6 +13,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Number.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIWatch.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MapChip.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SelectStage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Character.h" />
@@ -28,5 +29,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Number.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIWatch.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MapChip.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SelectStage.h" />
   </ItemGroup>
 </Project>

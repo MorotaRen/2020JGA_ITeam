@@ -26,5 +26,6 @@
 //シーンやステージ
 #include "Scene.h"
 #include "GameStage.h"
+#include "SelectStage.h"
 
 
