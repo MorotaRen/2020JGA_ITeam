@@ -70,4 +70,14 @@ namespace basecross {
 			return m_perspective;
 		}
 	};
+
+	class GamePadManager
+	{
+	public :
+
+		InputDevice GetGamePad()
+		{
+			return App::GetApp()->GetInputDevice();
+		}
+	};
 }
