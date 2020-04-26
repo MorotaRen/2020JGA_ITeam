@@ -40,7 +40,23 @@ namespace basecross {
 	}
 
 	void SelectStage::CreateSprite() {
-		AddGameObject<MultiSprite>(true, Vec2(1280,800), Vec3(0, 0, 0), L"Select_BG");
+		//îwåi
+		AddGameObject<MultiSprite>(true, Vec2(1280, 800), Vec3(0, 0, 0), L"Select_BG");
+
+		//ÉXÉeÅ[ÉW
+		float height = (float)App::GetApp()->GetGameHeight() / 3;
+		float width = (float)App::GetApp()->GetGameWidth() / 3;
+
+		float posX = -width, posY = -height;
+
+		for (int i = 0; i < 3; i++) {
+			posX = -width;
+			for (int j = 0; j < 3; j++) {
+				AddGameObject<MultiSprite>(true, Vec2(200, 100), Vec3(posX, posY, 0), L"Select_Stage_TX");
+				posX += width;
+			}
+			posY += height;
+		}
 	}
 }
 //end basecross
