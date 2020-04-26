@@ -49,6 +49,7 @@ namespace basecross{
 			//SetTexture(L"RANK_UI", L"Rank2.png");
 			SetTexture(L"Black_TEST",L"Black.png");
 			SetTexture(L"White_TEST",L"White.png");
+			SetTexture(L"Select_BG", L"Select_Background.png");
 
 			//“÷(ü‚ ‚è)
 			SetMeat_Line(L"Meat_Drum_Line",L"Chicken_Drum2.png");

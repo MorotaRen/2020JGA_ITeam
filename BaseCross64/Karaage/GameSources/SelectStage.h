@@ -20,9 +20,9 @@ namespace basecross {
 		virtual ~SelectStage() {}
 		//‰Šú‰»
 		virtual void OnCreate()override;
+
+		void CreateSprite();
 	};
-
-
 }
 //end basecross
 

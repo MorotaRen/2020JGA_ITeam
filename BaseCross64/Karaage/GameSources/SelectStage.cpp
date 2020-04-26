@@ -31,12 +31,16 @@ namespace basecross {
 	void SelectStage::OnCreate() {
 		try {
 			//ビューとライトの作成
-			CreateViewLight();			
+			CreateViewLight();
+			CreateSprite();
 		}
 		catch (...) {
 			throw;
 		}
 	}
 
+	void SelectStage::CreateSprite() {
+		AddGameObject<MultiSprite>(true, Vec2(1280,800), Vec3(0, 0, 0), L"Select_BG");
+	}
 }
 //end basecross
