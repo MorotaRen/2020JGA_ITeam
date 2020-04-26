@@ -22,6 +22,7 @@
 //システム系
 #include "FlyMaster.h"
 //#include "MouseManager.h"
+#include "UI.h"
 
 //シーンやステージ
 #include "Scene.h"
