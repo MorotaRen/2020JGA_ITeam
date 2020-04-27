@@ -71,13 +71,17 @@ namespace basecross {
 		}
 	};
 
-	class GamePadManager
+	class GamePadManager final
 	{
+	private : 
+		GamePadManager() {};
+		~GamePadManager() {};
+		GamePadManager(const GamePadManager&);
 	public :
-
-		InputDevice GetGamePad()
+		std::vector<CONTROLER_STATE> GetGamePad()
 		{
-			return App::GetApp()->GetInputDevice();
+			auto pad = App::GetApp()->GetInputDevice().GetControlerVec();
+			return pad;
 		}
 	};
 }
