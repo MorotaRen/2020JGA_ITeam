@@ -13,11 +13,11 @@
 //揚げた後のリキャスト時間
 #define FLY_RECAST_TIME 20
 //マップチップのサイズ
-#define MAPCHIP_SIZE_X 70.0f
-#define MAPCHIP_SIZE_Y 70.0f
+#define MAPCHIP_SIZE_X 60.0f
+#define MAPCHIP_SIZE_Y 60.0f
 //マップチップの開始地点
-#define MAPCHIP_START_X -100.0f
-#define MAPCHIP_START_Y 300.0f
+#define MAPCHIP_START_X -140.0f
+#define MAPCHIP_START_Y 250.0f
 //左右
 #define LEFT 4
 #define RIGHT 6
@@ -28,10 +28,10 @@
 //肉の種類の最大値
 #define MAX_MEATCOUNT 5
 //移動リミット
-#define MOVELIMIT_MIN_X -100
+#define MOVELIMIT_MIN_X -140
 #define MOVELIMIT_MIN_Y -330
 #define MOVELIMIT_MAX_X  180
-#define MOVELIMIT_MAX_Y  300
+#define MOVELIMIT_MAX_Y  250
 
 namespace basecross {
 	//各種肉の個数情報
@@ -78,6 +78,8 @@ namespace basecross {
 		int m_possessionMeatID = 0;
 		//移動のリキャストが済んでるか
 		bool m_isMove;
+		//今の移動している距離(0=x 1=y)
+		int m_moveDistance[2]= { 0 };
 		//----------------------------------------//
 
 	public:

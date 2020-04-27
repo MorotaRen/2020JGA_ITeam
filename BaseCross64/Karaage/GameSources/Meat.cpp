@@ -18,7 +18,7 @@ namespace basecross {
 
 	void Karaage::OnCreate()
 	{
-		float helfSize = 0.5f;
+		float helfSize = 1.0f;
 		//í∏ì_îzóÒ(ècâ°5å¬Ç∏Ç¬ï\é¶)	
 		vector<VertexPositionColorTexture> vertices = {
 			{ VertexPositionColorTexture(Vec3(-helfSize, helfSize, 0),Col4(1.0f,1.0f,1.0f,1.0f), Vec2(0.0f, 0.0f)) },
@@ -36,6 +36,7 @@ namespace basecross {
 		auto ptrDraw = AddComponent<PCTSpriteDraw>(vertices, indices);
 		ptrDraw->SetTextureResource(L"RawMeat_Chicken_Line");
 		SetAlphaActive(true);
+		
 	}
 
 	void Karaage::OnUpdate()

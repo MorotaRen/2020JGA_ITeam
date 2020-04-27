@@ -17,8 +17,11 @@
 
 #include "Number.h"
 #include "UIWatch.h"
+#include "UIMaster.h"
 
 #include "MapChip.h"
+
+
 
 //ƒVƒXƒeƒ€Œn
 #include "FlyMaster.h"

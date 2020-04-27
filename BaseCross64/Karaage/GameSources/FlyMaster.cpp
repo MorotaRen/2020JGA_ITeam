@@ -140,6 +140,7 @@ namespace basecross {
 						pos.x += MAPCHIP_SIZE_X;
 						m_possessionMeat->GetComponent<Transform>()->SetPosition(pos);
 						m_isMove = true;
+						m_moveDistance[0]++;
 					}
 					break;
 				case LEFT:
@@ -148,6 +149,7 @@ namespace basecross {
 						pos.x -= MAPCHIP_SIZE_X;
 						m_possessionMeat->GetComponent<Transform>()->SetPosition(pos);
 						m_isMove = true;
+						m_moveDistance[0]--;
 					}
 					break;
 				case UP:
@@ -156,6 +158,7 @@ namespace basecross {
 						pos.y += MAPCHIP_SIZE_Y;
 						m_possessionMeat->GetComponent<Transform>()->SetPosition(pos);
 						m_isMove = true;
+						m_moveDistance[1]++;
 					}
 					break;
 				case DOWN:
@@ -164,6 +167,7 @@ namespace basecross {
 						pos.y -= MAPCHIP_SIZE_Y;
 						m_possessionMeat->GetComponent<Transform>()->SetPosition(pos);
 						m_isMove = true;
+						m_moveDistance[1]--;
 					}
 					break;
 				default:
