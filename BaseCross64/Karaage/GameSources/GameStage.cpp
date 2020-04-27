@@ -35,7 +35,8 @@ namespace basecross {
 			//AddGameObject<Wing>(Vec3(2, 0, 1), Vec3(8, 0, 0), Vec3(0));
 			//AddGameObject<Lib>(Vec3(2, 0, 2), Vec3(8, 0, -3), Vec3(0));
 			//AddGameObject<Keel>(Vec3(2, 0, 2), Vec3(8, 0, -6), Vec3(0));
-			AddGameObject<UIBase>(Vec2(0),L"BG_Kitchen");
+			//AddGameObject<UIBase>(Vec2(0),Vec3(650.0f,400.0f,0.0f),L"BG_Kitchen");
+			AddGameObject<UIBase>(Vec2(50,50),Vec3(100.0f,100.0f,1.0f),L"Black_TEST");
 		}
 		catch (...) {
 			throw;

@@ -44,15 +44,15 @@ namespace basecross {
 		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
 		for (int y = 0; y < GAMEFIELD_Y;y++) {
 			for (int x = 0; x < GAMEFIELD_X;x++) {
-				stage->AddGameObject<MapChip>(Vec2(MAPCHIP_START_X + x * MAPCHIP_SIZE_X, 
-												   MAPCHIP_START_Y + -y *MAPCHIP_SIZE_Y),
-												   m_TEST_w);
-				if (m_TEST_w) {
-					m_TEST_w = false;
-				}
-				else {
-					m_TEST_w = true;
-				}
+				//stage->AddGameObject<MapChip>(Vec2(MAPCHIP_START_X + x * MAPCHIP_SIZE_X, 
+				//								   MAPCHIP_START_Y + -y *MAPCHIP_SIZE_Y),
+				//								   m_TEST_w);
+				//if (m_TEST_w) {
+				//	m_TEST_w = false;
+				//}
+				//else {
+				//	m_TEST_w = true;
+				//}
 			}
 		}
 
@@ -222,16 +222,16 @@ namespace basecross {
 			stage->AddGameObject<Karaage>(Vec3(1,0,1),Vec3(possessoionPos.x,possessoionPos.y,0),Vec3(1));
 			break;
 		case ドラム:
-			stage->AddGameObject<Drum>(Vec3(1,0,1),Vec3(possessoionPos.x,possessoionPos.y,0),Vec3(1));
+			stage->AddGameObject<Drum>(Vec3(1,0,1),Vec3(possessoionPos.x - 30,possessoionPos.y + 30,0),Vec3(1));
 			break;
 		case キール:
-			stage->AddGameObject<Keel>(Vec3(1,0,1),Vec3(possessoionPos.x,possessoionPos.y,0),Vec3(1));
+			stage->AddGameObject<Keel>(Vec3(1,0,1),Vec3(possessoionPos.x - 30,possessoionPos.y + 30,0),Vec3(1));
 			break;
 		case リブ:
-			stage->AddGameObject<Rib>(Vec3(1,0,1),Vec3(possessoionPos.x,possessoionPos.y,0),Vec3(1));
+			stage->AddGameObject<Rib>(Vec3(1,0,1),Vec3(possessoionPos.x - 40,possessoionPos.y + 40,0),Vec3(1));
 			break;
 		case ウィング:
-			stage->AddGameObject<Wing>(Vec3(1,0,1),Vec3(possessoionPos.x,possessoionPos.y,0),Vec3(1));
+			stage->AddGameObject<Wing>(Vec3(1,0,1),Vec3(possessoionPos.x - 30,possessoionPos.y + 30,0),Vec3(1));
 			break;
 		default:
 			MessageBox(0,L"所持肉IDの不一致です。生成に失敗しました！",0,0);

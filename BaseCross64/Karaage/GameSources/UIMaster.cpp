@@ -13,7 +13,7 @@ namespace basecross {
 		//インデックス配列
 		vector<uint16_t> indices = { 0, 1, 2, 1, 3, 2 };
 		auto ptrTrans = GetComponent<Transform>();
-		ptrTrans->SetScale(650, 400, 1.0f);
+		ptrTrans->SetScale(m_scale.x, m_scale.y,m_scale.z);
 		ptrTrans->SetRotation(0, 0, 0);
 		ptrTrans->SetPosition(m_pos.x, m_pos.y, 0.0f);
 		//頂点とインデックスを指定してスプライト作成
