@@ -9,15 +9,15 @@
 #include "stdafx.h"
 //ゲームフィールドの縦横
 #define GAMEFIELD_X 5
-#define GAMEFIELD_Y 10
+#define GAMEFIELD_Y 10	
 //揚げた後のリキャスト時間
 #define FLY_RECAST_TIME 20
 //マップチップのサイズ
-#define MAPCHIP_SIZE_X 70.0f
-#define MAPCHIP_SIZE_Y 70.0f
+#define MAPCHIP_SIZE_X 60.0f
+#define MAPCHIP_SIZE_Y 60.0f
 //マップチップの開始地点
-#define MAPCHIP_START_X -100.0f
-#define MAPCHIP_START_Y 300.0f
+#define MAPCHIP_START_X -140.0f
+#define MAPCHIP_START_Y 250.0f
 //左右
 #define LEFT 4
 #define RIGHT 6
@@ -27,6 +27,11 @@
 #define DEFAULT_RELEASE_MEATS 3
 //肉の種類の最大値
 #define MAX_MEATCOUNT 5
+//移動リミット
+#define MOVELIMIT_MIN_X -140
+#define MOVELIMIT_MIN_Y -270
+#define MOVELIMIT_MAX_X  60
+#define MOVELIMIT_MAX_Y  250
 
 namespace basecross {
 	//各種肉の個数情報
@@ -37,6 +42,11 @@ namespace basecross {
 		unsigned int Meat_2x2;
 		unsigned int Meat_3x3;
 		unsigned int Meat_L;
+	};
+	//肉のID
+	enum MeatID
+	{
+		唐揚げ,ドラム,キール,リブ,ウィング
 	};
 
 	class FlyMaster	final{
@@ -65,9 +75,11 @@ namespace basecross {
 		//現在解放中の肉数
 		int m_releaseMeatCount = DEFAULT_RELEASE_MEATS;
 		//現在の所持肉のID
-		int m_possessionMeatID;
+		int m_possessionMeatID = 0;
 		//移動のリキャストが済んでるか
 		bool m_isMove;
+		//今の移動している距離(0=x 1=y)
+		int m_moveDistance[2]= { 0 };
 		//----------------------------------------//
 
 	public:
@@ -98,6 +110,8 @@ namespace basecross {
 		void Recast_Move();
 		//所持肉の切り替え
 		void Change_PossessionMeat();
+		//肉の設置
+		void Set_PossessionMeat();
 		//------------ゲッターセッター--------------//
 		void SetStockData(const MeatsData md) {
 			m_meatsStockData = md;

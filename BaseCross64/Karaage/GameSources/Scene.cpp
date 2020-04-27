@@ -49,18 +49,21 @@ namespace basecross{
 			//SetTexture(L"RANK_UI", L"Rank2.png");
 			SetTexture(L"Black_TEST",L"Black.png");
 			SetTexture(L"White_TEST",L"White.png");
+			SetTexture(L"BG_Kitchen",L"Kitchen2.png");
+			SetTexture(L"BG_Flyer",L"Flyer.png");
+
 
 			//ì˜(ê¸Ç†ÇË)
-			SetMeat_Line(L"Meat_Drum_Line",L"Chicken_Drum2.png");
-			SetMeat_Line(L"Meat_Keel_Line",L"Chicken_Keel2.png");
-			SetMeat_Line(L"Meat_Rib_Line",L"Chicken_Rib2.png");
-			SetMeat_Line(L"Meat_Wing_Line",L"Chicken_Wing2.png");
-			SetMeat_Line(L"Meat_Chicken_Line",L"FriedChicken2.png");
-			SetMeat_Line(L"RawMeat_Drum_Line",L"RawMeat_Drum2.png");
-			SetMeat_Line(L"RawMeat_Chicken_Line",L"RawMeat_FridChikin2.png");
-			SetMeat_Line(L"RawMeat_Keel_Line",L"RawMeat_Keel2.png");
-			SetMeat_Line(L"RawMeat_Rib_Line",L"RawMeat_Rib2.png");
-			SetMeat_Line(L"RawMeat_Wing_Line",L"RawMeat_Wing2.png");
+			SetMeat_Line(L"Meat_Drum_Line",L"Chicken_Drum3.png");
+			SetMeat_Line(L"Meat_Keel_Line",L"Chicken_Keel3.png");
+			SetMeat_Line(L"Meat_Rib_Line",L"Chicken_Rib3.png");
+			SetMeat_Line(L"Meat_Wing_Line",L"Chicken_Wing3.png");
+			SetMeat_Line(L"Meat_Chicken_Line",L"FriedChicken3.png");
+			SetMeat_Line(L"RawMeat_Drum_Line",L"RawMeat_Drum3.png");
+			SetMeat_Line(L"RawMeat_Chicken_Line",L"RawMeat_FridChikin3.png");
+			SetMeat_Line(L"RawMeat_Keel_Line",L"RawMeat_Keel3 .png");
+			SetMeat_Line(L"RawMeat_Rib_Line",L"RawMeat_Rib3.png");
+			SetMeat_Line(L"RawMeat_Wing_Line",L"RawMeat_Wing3.png");
 
 			//âπäy
 
