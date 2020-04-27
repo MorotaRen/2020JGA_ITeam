@@ -9,7 +9,7 @@
 #include "stdafx.h"
 //ゲームフィールドの縦横
 #define GAMEFIELD_X 5
-#define GAMEFIELD_Y 10
+#define GAMEFIELD_Y 10	
 //揚げた後のリキャスト時間
 #define FLY_RECAST_TIME 20
 //マップチップのサイズ
@@ -29,8 +29,8 @@
 #define MAX_MEATCOUNT 5
 //移動リミット
 #define MOVELIMIT_MIN_X -140
-#define MOVELIMIT_MIN_Y -330
-#define MOVELIMIT_MAX_X  180
+#define MOVELIMIT_MIN_Y -270
+#define MOVELIMIT_MAX_X  60
 #define MOVELIMIT_MAX_Y  250
 
 namespace basecross {
