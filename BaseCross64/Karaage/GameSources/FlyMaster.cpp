@@ -246,6 +246,8 @@ namespace basecross {
 				MessageBox(0, L"所持肉IDの不一致です。生成に失敗しました！", 0, 0);
 				break;
 			}
+		}else {
+			MessageBox(0,L"設置できないよ！",0,0);
 		}
 
 	}
