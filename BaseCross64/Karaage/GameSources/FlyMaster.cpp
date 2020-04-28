@@ -42,6 +42,7 @@ namespace basecross {
 	void FlyMaster::Create_GameField() {
 		//アクティブステージの取得
 		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
+		//-----以下テストフィールドの作成なので後ほど削除予定------//
 		for (int y = 0; y < GAMEFIELD_Y;y++) {
 			for (int x = 0; x < GAMEFIELD_X;x++) {
 				//stage->AddGameObject<MapChip>(Vec2(MAPCHIP_START_X + x * MAPCHIP_SIZE_X, 
@@ -208,34 +209,43 @@ namespace basecross {
 	void FlyMaster::Set_PossessionMeat() {
 		//肉に回転角度っていうか回転を何回してってのを保存して、それみて自分の判定データを
 		//照合してあるかないか見るか
+		
 
+		
 		//まずは設置する所を取得して
 		Vec3 SetupPos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
-		//設置してみる(テストで)
-		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
-		//所持肉の位置
-		Vec3 possessoionPos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
-		//所持肉IDで
-		switch (m_possessionMeatID)
-		{
-		case 唐揚げ:
-			stage->AddGameObject<Karaage>(Vec3(1,0,1),Vec3(possessoionPos.x,possessoionPos.y,0),Vec3(1));
-			break;
-		case ドラム:
-			stage->AddGameObject<Drum>(Vec3(1,0,1),Vec3(possessoionPos.x - 30,possessoionPos.y + 30,0),Vec3(1));
-			break;
-		case キール:
-			stage->AddGameObject<Keel>(Vec3(1,0,1),Vec3(possessoionPos.x - 30,possessoionPos.y + 30,0),Vec3(1));
-			break;
-		case リブ:
-			stage->AddGameObject<Rib>(Vec3(1,0,1),Vec3(possessoionPos.x - 40,possessoionPos.y + 40,0),Vec3(1));
-			break;
-		case ウィング:
-			stage->AddGameObject<Wing>(Vec3(1,0,1),Vec3(possessoionPos.x - 30,possessoionPos.y + 30,0),Vec3(1));
-			break;
-		default:
-			MessageBox(0,L"所持肉IDの不一致です。生成に失敗しました！",0,0);
-			break;
+		//置けるかの情報を取ってくる
+		int IsSuccess = m_gameField[m_moveDistance[0]][m_moveDistance[1]];
+		//置けないとかなかったら配置
+		if (IsSuccess != Setup_FALSE) {
+			//設置するからそのマスを設置不可にする
+			m_gameField[m_moveDistance[0]][m_moveDistance[1]] = Setup_FALSE;
+			//設置してみる(テストで)
+			auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
+			//所持肉の位置
+			Vec3 possessoionPos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
+			//所持肉IDで
+			switch (m_possessionMeatID)
+			{
+			case 唐揚げ:
+				stage->AddGameObject<Karaage>(Vec3(1, 0, 1), Vec3(possessoionPos.x, possessoionPos.y, 0), Vec3(1));
+				break;
+			case ドラム:
+				stage->AddGameObject<Drum>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 30, possessoionPos.y + 30, 0), Vec3(1));
+				break;
+			case キール:
+				stage->AddGameObject<Keel>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 30, possessoionPos.y + 30, 0), Vec3(1));
+				break;
+			case リブ:
+				stage->AddGameObject<Rib>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 40, possessoionPos.y + 40, 0), Vec3(1));
+				break;
+			case ウィング:
+				stage->AddGameObject<Wing>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 30, possessoionPos.y + 30, 0), Vec3(1));
+				break;
+			default:
+				MessageBox(0, L"所持肉IDの不一致です。生成に失敗しました！", 0, 0);
+				break;
+			}
 		}
 
 	}

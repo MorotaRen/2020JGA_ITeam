@@ -32,6 +32,8 @@
 #define MOVELIMIT_MIN_Y -270
 #define MOVELIMIT_MAX_X  60
 #define MOVELIMIT_MAX_Y  250
+//配置状況の数値
+#define Setup_FALSE 9
 
 namespace basecross {
 	//各種肉の個数情報
@@ -80,6 +82,8 @@ namespace basecross {
 		bool m_isMove;
 		//今の移動している距離(0=x 1=y)
 		int m_moveDistance[2]= { 0 };
+		//所持肉の回転数値
+		int m_RotationNum = 0;
 		//----------------------------------------//
 
 	public:
