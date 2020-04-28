@@ -23,6 +23,28 @@ namespace basecross {
 
 		void CreateSprite();
 	};
+
+	//--------------------------------------------------------------------------------------
+	//	ポインター
+	//--------------------------------------------------------------------------------------
+	class Pointer : public GameObject
+	{
+		bool m_trace;
+		Vec2 m_startScale;
+		Vec3 m_startPos;
+		wstring m_textureKey;
+
+		//バックアップ頂点データ
+		vector<VertexPositionTexture> m_backupVertices;
+
+	public:
+		Pointer(const shared_ptr<Stage>& StagePtr, bool Trace,
+			const Vec2& StartScale, const Vec3& StartPos, wstring TextureKey);
+		virtual ~Pointer();
+		virtual void OnCreate() override;
+		virtual void OnUpdate() override;
+
+	};
 }
 //end basecross
 

@@ -26,19 +26,6 @@ namespace basecross {
 		PtrMultiLight->SetDefaultLighting();
 	}
 
-
-
-	void SelectStage::OnCreate() {
-		try {
-			//ビューとライトの作成
-			CreateViewLight();
-			CreateSprite();
-		}
-		catch (...) {
-			throw;
-		}
-	}
-
 	void SelectStage::CreateSprite() {
 		//背景
 		AddGameObject<MultiSprite>(true, Vec2(1280, 800), Vec3(0, 0, 0), L"Select_BG");
@@ -57,6 +44,64 @@ namespace basecross {
 			}
 			posY += height;
 		}
+
+		AddGameObject<Pointer>(true, Vec2(68, 88), Vec3(-466, -266, 0), L"Pointer_TX");
 	}
+
+
+	void SelectStage::OnCreate() {
+		try {
+			//ビューとライトの作成
+			CreateViewLight();
+			CreateSprite();
+		}
+		catch (...) {
+			throw;
+		}
+	}
+
+	Pointer::Pointer(const shared_ptr<Stage>& StagePtr, bool Trace, const Vec2& StartScale, const Vec3& StartPos, wstring TextureKey) :
+		GameObject(StagePtr),
+		m_trace(Trace),
+		m_startScale(StartScale),
+		m_startPos(StartPos),
+		m_textureKey(TextureKey)
+	{}
+	Pointer::~Pointer() {}
+
+	void Pointer::OnCreate() {
+		float halfSize = 0.5f;
+		//頂点配列
+		m_backupVertices = {
+			{ VertexPositionTexture(Vec3(-halfSize, halfSize, 0), Vec2(0.0f, 0.0f)) },
+			{ VertexPositionTexture(Vec3(halfSize, halfSize, 0), Vec2(1.0f, 0.0f)) },
+			{ VertexPositionTexture(Vec3(-halfSize, -halfSize, 0), Vec2(0.0f, 1.0f)) },
+			{ VertexPositionTexture(Vec3(halfSize, -halfSize, 0), Vec2(1.0f, 1.0f)) },
+		};
+		//インデックス配列
+		vector<uint16_t> indices = { 0,1,2,1,3,2 };
+		SetAlphaActive(m_trace);
+		auto ptrTransform = GetComponent<Transform>();
+		ptrTransform->SetScale(m_startScale.x, m_startScale.y, 1.0f);
+		ptrTransform->SetRotation(0, 0, 0);
+		ptrTransform->SetPosition(m_startPos.x, m_startPos.y, 0.0f);
+		//頂点とインデックスを指定してスプライト作成
+		auto ptrDraw = AddComponent<PTSpriteDraw>(m_backupVertices, indices);
+		ptrDraw->SetTextureResource(m_textureKey);
+	}
+
+	void Pointer::OnUpdate()
+	{
+		auto pad = GamePadManager::GetGamePad();
+
+		if (pad[0].bConnected) {
+			if (pad[0].wPressedButtons & XINPUT_GAMEPAD_A) {
+				auto ptrScene = App::GetApp()->GetScene<Scene>();
+				PostEvent(0.0f, GetThis<ObjectInterface>(), ptrScene, L"ToGameStage");
+			}
+		}
+		
+	}
+
 }
 //end basecross
