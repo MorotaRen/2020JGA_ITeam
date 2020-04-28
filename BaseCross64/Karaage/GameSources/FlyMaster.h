@@ -50,6 +50,7 @@ namespace basecross {
 	{
 		唐揚げ,ドラム,キール,リブ,ウィング
 	};
+	//肉の各種判定
 
 	class FlyMaster	final{
 	private:
@@ -84,6 +85,7 @@ namespace basecross {
 		int m_moveDistance[2]= { 0 };
 		//所持肉の回転数値
 		int m_RotationNum = 0;
+		
 		//----------------------------------------//
 
 	public:

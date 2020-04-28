@@ -218,6 +218,9 @@ namespace basecross {
 		int IsSuccess = m_gameField[m_moveDistance[0]][m_moveDistance[1]];
 		//置けないとかなかったら配置
 		if (IsSuccess != Setup_FALSE) {
+			//肉全体の判定
+
+
 			//設置するからそのマスを設置不可にする
 			m_gameField[m_moveDistance[0]][m_moveDistance[1]] = Setup_FALSE;
 			//設置してみる(テストで)
