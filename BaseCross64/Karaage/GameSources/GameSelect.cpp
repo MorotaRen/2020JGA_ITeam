@@ -22,6 +22,11 @@ namespace basecross {
 		PtrMultiLight->SetDefaultLighting();
 	}
 
+	void GameSelect::CreateTraceSprite() {
+		AddGameObject<Number>
+			(true, Vec2(320.0f, 320.0f),
+				Vec3(-400.0f, 0.0f, 0.0f));
+	}
 
 
 	void GameSelect::OnCreate() {

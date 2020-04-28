@@ -9,6 +9,8 @@
 namespace basecross {
 	class GameTitel : public Stage {
 		void CreateViewLight();
+		void CreateTraceSprite();
+
 
 	public:
 		GameTitel() :Stage() {}

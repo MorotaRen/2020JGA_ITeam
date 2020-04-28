@@ -14,7 +14,7 @@ namespace basecross {
 	class GameStage : public Stage {
 		//ƒrƒ…[‚Ìì¬
 		void CreateViewLight();
-
+		void CreateTraceSprite();
 
 	public:
 
@@ -23,6 +23,7 @@ namespace basecross {
 		virtual ~GameStage() {}
 		//‰Šú‰»
 		virtual void OnCreate()override;
+
 	};
 
 
