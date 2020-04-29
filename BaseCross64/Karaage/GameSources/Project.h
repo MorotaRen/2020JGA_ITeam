@@ -11,7 +11,6 @@
 
 
 //ƒLƒƒƒ‰ƒNƒ^
-#include "Character.h"
 #include "Player.h"
 #include "Meat.h"
 

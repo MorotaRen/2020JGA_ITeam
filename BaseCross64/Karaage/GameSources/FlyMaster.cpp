@@ -269,12 +269,22 @@ namespace basecross {
 			case “‚—g‚°:
 				for (int y = 0; y < 3; y++) {
 					for (int x = 0; x < 3; x++) {
-						if (m_gameField[StartPosX += x][StartPosY += y] == Setup_FALSE) {
+						if (m_gameField[StartPosY + y][StartPosX + x] == Hit_Karaage[y][x]) {
 							return false;
 							break;
 						}
 					}
 				}
+				//‚¨‚­Š‚ðÝ’uÏ‚Ý‚É‚·‚é
+				for (int y = 0; y < 3; y++) {
+					for (int x = 0; x < 3; x++) {
+						if (m_gameField[StartPosY + y][StartPosX + x] == Hit_Karaage[y][x]) {
+							return false;
+							break;
+						}
+					}
+				}
+				
 				return true;
 				break;
 			case ƒhƒ‰ƒ€:

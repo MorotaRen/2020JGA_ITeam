@@ -50,35 +50,6 @@ namespace basecross {
 	{
 		唐揚げ,ドラム,キール,リブ,ウィング
 	};
-	//------------肉の各種判定------------//
-	int Hit_Karaage[3][3] = { 
-							{1,0,0}, 
-							{0,0,0},
-							{0,0,0}
-							};
-	int Hit_Drum[3][3]	  = { 
-							{1,0,0}, 
-							{1,0,0},
-							{0,0,0}
-							};
-	int Hit_Wing[3][3]	  = { 
-							{1,1,0}, 
-							{1,0,0},
-							{0,0,0}
-							};
-	int Hit_Rib[3][3]	  = { 
-							{1,1,0}, 
-							{1,1,0},
-							{0,0,0}
-							};
-	int Hit_Keel[3][3]	  = { 
-							{1,1,1}, 
-							{1,1,1},
-							{0,1,0}
-							};
-	//------------------------------------//
-
-
 
 	class FlyMaster	final{
 	private:
@@ -96,7 +67,7 @@ namespace basecross {
 		//今設置されてる各種肉
 		MeatsData m_meatsInstallationData;
 		//フィールド構造体
-		int m_gameField[GAMEFIELD_X][GAMEFIELD_Y] = {0};
+		int m_gameField[GAMEFIELD_Y][GAMEFIELD_X] = {0};
 		//接触マップチップ番号
 		int *m_hittingMapChipNum[2];
 		//所持中の肉
@@ -113,7 +84,33 @@ namespace basecross {
 		int m_moveDistance[2]= { 0 };
 		//所持肉の回転数値
 		int m_RotationNum = 0;
-		
+		//------------肉の各種判定------------//
+		int Hit_Karaage[3][3] = {
+								{9,1,1},
+								{1,1,1},
+								{1,1,1}
+		};
+		int Hit_Drum[3][3] = {
+								{9,1,1},
+								{9,1,1},
+								{1,1,1}
+		};
+		int Hit_Wing[3][3] = {
+								{9,9,1},
+								{9,1,1},
+								{1,1,1}
+		};
+		int Hit_Rib[3][3] = {
+								{9,9,1},
+								{9,9,1},
+								{1,1,1}
+		};
+		int Hit_Keel[3][3] = {
+								{9,9,9},
+								{9,9,9},
+								{1,9,1}
+		};
+		//------------------------------------//
 		//----------------------------------------//
 
 	public:
