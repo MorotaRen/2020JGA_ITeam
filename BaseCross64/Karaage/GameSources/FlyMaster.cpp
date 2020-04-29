@@ -36,6 +36,7 @@ namespace basecross {
 		m_meatsStockData.Meat_3x3 = 0;
 		m_meatsStockData.Meat_L = 0;
 	}
+
 	/// ----------------------------------------<summary>
 	/// ゲームフィールドの作成
 	/// </summary>----------------------------------------
@@ -58,6 +59,7 @@ namespace basecross {
 		}
 
 	}
+
 	/// ----------------------------------------<summary>
 	/// 揚げる処理
 	/// </summary>----------------------------------------
@@ -203,6 +205,7 @@ namespace basecross {
 			FlyMaster::Create_PossessionMeat(m_possessionMeatID);
 		}
 	}
+
 	/// ----------------------------------------<summary>
 	/// 所持肉をステージに設置する
 	/// </summary>----------------------------------------
@@ -214,15 +217,8 @@ namespace basecross {
 		
 		//まずは設置する所を取得して
 		Vec3 SetupPos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
-		//置けるかの情報を取ってくる
-		int IsSuccess = m_gameField[m_moveDistance[0]][m_moveDistance[1]];
 		//置けないとかなかったら配置
-		if (IsSuccess != Setup_FALSE) {
-			//肉全体の判定
-
-
-			//設置するからそのマスを設置不可にする
-			m_gameField[m_moveDistance[0]][m_moveDistance[1]] = Setup_FALSE;
+		if (Check_SetMeat()) {
 			//設置してみる(テストで)
 			auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
 			//所持肉の位置
@@ -253,6 +249,53 @@ namespace basecross {
 			MessageBox(0,L"設置できないよ！",0,0);
 		}
 
+	}
+
+	/// ----------------------------------------<summary>
+	/// 肉が設置できるかを調べる
+	/// </summary>----------------------------------------
+	bool FlyMaster::Check_SetMeat() {
+		//ゲームフィールドで移動と重複している所を見る
+		int SetGridPosition = m_gameField[m_moveDistance[0]][m_moveDistance[1]];
+		//全体(移動とそこから配列を見る)
+		if (SetGridPosition != Setup_FALSE) {
+			//始点
+			auto StartPosX = m_moveDistance[0];
+			auto StartPosY = m_moveDistance[1];
+
+			//所持肉IDで
+			switch (m_possessionMeatID)
+			{
+			case 唐揚げ:
+				for (int y = 0; y < 3; y++) {
+					for (int x = 0; x < 3; x++) {
+						if (m_gameField[StartPosX += x][StartPosY += y] == Setup_FALSE) {
+							return false;
+							break;
+						}
+					}
+				}
+				return true;
+				break;
+			case ドラム:
+				break;
+			case キール:
+				break;
+			case リブ:
+				break;
+			case ウィング:
+				break;
+			default:
+				break;
+			}
+
+		}
+		////単体(移動で見る)
+		//if (SetGridPosition != Setup_FALSE) {
+		//	//設置するからそのマスを設置不可にする
+		//	m_gameField[m_moveDistance[0]][m_moveDistance[1]] = Setup_FALSE;
+		//	return true;
+		//}
 	}
 }
 //end basecross

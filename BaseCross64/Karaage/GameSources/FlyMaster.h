@@ -50,7 +50,35 @@ namespace basecross {
 	{
 		唐揚げ,ドラム,キール,リブ,ウィング
 	};
-	//肉の各種判定
+	//------------肉の各種判定------------//
+	int Hit_Karaage[3][3] = { 
+							{1,0,0}, 
+							{0,0,0},
+							{0,0,0}
+							};
+	int Hit_Drum[3][3]	  = { 
+							{1,0,0}, 
+							{1,0,0},
+							{0,0,0}
+							};
+	int Hit_Wing[3][3]	  = { 
+							{1,1,0}, 
+							{1,0,0},
+							{0,0,0}
+							};
+	int Hit_Rib[3][3]	  = { 
+							{1,1,0}, 
+							{1,1,0},
+							{0,0,0}
+							};
+	int Hit_Keel[3][3]	  = { 
+							{1,1,1}, 
+							{1,1,1},
+							{0,1,0}
+							};
+	//------------------------------------//
+
+
 
 	class FlyMaster	final{
 	private:
@@ -118,6 +146,8 @@ namespace basecross {
 		void Change_PossessionMeat();
 		//肉の設置
 		void Set_PossessionMeat();
+		//肉が設置できるか調べる
+		bool Check_SetMeat();
 		//------------ゲッターセッター--------------//
 		void SetStockData(const MeatsData md) {
 			m_meatsStockData = md;
