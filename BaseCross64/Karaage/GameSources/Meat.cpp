@@ -199,9 +199,9 @@ namespace basecross {
 		//インデックス配列
 		vector<uint16_t> indices = { 0, 1, 2, 1, 3, 2 };
 		auto ptrTrans = GetComponent<Transform>();
-		ptrTrans->SetScale(MAPCHIP_SIZE_X * 2, MAPCHIP_SIZE_Y * 2, 1.0f);
+		ptrTrans->SetScale(MAPCHIP_SIZE_X * 3, MAPCHIP_SIZE_Y * 3, 1.0f);
 		ptrTrans->SetRotation(0, 0, 0);
-		ptrTrans->SetPosition(m_Position.x + 30, m_Position.y - 30, 0.0f);
+		ptrTrans->SetPosition(m_Position.x + 60, m_Position.y - 60, 0.0f);
 		//頂点とインデックスを指定してスプライト作成
 		auto ptrDraw = AddComponent<PCTSpriteDraw>(vertices, indices);
 		ptrDraw->SetTextureResource(L"RawMeat_Keel_Line");

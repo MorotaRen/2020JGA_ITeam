@@ -10,7 +10,6 @@
 #include "ProjectBehavior.h"
 
 //キャラクタ
-#include "Character.h"
 #include "Player.h"
 #include "Meat.h"
 
@@ -28,8 +27,9 @@
 #include "UI.h"
 
 //シーンやステージ
-#include "Scene.h"
 #include "GameStage.h"
 #include "SelectStage.h"
+#include "Scene.h"
+
 
 
