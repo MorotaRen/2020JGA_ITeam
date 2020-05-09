@@ -183,7 +183,7 @@ namespace basecross {
 	/// Š“÷‚Ì‰ñ“]
 	/// </summary>----------------------------------------
 	void FlyMaster::Rot_PossessionMeat(int angle) {
-
+		m_possessionMeat->Rotation();
 	}
 
 	/// ----------------------------------------<summary>

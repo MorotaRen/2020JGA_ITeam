@@ -66,6 +66,9 @@ namespace basecross {
 		if (pad[0].wPressedButtons & XINPUT_GAMEPAD_A) {
 			FlyMaster::GetInstans().Set_PossessionMeat();
 		}
+		if (pad[0].wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
+			FlyMaster::GetInstans().Rot_PossessionMeat(90);
+		}
 		//---------------------------------------------//
 
 		FlyMaster::GetInstans(). Change_PossessionMeat();

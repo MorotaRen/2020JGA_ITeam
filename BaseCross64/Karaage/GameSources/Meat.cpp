@@ -207,11 +207,13 @@ namespace basecross {
 		ptrDraw->SetTextureResource(L"RawMeat_Keel_Line");
 		SetAlphaActive(true);
 	}
-
+	
 	void Keel::OnUpdate()
 	{
 
 	}
+	
+
 	//----------------------------------------------------//
 
 	void Karaage::DrawString()
