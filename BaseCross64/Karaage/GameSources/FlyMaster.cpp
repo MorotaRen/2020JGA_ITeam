@@ -143,7 +143,7 @@ namespace basecross {
 						pos.x += MAPCHIP_SIZE_X;
 						m_possessionMeat->GetComponent<Transform>()->SetPosition(pos);
 						m_isMove = true;
-						m_moveDistance[0]++;
+						m_moveDistance[1]++;
 					}
 					break;
 				case LEFT:
@@ -152,7 +152,7 @@ namespace basecross {
 						pos.x -= MAPCHIP_SIZE_X;
 						m_possessionMeat->GetComponent<Transform>()->SetPosition(pos);
 						m_isMove = true;
-						m_moveDistance[0]--;
+						m_moveDistance[1]--;
 					}
 					break;
 				case UP:
@@ -161,7 +161,7 @@ namespace basecross {
 						pos.y += MAPCHIP_SIZE_Y;
 						m_possessionMeat->GetComponent<Transform>()->SetPosition(pos);
 						m_isMove = true;
-						m_moveDistance[1]++;
+						m_moveDistance[0]--;
 					}
 					break;
 				case DOWN:
@@ -170,13 +170,20 @@ namespace basecross {
 						pos.y -= MAPCHIP_SIZE_Y;
 						m_possessionMeat->GetComponent<Transform>()->SetPosition(pos);
 						m_isMove = true;
-						m_moveDistance[1]--;
+						m_moveDistance[0]++;
 					}
 					break;
 				default:
 					break;
 				}
 		}
+	}
+
+	/// ----------------------------------------<summary>
+	/// 所持肉の回転
+	/// </summary>----------------------------------------
+	void FlyMaster::Rot_PossessionMeat(int angle) {
+
 	}
 
 	/// ----------------------------------------<summary>
@@ -260,8 +267,8 @@ namespace basecross {
 		//全体(移動とそこから配列を見る)
 		if (SetGridPosition != Setup_FALSE) {
 			//始点
-			auto StartPosX = m_moveDistance[0];
-			auto StartPosY = m_moveDistance[1];
+			auto StartPosX = m_moveDistance[1];
+			auto StartPosY = m_moveDistance[0];
 
 			//所持肉IDで
 			switch (m_possessionMeatID)
@@ -278,16 +285,31 @@ namespace basecross {
 				//おく所を設置済みにする
 				for (int y = 0; y < 3; y++) {
 					for (int x = 0; x < 3; x++) {
-						if (m_gameField[StartPosY + y][StartPosX + x] == Hit_Karaage[y][x]) {
+						if (m_gameField[StartPosY + y][StartPosX + x] == 0 && Hit_Karaage[y][x] == 9) {
+							m_gameField[StartPosY + y][StartPosX + x] = 9;
+							break;
+						}
+					}
+				}
+				return true;
+				break;
+			case ドラム:
+				for (int y = 0; y < 3; y++) {
+					for (int x = 0; x < 3; x++) {
+						if (m_gameField[StartPosY + y][StartPosX + x] == Hit_Drum[y][x]) {
 							return false;
 							break;
 						}
 					}
 				}
-				
-				return true;
-				break;
-			case ドラム:
+				//おく所を設置済みにする
+				for (int y = 0; y < 3; y++) {
+					for (int x = 0; x < 3; x++) {
+						if (m_gameField[StartPosY + y][StartPosX + x] == 0 && Hit_Drum[y][x] == 9) {
+							m_gameField[StartPosY + y][StartPosX + x] = 9;
+						}
+					}
+				}
 				break;
 			case キール:
 				break;
@@ -306,6 +328,8 @@ namespace basecross {
 		//	m_gameField[m_moveDistance[0]][m_moveDistance[1]] = Setup_FALSE;
 		//	return true;
 		//}
+		return false;
+
 	}
 }
 //end basecross

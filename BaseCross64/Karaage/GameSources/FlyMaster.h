@@ -145,6 +145,8 @@ namespace basecross {
 		void Set_PossessionMeat();
 		//肉が設置できるか調べる
 		bool Check_SetMeat();
+		//所持肉の回転
+		void Rot_PossessionMeat(int angle);
 		//------------ゲッターセッター--------------//
 		void SetStockData(const MeatsData md) {
 			m_meatsStockData = md;
