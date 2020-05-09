@@ -240,7 +240,7 @@ namespace basecross {
 				stage->AddGameObject<Drum>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 30, possessoionPos.y + 30, 0), Vec3(1));
 				break;
 			case キール:
-				stage->AddGameObject<Keel>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 30, possessoionPos.y + 30, 0), Vec3(1));
+				stage->AddGameObject<Keel>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 60, possessoionPos.y + 60, 0), Vec3(1));
 				break;
 			case リブ:
 				stage->AddGameObject<Rib>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 40, possessoionPos.y + 40, 0), Vec3(1));
@@ -310,12 +310,64 @@ namespace basecross {
 						}
 					}
 				}
+				return true;
 				break;
 			case キール:
+				for (int y = 0; y < 3; y++) {
+					for (int x = 0; x < 3; x++) {
+						if (m_gameField[StartPosY + y][StartPosX + x] == Hit_Keel[y][x]) {
+							return false;
+							break;
+						}
+					}
+				}
+				//おく所を設置済みにする
+				for (int y = 0; y < 3; y++) {
+					for (int x = 0; x < 3; x++) {
+						if (m_gameField[StartPosY + y][StartPosX + x] == 0 && Hit_Keel[y][x] == 9) {
+							m_gameField[StartPosY + y][StartPosX + x] = 9;
+						}
+					}
+				}
+				return true;
 				break;
 			case リブ:
+				for (int y = 0; y < 3; y++) {
+					for (int x = 0; x < 3; x++) {
+						if (m_gameField[StartPosY + y][StartPosX + x] == Hit_Rib[y][x]) {
+							return false;
+							break;
+						}
+					}
+				}
+				//おく所を設置済みにする
+				for (int y = 0; y < 3; y++) {
+					for (int x = 0; x < 3; x++) {
+						if (m_gameField[StartPosY + y][StartPosX + x] == 0 && Hit_Rib[y][x] == 9) {
+							m_gameField[StartPosY + y][StartPosX + x] = 9;
+						}
+					}
+				}
+				return true;
 				break;
 			case ウィング:
+				for (int y = 0; y < 3; y++) {
+					for (int x = 0; x < 3; x++) {
+						if (m_gameField[StartPosY + y][StartPosX + x] == Hit_Wing[y][x]) {
+							return false;
+							break;
+						}
+					}
+				}
+				//おく所を設置済みにする
+				for (int y = 0; y < 3; y++) {
+					for (int x = 0; x < 3; x++) {
+						if (m_gameField[StartPosY + y][StartPosX + x] == 0 && Hit_Wing[y][x] == 9) {
+							m_gameField[StartPosY + y][StartPosX + x] = 9;
+						}
+					}
+				}
+				return true;
 				break;
 			default:
 				break;
