@@ -80,28 +80,16 @@ namespace basecross {
 		ptrTrans->SetPosition(m_Position.x + 30, m_Position.y - 30, 0.0f);
 		//頂点とインデックスを指定してスプライト作成
 		auto ptrDraw = AddComponent<PCTSpriteDraw>(vertices, indices);
-		ptrDraw->SetTextureResource(L"RawMeat_Drum_Line");
+		//ptrDraw->SetTextureResource(L"RawMeat_Drum_Line");
+		ptrDraw->SetTextureResource(L"Test");
+
 		SetAlphaActive(true);
 	}
 
 	void Drum::OnUpdate()
 	{
-		Rotation();
 	}
 
-	void Drum::Rotation()
-	{
-		auto KeyState = App::GetApp()->GetInputDevice().GetKeyState();
-		auto YRota = GetComponent<Transform>()->GetRotation();
-		if (KeyState.m_bPressedKeyTbl['A']) {
-			YRota.y = -m_rad;
-		}
-		else if (KeyState.m_bPressedKeyTbl['D']) {
-			YRota.y = +m_rad;
-		}
-		GetComponent<Transform>()->SetRotation(YRota);
-
-	}
 	//------------------------------------------------------------------------------//
 
 	//--------------------------手羽先--------------------------//
@@ -205,8 +193,7 @@ namespace basecross {
 		ptrTrans->SetPosition(m_Position.x + 60, m_Position.y - 60, 0.0f);
 		//頂点とインデックスを指定してスプライト作成
 		auto ptrDraw = AddComponent<PCTSpriteDraw>(vertices, indices);
-		//ptrDraw->SetTextureResource(L"RawMeat_Keel_Line");
-		ptrDraw->SetTextureResource(L"Test");
+		ptrDraw->SetTextureResource(L"RawMeat_Keel_Line");
 
 		SetAlphaActive(true);
 	}

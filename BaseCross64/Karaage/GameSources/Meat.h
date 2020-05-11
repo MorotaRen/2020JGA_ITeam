@@ -60,7 +60,6 @@ namespace basecross{
 		virtual ~Drum() {}
 		virtual void OnCreate() override;
 		virtual void OnUpdate() override;
-		void Rotation();
 	};
 
 	// è‰Hæ
