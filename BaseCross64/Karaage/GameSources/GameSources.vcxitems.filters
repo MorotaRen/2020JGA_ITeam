@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Character.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)FlyMaster.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MapChip.cpp" />
@@ -16,9 +15,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)UIMaster.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIWatch.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Character.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Character.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)FlyMaster.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MapChip.h" />
@@ -34,5 +33,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)UI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIMaster.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIWatch.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Character.h" />
   </ItemGroup>
 </Project>
