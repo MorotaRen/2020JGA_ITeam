@@ -5,11 +5,11 @@
 
 #pragma once
 #include "stdafx.h"
-#define KaraagePrice 70; //“‚—g‚°
-#define DrumPrice 100;   //‹r
-#define WingPrice 130;   //è‰Hæ
-#define LibPrice 150;    //‚ ‚Î‚ç
-#define KeelPrice 200;   //‹¹
+#define PRICE_KARAAGE 70; //“‚—g‚°
+#define PRICE_DRUM 100;   //‹r
+#define PRICE_WING 130;   //è‰Hæ
+#define PRICE_LIB 150;    //‚ ‚Î‚ç
+#define PRICE_KEEL 200;   //‹¹
 
 #define KaraageOder 5;
 #define DrumOder 5;

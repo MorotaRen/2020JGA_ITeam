@@ -6,11 +6,11 @@ namespace basecross {
 	/// 在庫数に追加する。追加した後は設置されている数はリセットされる
 	/// </summary>----------------------------------------
 	void FlyMaster::Add_StockMeat() {
-		m_meatsStockData.Meat_1x1 += m_meatsInstallationData.Meat_1x1;
-		m_meatsStockData.Meat_1x2 += m_meatsInstallationData.Meat_1x2;
-		m_meatsStockData.Meat_2x2 += m_meatsInstallationData.Meat_2x2;
-		m_meatsStockData.Meat_3x3 += m_meatsInstallationData.Meat_3x3;
-		m_meatsStockData.Meat_L += m_meatsInstallationData.Meat_L;
+		m_meatsStockData.Karage += m_meatsInstallationData.Karage;
+		m_meatsStockData.Drum += m_meatsInstallationData.Drum;
+		m_meatsStockData.Wing += m_meatsInstallationData.Wing;
+		m_meatsStockData.Lib += m_meatsInstallationData.Lib;
+		m_meatsStockData.Keel += m_meatsInstallationData.Keel;
 
 		Clear_InstallationMeat();
 	}
@@ -19,22 +19,22 @@ namespace basecross {
 	/// 設置済み肉の初期化
 	/// </summary>----------------------------------------
 	void FlyMaster::Clear_InstallationMeat() {
-		m_meatsInstallationData.Meat_1x1 = 0;
-		m_meatsInstallationData.Meat_1x2 = 0;
-		m_meatsInstallationData.Meat_2x2 = 0;
-		m_meatsInstallationData.Meat_3x3 = 0;
-		m_meatsInstallationData.Meat_L = 0;
+		m_meatsInstallationData.Karage = 0;
+		m_meatsInstallationData.Drum = 0;
+		m_meatsInstallationData.Wing = 0;
+		m_meatsInstallationData.Lib = 0;
+		m_meatsInstallationData.Keel = 0;
 	}
 
 	/// ----------------------------------------<summary>
 	/// 在庫肉の初期化
 	/// </summary>----------------------------------------
 	void FlyMaster::Clear_StockMeat() {
-		m_meatsStockData.Meat_1x1 = 0;
-		m_meatsStockData.Meat_1x2 = 0;
-		m_meatsStockData.Meat_2x2 = 0;
-		m_meatsStockData.Meat_3x3 = 0;
-		m_meatsStockData.Meat_L = 0;
+		m_meatsStockData.Karage = 0;
+		m_meatsStockData.Drum = 0;
+		m_meatsStockData.Wing = 0;
+		m_meatsStockData.Lib = 0;
+		m_meatsStockData.Keel = 0;
 	}
 
 	/// ----------------------------------------<summary>
@@ -64,9 +64,18 @@ namespace basecross {
 	/// 揚げる処理
 	/// </summary>----------------------------------------
 	void FlyMaster::Fly() {
+		//在庫追加してエリア上の肉とマップ情報の初期化
+		Add_StockMeat();
+		Clear_InstallationMeat();
 
 	}
 
+	/// ----------------------------------------<summary>
+	/// 揚げる処理
+	/// </summary>----------------------------------------
+	void FlyMaster::Sales(MeatsData md) {
+
+	}
 	/// ----------------------------------------<summary>
 	/// 渡された座標からマップ方向にレイを飛ばし接触したオブジェクトのマップ番号を返す
 	/// </summary>----------------------------------------
@@ -88,22 +97,28 @@ namespace basecross {
 		case 唐揚げ:
 			newMeat = stage->AddGameObject<Karaage>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), Vec3(0));
 			Reset_PossessionMeat(newMeat);
+			m_installationMeat.push_back(newMeat);
+			m_meatsInstallationData.Karage++;
 			break;
 		case ドラム:
 			newMeat = stage->AddGameObject<Drum>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), Vec3(0));
 			Reset_PossessionMeat(newMeat);
+			m_meatsInstallationData.Drum++;
 			break;
 		case キール:
 			newMeat = stage->AddGameObject<Keel>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), Vec3(0));
 			Reset_PossessionMeat(newMeat);
+			m_meatsInstallationData.Keel++;
 			break;
 		case リブ:
 			newMeat = stage->AddGameObject<Rib>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), Vec3(0));
 			Reset_PossessionMeat(newMeat);
+			m_meatsInstallationData.Lib++;
 			break;
 		case ウィング:
 			newMeat = stage->AddGameObject<Wing>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), Vec3(0));
 			Reset_PossessionMeat(newMeat);
+			m_meatsInstallationData.Wing++;
 			break;
 		
 		default:

@@ -34,7 +34,8 @@ namespace basecross {
 		ptrTrans->SetPosition(m_Position.x, m_Position.y, 0.0f);
 		//頂点とインデックスを指定してスプライト作成
 		auto ptrDraw = AddComponent<PCTSpriteDraw>(vertices, indices);
-		ptrDraw->SetTextureResource(L"RawMeat_Chicken_Line");
+		//ptrDraw->SetTextureResource(L"RawMeat_Chicken_Line");
+		ptrDraw->SetTextureResource(L"Test");
 		SetAlphaActive(true);
 		
 	}
@@ -204,7 +205,9 @@ namespace basecross {
 		ptrTrans->SetPosition(m_Position.x + 60, m_Position.y - 60, 0.0f);
 		//頂点とインデックスを指定してスプライト作成
 		auto ptrDraw = AddComponent<PCTSpriteDraw>(vertices, indices);
-		ptrDraw->SetTextureResource(L"RawMeat_Keel_Line");
+		//ptrDraw->SetTextureResource(L"RawMeat_Keel_Line");
+		ptrDraw->SetTextureResource(L"Test");
+
 		SetAlphaActive(true);
 	}
 	

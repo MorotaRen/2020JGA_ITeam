@@ -39,11 +39,11 @@ namespace basecross {
 	//各種肉の個数情報
 	struct MeatsData
 	{
-		unsigned int Meat_1x1;
-		unsigned int Meat_1x2;
-		unsigned int Meat_2x2;
-		unsigned int Meat_3x3;
-		unsigned int Meat_L;
+		unsigned int Karage;
+		unsigned int Drum;
+		unsigned int Wing;
+		unsigned int Lib;
+		unsigned int Keel;
 	};
 	//肉のID
 	enum MeatID
@@ -72,6 +72,8 @@ namespace basecross {
 		int *m_hittingMapChipNum[2];
 		//所持中の肉
 		shared_ptr<GameObject> m_possessionMeat;
+		//設置した肉達
+		vector<shared_ptr<GameObject>> m_installationMeat;
 		//テスト用の数値
 		bool m_TEST_w;
 		//現在解放中の肉数
@@ -147,6 +149,8 @@ namespace basecross {
 		bool Check_SetMeat();
 		//所持肉の回転
 		void Rot_PossessionMeat(int angle);
+		//売上計算
+		void Sales(MeatsData md);
 		//------------ゲッターセッター--------------//
 		void SetStockData(const MeatsData md) {
 			m_meatsStockData = md;

@@ -51,6 +51,7 @@ namespace basecross{
 			SetTexture(L"White_TEST",L"White.png");
 			SetTexture(L"BG_Kitchen",L"Kitchen2.png");
 			SetTexture(L"BG_Flyer",L"Flyer.png");
+			SetTexture(L"Test",L"Test_Image.png");
 
 
 			//“÷(ü‚ ‚è)
