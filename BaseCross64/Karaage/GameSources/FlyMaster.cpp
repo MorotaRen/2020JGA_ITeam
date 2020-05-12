@@ -92,7 +92,7 @@ namespace basecross {
 		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
 		shared_ptr<GameObject> newMeat;
 		m_possessionMeatID = createMeatID;
-		switch (createMeatID)
+	switch (createMeatID)
 		{
 		case 唐揚げ:
 			newMeat = stage->AddGameObject<Karaage>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), Vec3(0));
@@ -199,6 +199,7 @@ namespace basecross {
 	/// </summary>----------------------------------------
 	void FlyMaster::Rot_PossessionMeat(int angle) {
 		m_possessionMeat->Rotation();
+		Rot_Array();
 	}
 
 	/// ----------------------------------------<summary>
@@ -231,14 +232,13 @@ namespace basecross {
 	/// ----------------------------------------<summary>
 	/// 所持肉をステージに設置する
 	/// </summary>----------------------------------------
-	void FlyMaster::Set_PossessionMeat() {
-		//肉に回転角度っていうか回転を何回してってのを保存して、それみて自分の判定データを
-		//照合してあるかないか見るか
-		
-
-		
+	void FlyMaster::Set_PossessionMeat() {		
 		//まずは設置する所を取得して
 		Vec3 SetupPos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
+		Vec3 newMeatRot;
+		if (m_possessionMeat) {
+			newMeatRot = m_possessionMeat->GetComponent<Transform>()->GetRotation();
+		}
 		//置けないとかなかったら配置
 		if (Check_SetMeat()) {
 			//設置してみる(テストで)
@@ -249,19 +249,19 @@ namespace basecross {
 			switch (m_possessionMeatID)
 			{
 			case 唐揚げ:
-				stage->AddGameObject<Karaage>(Vec3(1, 0, 1), Vec3(possessoionPos.x, possessoionPos.y, 0), Vec3(1));
+				stage->AddGameObject<Karaage>(Vec3(1, 0, 1), Vec3(possessoionPos.x, possessoionPos.y, 0), possessoionPos);
 				break;
 			case ドラム:
-				stage->AddGameObject<Drum>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 30, possessoionPos.y + 30, 0), Vec3(1));
+				stage->AddGameObject<Drum>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 30, possessoionPos.y + 30, 0), possessoionPos);
 				break;
 			case キール:
-				stage->AddGameObject<Keel>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 60, possessoionPos.y + 60, 0), Vec3(1));
+				stage->AddGameObject<Keel>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 60, possessoionPos.y + 60, 0), possessoionPos);
 				break;
 			case リブ:
-				stage->AddGameObject<Rib>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 40, possessoionPos.y + 40, 0), Vec3(1));
+				stage->AddGameObject<Rib>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 40, possessoionPos.y + 40, 0), possessoionPos);
 				break;
 			case ウィング:
-				stage->AddGameObject<Wing>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 30, possessoionPos.y + 30, 0), Vec3(1));
+				stage->AddGameObject<Wing>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 30, possessoionPos.y + 30, 0), possessoionPos);
 				break;
 			default:
 				MessageBox(0, L"所持肉IDの不一致です。生成に失敗しました！", 0, 0);
@@ -397,6 +397,47 @@ namespace basecross {
 		//}
 		return false;
 
+	}
+
+	/// ----------------------------------------<summary>
+	/// 配列回転
+	/// </summary>----------------------------------------
+	void FlyMaster::Rot_Array() {
+		//一時置き場
+		int temp[3][3] = { 0 };
+
+		//所持肉IDで
+		switch (m_possessionMeatID)
+		{
+		case 唐揚げ:
+			//回転しないので何もしない
+			break;
+		case ドラム:
+			//配列の回転
+			//一時置き場にコピー
+			for (int i = 0; i < 3; i++) {
+				for (int k = 0; k < 3; k++) {
+					temp[i][k] = Hit_Drum[i][k];
+				}
+			}
+			//転置後行を逆にして右回り
+			for (int i = 0; i < 3; i++) {
+				for (int k = 0; k < 3; k++) {
+					Hit_Drum[i][k] = temp[k][2 - i];
+				}
+			}
+
+			break;
+		case キール:
+			break;
+		case リブ:
+			break;
+		case ウィング:
+			break;
+		default:
+			MessageBox(0,L"不明な肉IDが入りました(肉の回転)",0,0);
+			break;
+		}
 	}
 }
 //end basecross

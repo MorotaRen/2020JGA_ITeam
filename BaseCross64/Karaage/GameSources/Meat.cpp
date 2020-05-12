@@ -30,12 +30,11 @@ namespace basecross {
 		vector<uint16_t> indices = { 0, 1, 2, 1, 3, 2 };
 		auto ptrTrans = GetComponent<Transform>();
 		ptrTrans->SetScale(MAPCHIP_SIZE_X , MAPCHIP_SIZE_Y, 1.0f);
-		ptrTrans->SetRotation(0, 0, 0);
+		ptrTrans->SetRotation(m_Rotation);
 		ptrTrans->SetPosition(m_Position.x, m_Position.y, 0.0f);
 		//頂点とインデックスを指定してスプライト作成
 		auto ptrDraw = AddComponent<PCTSpriteDraw>(vertices, indices);
-		//ptrDraw->SetTextureResource(L"RawMeat_Chicken_Line");
-		ptrDraw->SetTextureResource(L"Test");
+		ptrDraw->SetTextureResource(L"RawMeat_Chicken_Line");
 		SetAlphaActive(true);
 		
 	}
@@ -80,8 +79,7 @@ namespace basecross {
 		ptrTrans->SetPosition(m_Position.x + 30, m_Position.y - 30, 0.0f);
 		//頂点とインデックスを指定してスプライト作成
 		auto ptrDraw = AddComponent<PCTSpriteDraw>(vertices, indices);
-		//ptrDraw->SetTextureResource(L"RawMeat_Drum_Line");
-		ptrDraw->SetTextureResource(L"Test");
+		ptrDraw->SetTextureResource(L"RawMeat_Drum_Line");
 
 		SetAlphaActive(true);
 	}

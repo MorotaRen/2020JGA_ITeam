@@ -151,6 +151,8 @@ namespace basecross {
 		void Rot_PossessionMeat(int angle);
 		//売上計算
 		void Sales(MeatsData md);
+		//配列の回転
+		void Rot_Array();
 		//------------ゲッターセッター--------------//
 		void SetStockData(const MeatsData md) {
 			m_meatsStockData = md;
