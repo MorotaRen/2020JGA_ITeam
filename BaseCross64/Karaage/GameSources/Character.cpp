@@ -8,6 +8,9 @@
 #include "BaseMath.h"
 
 namespace basecross{
+	//--------------------------------------------------------------------------------------
+	///	客の本体
+	//--------------------------------------------------------------------------------------
 	Guest::Guest(shared_ptr<Stage>&Stage, Vec3 scale, Vec3 rotation, Vec3 position)
 		: GameObject(Stage),
 		m_scale(scale),
@@ -34,6 +37,10 @@ namespace basecross{
 
 			m_meet[meetNum]++;
 		}
+
+		auto ptrStage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
+
+		ptrStage->AddGameObject<GuestTimerGauge>(m_position, false);
 	}
 
 	void Guest::OnUpdate()
@@ -42,16 +49,17 @@ namespace basecross{
 		m_timer -= elapsed;
 	}
 
-	/*----------------------------------------------------------------*/
-	// 客用タイマー
-	/*----------------------------------------------------------------*/
-	GuestTimerGauge::GuestTimerGauge(shared_ptr<Stage>& Stage, const Vec2 position, bool isFix)
+	//--------------------------------------------------------------------------------------
+	///	客のタイマー
+	//--------------------------------------------------------------------------------------
+	GuestTimerGauge::GuestTimerGauge(shared_ptr<Stage>& Stage, const Vec3 position, bool isFix)
 		: GameObject(Stage),
-		m_position(position),
 		m_isFix(isFix)
 		//m_guest(guest)
 	{
 		m_timer = 20.0f;
+
+		m_position = Vec2(position.x, position.y);
 	}
 
 	void GuestTimerGauge::OnCreate()
@@ -93,16 +101,25 @@ namespace basecross{
 	void GuestTimerGauge::SetTime()
 	{
 		m_timer -= App::GetApp()->GetElapsedTime();
+		if (m_timer < 0) {
+			GetStage()->RemoveGameObject<GuestTimerGauge>(GetThis<GuestTimerGauge>());
+		}
 	}
 
 	void GuestTimerGauge::ChangeScale()
 	{
-		if (m_timer > 0) {
+		//if (m_timer > 0) {
 			auto ptrTrans = GetComponent<Transform>();
 			auto scale = ptrTrans->GetScale();
 			scale.x = m_Per * m_timer;
 			ptrTrans->SetScale(scale);
-		}
+		//}
+	}
+
+	void GuestTimerGauge::SetPosition(Vec3 guestPos)
+	{
+		auto ptrTrans = GetComponent<Transform>();
+		//Vec3 position = guestPos + Vec3()
 	}
 }
 //end basecross

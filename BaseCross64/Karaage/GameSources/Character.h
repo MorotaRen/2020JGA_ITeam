@@ -7,6 +7,9 @@
 #include "stdafx.h"
 
 namespace basecross{
+	//--------------------------------------------------------------------------------------
+	///	ãqÇÃñ{ëÃ
+	//--------------------------------------------------------------------------------------
 	class Guest : public GameObject
 	{
 		Vec3 m_scale;
@@ -31,6 +34,9 @@ namespace basecross{
 		}
 	};
 
+	//--------------------------------------------------------------------------------------
+	///	ãqÇÃÉ^ÉCÉ}Å[
+	//--------------------------------------------------------------------------------------
 	class GuestTimerGauge : public GameObject
 	{
 		Vec2 m_position;
@@ -41,14 +47,32 @@ namespace basecross{
 
 		//Guest m_guest;
 	public:
-		GuestTimerGauge(shared_ptr<Stage>& Stage, const Vec2 position, bool isFix);
+		GuestTimerGauge(shared_ptr<Stage>& Stage, const Vec3 position, bool isFix);
 		virtual ~GuestTimerGauge() {};
 		virtual void OnCreate()override;
 		virtual void OnUpdate() override;
 		//void Damage();
 		void SetTime();
 		void ChangeScale();
+		void SetPosition(Vec3 guestPos);
+	};
+
+	//--------------------------------------------------------------------------------------
+	///	ãqÇÃíçï∂
+	//--------------------------------------------------------------------------------------
+	class GuestOrder : public GameObject
+	{
+		Vec2 m_position;
+		Vec2 m_scale;
+		wstring m_meetName;
+		
+	public :
+		GuestOrder(shared_ptr<Stage>&Stage, Vec3 position, wstring meetName);
+		~GuestOrder() {};
+		virtual void OnCreate()override;
+		virtual void OnUpdate()override;
 
 	};
+
 }
 //end basecross
