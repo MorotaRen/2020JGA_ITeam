@@ -8,11 +8,11 @@
 
 namespace basecross {
 	//--------------------------唐揚げ--------------------------//
-	Karaage::Karaage(const shared_ptr<Stage>& stagePtr, const Vec3& Scale, const Vec3& Position, const Vec3& Rotation) :
+	Karaage::Karaage(const shared_ptr<Stage>& stagePtr, const Vec3& Scale, const Vec3& Position, const Quat& quat) :
 		GameObject(stagePtr),
 		m_Scale(Scale),
 		m_Position(Position),
-		m_Rotation(Rotation)
+		m_Quat(quat)
 	{
 	}
 
@@ -30,7 +30,7 @@ namespace basecross {
 		vector<uint16_t> indices = { 0, 1, 2, 1, 3, 2 };
 		auto ptrTrans = GetComponent<Transform>();
 		ptrTrans->SetScale(MAPCHIP_SIZE_X , MAPCHIP_SIZE_Y, 1.0f);
-		ptrTrans->SetRotation(m_Rotation);
+		ptrTrans->SetQuaternion(m_Quat);
 		ptrTrans->SetPosition(m_Position.x, m_Position.y, 0.0f);
 		//頂点とインデックスを指定してスプライト作成
 		auto ptrDraw = AddComponent<PCTSpriteDraw>(vertices, indices);
@@ -46,17 +46,16 @@ namespace basecross {
 
 	void Karaage::OnUpdate2()
 	{
-		DrawString();
 	}
 
 	//------------------------------------------------------------------------------//
 
 	//--------------------------ドラム--------------------------//
-	Drum::Drum(const shared_ptr<Stage>& stagePtr, const Vec3& Scale, const Vec3& Position, const Vec3& Rotation) :
+	Drum::Drum(const shared_ptr<Stage>& stagePtr, const Vec3& Scale, const Vec3& Position, const Quat& quat) :
 		GameObject(stagePtr),
 		m_Scale(Scale),
 		m_Position(Position),
-		m_Rotation(Rotation),
+		m_Quat(quat),
 		m_rad(1.57f)
 	{
 	}
@@ -75,7 +74,7 @@ namespace basecross {
 		vector<uint16_t> indices = { 0, 1, 2, 1, 3, 2 };
 		auto ptrTrans = GetComponent<Transform>();
 		ptrTrans->SetScale(MAPCHIP_SIZE_X * 2, MAPCHIP_SIZE_Y * 2, 1.0f);
-		ptrTrans->SetRotation(0, 0, 0);
+		ptrTrans->SetQuaternion(m_Quat);
 		ptrTrans->SetPosition(m_Position.x + 30, m_Position.y - 30, 0.0f);
 		//頂点とインデックスを指定してスプライト作成
 		auto ptrDraw = AddComponent<PCTSpriteDraw>(vertices, indices);
@@ -91,11 +90,11 @@ namespace basecross {
 	//------------------------------------------------------------------------------//
 
 	//--------------------------手羽先--------------------------//
-	Wing::Wing(const shared_ptr<Stage>& stagePtr, const Vec3& Scale, const Vec3& Position, const Vec3& Rotation) :
+	Wing::Wing(const shared_ptr<Stage>& stagePtr, const Vec3& Scale, const Vec3& Position, const Quat& quat) :
 		GameObject(stagePtr),
 		m_Scale(Scale),
 		m_Position(Position),
-		m_Rotation(Rotation)
+		m_Quat(quat)
 	{
 	}
 
@@ -113,7 +112,7 @@ namespace basecross {
 		vector<uint16_t> indices = { 0, 1, 2, 1, 3, 2 };
 		auto ptrTrans = GetComponent<Transform>();
 		ptrTrans->SetScale(MAPCHIP_SIZE_X * 2, MAPCHIP_SIZE_Y * 2, 1.0f);
-		ptrTrans->SetRotation(0, 0, 0);
+		ptrTrans->SetQuaternion(m_Quat);
 		ptrTrans->SetPosition(m_Position.x + 30, m_Position.y - 30, 0.0f);
 		//頂点とインデックスを指定してスプライト作成
 		auto ptrDraw = AddComponent<PCTSpriteDraw>(vertices, indices);
@@ -128,11 +127,11 @@ namespace basecross {
 	//------------------------------------------------------------------------------//
 
 	//--------------------------リブ--------------------------//
-	Rib::Rib(const shared_ptr<Stage>& stagePtr, const Vec3& Scale, const Vec3& Position, const Vec3& Rotation) :
+	Rib::Rib(const shared_ptr<Stage>& stagePtr, const Vec3& Scale, const Vec3& Position, const Quat& quat) :
 		GameObject(stagePtr),
 		m_Scale(Scale),
 		m_Position(Position),
-		m_Rotation(Rotation)
+		m_Quat(quat)
 	{
 	}
 
@@ -150,7 +149,7 @@ namespace basecross {
 		vector<uint16_t> indices = { 0, 1, 2, 1, 3, 2 };
 		auto ptrTrans = GetComponent<Transform>();
 		ptrTrans->SetScale(MAPCHIP_SIZE_X * 2, MAPCHIP_SIZE_Y * 2, 1.0f);
-		ptrTrans->SetRotation(0, 0, 0);
+		ptrTrans->SetQuaternion(m_Quat);
 		ptrTrans->SetPosition(m_Position.x + 40, m_Position.y - 40, 0.0f);
 		//頂点とインデックスを指定してスプライト作成
 		auto ptrDraw = AddComponent<PCTSpriteDraw>(vertices, indices);
@@ -165,11 +164,11 @@ namespace basecross {
 	//------------------------------------------------------------------------------//
 
 	//--------------------------キール--------------------------//
-	Keel::Keel(const shared_ptr<Stage>& stagePtr, const Vec3& Scale, const Vec3& Position, const Vec3& Rotation) :
+	Keel::Keel(const shared_ptr<Stage>& stagePtr, const Vec3& Scale, const Vec3& Position, const Quat& quat) :
 		GameObject(stagePtr),
 		m_Scale(Scale),
 		m_Position(Position),
-		m_Rotation(Rotation)
+		m_Quat(quat)
 	{
 	}
 
@@ -187,7 +186,7 @@ namespace basecross {
 		vector<uint16_t> indices = { 0, 1, 2, 1, 3, 2 };
 		auto ptrTrans = GetComponent<Transform>();
 		ptrTrans->SetScale(MAPCHIP_SIZE_X * 3, MAPCHIP_SIZE_Y * 3, 1.0f);
-		ptrTrans->SetRotation(0, 0, 0);
+		ptrTrans->SetQuaternion(m_Quat);
 		ptrTrans->SetPosition(m_Position.x + 60, m_Position.y - 60, 0.0f);
 		//頂点とインデックスを指定してスプライト作成
 		auto ptrDraw = AddComponent<PCTSpriteDraw>(vertices, indices);
@@ -201,18 +200,5 @@ namespace basecross {
 
 	}
 	
-
-	//----------------------------------------------------//
-
-	void Karaage::DrawString()
-	{
-		//wstring strRandOder(L"Oder :");
-		//int Rand = rand() % KaraageOder;
-		//strRandOder += Util::IntToWStr(Rand);
-
-		//wstring str = strRandOder;
-		//auto ptrString = GetComponent<StringSprite>();
-		//ptrString->SetText(str);
-	}
 }
 //end basecross

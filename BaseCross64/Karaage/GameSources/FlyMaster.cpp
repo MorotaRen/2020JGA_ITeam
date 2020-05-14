@@ -241,7 +241,6 @@ namespace basecross {
 		}
 		//置けないとかなかったら配置
 		if (Check_SetMeat()) {
-			//設置してみる(テストで)
 			auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
 			//所持肉の位置
 			Vec3 possessoionPos = m_possessionMeat->GetComponent<Transform>()->GetPosition();

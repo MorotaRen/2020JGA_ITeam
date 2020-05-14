@@ -22,41 +22,30 @@ namespace basecross{
 	class Karaage : public GameObject {
 		Vec3 m_Scale;
 		Vec3 m_Position;
-		Vec3 m_Rotation;
+		Quat m_Quat;
 	public:
 		Karaage(const shared_ptr<Stage>& stagePtr,
 			const Vec3& Scale,
 			const Vec3& Position,
-			const Vec3& Rotation);
+			const Quat& quat);
 		virtual ~Karaage() {}
 		virtual void OnCreate() override;
 		virtual void OnUpdate() override;
 		virtual void OnUpdate2() override;
-		void DrawString();
-		//----ゲッターセッター----///
-		void SetPosition(const Vec3 pos) {
-			auto posComp = GetComponent<Transform>();
-			posComp->SetPosition(pos);
-		}
-		Vec3 GetPosition() {
-			auto posComp = GetComponent<Transform>();
-			Vec3 pos = posComp->GetPosition();
-			return pos;
-		}
 	};
 
 	//ドラム
 	class Drum :public GameObject {
 		Vec3 m_Scale;
 		Vec3 m_Position;
-		Vec3 m_Rotation;
+		Quat m_Quat;
 
 		float m_rad;
 	public:
 		Drum(const shared_ptr<Stage>& stagePtr,
 			const Vec3& Scale,
 			const Vec3& Position,
-			const Vec3& Rotation);
+			const Quat& quat);
 		virtual ~Drum() {}
 		virtual void OnCreate() override;
 		virtual void OnUpdate() override;
@@ -66,12 +55,12 @@ namespace basecross{
 	class Wing : public GameObject {
 		Vec3 m_Scale;
 		Vec3 m_Position;
-		Vec3 m_Rotation;
+		Quat m_Quat;
 	public:
 		Wing(const shared_ptr<Stage>& stagePtr,
 			const Vec3& Scale, 
 			const Vec3& Position, 
-			const Vec3& Rotation);
+			const Quat& quat);
 		virtual ~Wing() {}
 		virtual void OnCreate() override;
 		virtual void OnUpdate() override;
@@ -81,12 +70,12 @@ namespace basecross{
 	class Rib : public GameObject {
 		Vec3 m_Scale;
 		Vec3 m_Position;
-		Vec3 m_Rotation;
+		Quat m_Quat;
 	public:
 		Rib(const shared_ptr<Stage>& stagePtr,
 			const Vec3& Scale,
 			const Vec3& Position,
-			const Vec3& Rotation);
+			const Quat& quat);
 		virtual ~Rib() {}
 		virtual void OnCreate() override;
 		virtual void OnUpdate() override;
@@ -96,12 +85,12 @@ namespace basecross{
 	class Keel : public GameObject {
 		Vec3 m_Scale;
 		Vec3 m_Position;
-		Vec3 m_Rotation;
+		Quat m_Quat;
 	public:
 		Keel(const shared_ptr<Stage>& stagePtr,
 			const Vec3& Scale,
 			const Vec3& Position,
-			const Vec3& Rotation);
+			const Quat& quat);
 		virtual ~Keel() {}
 		virtual void OnCreate() override;
 		virtual void OnUpdate() override;
