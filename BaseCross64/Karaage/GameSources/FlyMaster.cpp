@@ -91,32 +91,33 @@ namespace basecross {
 	void FlyMaster::Create_PossessionMeat(int createMeatID) {
 		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
 		shared_ptr<GameObject> newMeat;
+		Quat quat = Quat(Vec3(0,0,1),0);
 		m_possessionMeatID = createMeatID;
 	switch (createMeatID)
 		{
 		case 唐揚げ:
-			newMeat = stage->AddGameObject<Karaage>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), Vec3(0));
+			newMeat = stage->AddGameObject<Karaage>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), quat);
 			Reset_PossessionMeat(newMeat);
 			m_installationMeat.push_back(newMeat);
 			m_meatsInstallationData.Karage++;
 			break;
 		case ドラム:
-			newMeat = stage->AddGameObject<Drum>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), Vec3(0));
+			newMeat = stage->AddGameObject<Drum>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), quat);
 			Reset_PossessionMeat(newMeat);
 			m_meatsInstallationData.Drum++;
 			break;
 		case キール:
-			newMeat = stage->AddGameObject<Keel>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), Vec3(0));
+			newMeat = stage->AddGameObject<Keel>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), quat);
 			Reset_PossessionMeat(newMeat);
 			m_meatsInstallationData.Keel++;
 			break;
 		case リブ:
-			newMeat = stage->AddGameObject<Rib>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), Vec3(0));
+			newMeat = stage->AddGameObject<Rib>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), quat);
 			Reset_PossessionMeat(newMeat);
 			m_meatsInstallationData.Lib++;
 			break;
 		case ウィング:
-			newMeat = stage->AddGameObject<Wing>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), Vec3(0));
+			newMeat = stage->AddGameObject<Wing>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), quat);
 			Reset_PossessionMeat(newMeat);
 			m_meatsInstallationData.Wing++;
 			break;
@@ -235,9 +236,9 @@ namespace basecross {
 	void FlyMaster::Set_PossessionMeat() {		
 		//まずは設置する所を取得して
 		Vec3 SetupPos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
-		Vec3 newMeatRot;
+		Quat newMeatRot;
 		if (m_possessionMeat) {
-			newMeatRot = m_possessionMeat->GetComponent<Transform>()->GetRotation();
+			newMeatRot = m_possessionMeat->GetComponent<Transform>()->GetQuaternion();
 		}
 		//置けないとかなかったら配置
 		if (Check_SetMeat()) {
@@ -248,19 +249,19 @@ namespace basecross {
 			switch (m_possessionMeatID)
 			{
 			case 唐揚げ:
-				stage->AddGameObject<Karaage>(Vec3(1, 0, 1), Vec3(possessoionPos.x, possessoionPos.y, 0), possessoionPos);
+				stage->AddGameObject<Karaage>(Vec3(1, 0, 1), Vec3(possessoionPos.x, possessoionPos.y, 0), newMeatRot);
 				break;
 			case ドラム:
-				stage->AddGameObject<Drum>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 30, possessoionPos.y + 30, 0), possessoionPos);
+				stage->AddGameObject<Drum>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 30, possessoionPos.y + 30, 0), newMeatRot);
 				break;
 			case キール:
-				stage->AddGameObject<Keel>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 60, possessoionPos.y + 60, 0), possessoionPos);
+				stage->AddGameObject<Keel>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 60, possessoionPos.y + 60, 0), newMeatRot);
 				break;
 			case リブ:
-				stage->AddGameObject<Rib>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 40, possessoionPos.y + 40, 0), possessoionPos);
+				stage->AddGameObject<Rib>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 40, possessoionPos.y + 40, 0), newMeatRot);
 				break;
 			case ウィング:
-				stage->AddGameObject<Wing>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 30, possessoionPos.y + 30, 0), possessoionPos);
+				stage->AddGameObject<Wing>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 30, possessoionPos.y + 30, 0), newMeatRot);
 				break;
 			default:
 				MessageBox(0, L"所持肉IDの不一致です。生成に失敗しました！", 0, 0);
@@ -412,7 +413,6 @@ namespace basecross {
 			//回転しないので何もしない
 			break;
 		case ドラム:
-			//配列の回転
 			//一時置き場にコピー
 			for (int i = 0; i < 3; i++) {
 				for (int k = 0; k < 3; k++) {
@@ -425,13 +425,48 @@ namespace basecross {
 					Hit_Drum[i][k] = temp[k][2 - i];
 				}
 			}
-
 			break;
 		case キール:
+			//一時置き場にコピー
+			for (int i = 0; i < 3; i++) {
+				for (int k = 0; k < 3; k++) {
+					temp[i][k] = Hit_Keel[i][k];
+				}
+			}
+			//転置後行を逆にして右回り
+			for (int i = 0; i < 3; i++) {
+				for (int k = 0; k < 3; k++) {
+					Hit_Keel[i][k] = temp[k][2 - i];
+				}
+			}
 			break;
 		case リブ:
+			//一時置き場にコピー
+			for (int i = 0; i < 3; i++) {
+				for (int k = 0; k < 3; k++) {
+					temp[i][k] = Hit_Rib[i][k];
+				}
+			}
+			//転置後行を逆にして右回り
+			for (int i = 0; i < 3; i++) {
+				for (int k = 0; k < 3; k++) {
+					Hit_Rib[i][k] = temp[k][2 - i];
+				}
+			}
 			break;
 		case ウィング:
+			//一時置き場にコピー
+			for (int i = 0; i < 3; i++) {
+				for (int k = 0; k < 3; k++) {
+					temp[i][k] = Hit_Wing[i][k];
+				}
+			}
+			//転置後行を逆にして右回り
+			for (int i = 0; i < 3; i++) {
+				for (int k = 0; k < 3; k++) {
+					Hit_Wing[i][k] = temp[k][2 - i];
+				}
+			}
 			break;
 		default:
 			MessageBox(0,L"不明な肉IDが入りました(肉の回転)",0,0);
