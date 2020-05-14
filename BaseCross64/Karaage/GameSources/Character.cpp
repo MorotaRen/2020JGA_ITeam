@@ -5,7 +5,9 @@
 
 #include "stdafx.h"
 #include "Project.h"
+#include "BaseMath.h"
 
+<<<<<<< HEAD
 namespace basecross {
 
 	//スコアのスプライト
@@ -20,6 +22,41 @@ namespace basecross {
 		m_Startpos(Startpos),
 		m_Score(0.0f)
 	{}
+=======
+namespace basecross{
+	Customer::Customer(shared_ptr<Stage>&Stage, Vec3 scale, Vec3 rotation, Vec3 position)
+		: GameObject(Stage),
+		m_scale(scale),
+		m_rotation(rotation),
+		m_position(position)
+	{
+		m_timer = 0;
+		m_clear = false;
+	}
+
+	void Customer::OnCreate() 
+	{
+		auto ptrTrans = GetComponent<Transform>();
+		ptrTrans->SetScale(m_scale);
+		ptrTrans->SetRotation(m_rotation);
+		ptrTrans->SetPosition(m_position);
+
+		int num = rand() % 5 + 1;
+
+		m_timer = 5.0f * num;
+
+		for (int i = 0; i < num; i++) {
+			int meetNum = rand() % 5;
+
+			m_meet[meetNum]++;
+		}
+	}
+
+	void Customer::OnUpdate()
+	{
+
+	}
+>>>>>>> 2895b5c7c1f47d7f320016e98c96fb843d98e27d
 
 	void ScoreSprite::OnCreate() {
 		float Xpiecesize = 1.0f / (float)m_Truss;

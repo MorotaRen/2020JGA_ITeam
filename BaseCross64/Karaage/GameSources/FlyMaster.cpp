@@ -36,12 +36,14 @@ namespace basecross {
 		m_meatsStockData.Meat_3x3 = 0;
 		m_meatsStockData.Meat_L = 0;
 	}
+
 	/// ----------------------------------------<summary>
 	/// ゲームフィールドの作成
 	/// </summary>----------------------------------------
 	void FlyMaster::Create_GameField() {
 		//アクティブステージの取得
 		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
+		//-----以下テストフィールドの作成なので後ほど削除予定------//
 		for (int y = 0; y < GAMEFIELD_Y;y++) {
 			for (int x = 0; x < GAMEFIELD_X;x++) {
 				//stage->AddGameObject<MapChip>(Vec2(MAPCHIP_START_X + x * MAPCHIP_SIZE_X, 
@@ -57,6 +59,7 @@ namespace basecross {
 		}
 
 	}
+
 	/// ----------------------------------------<summary>
 	/// 揚げる処理
 	/// </summary>----------------------------------------
@@ -140,7 +143,7 @@ namespace basecross {
 						pos.x += MAPCHIP_SIZE_X;
 						m_possessionMeat->GetComponent<Transform>()->SetPosition(pos);
 						m_isMove = true;
-						m_moveDistance[0]++;
+						m_moveDistance[1]++;
 					}
 					break;
 				case LEFT:
@@ -149,7 +152,7 @@ namespace basecross {
 						pos.x -= MAPCHIP_SIZE_X;
 						m_possessionMeat->GetComponent<Transform>()->SetPosition(pos);
 						m_isMove = true;
-						m_moveDistance[0]--;
+						m_moveDistance[1]--;
 					}
 					break;
 				case UP:
@@ -158,7 +161,7 @@ namespace basecross {
 						pos.y += MAPCHIP_SIZE_Y;
 						m_possessionMeat->GetComponent<Transform>()->SetPosition(pos);
 						m_isMove = true;
-						m_moveDistance[1]++;
+						m_moveDistance[0]--;
 					}
 					break;
 				case DOWN:
@@ -167,13 +170,20 @@ namespace basecross {
 						pos.y -= MAPCHIP_SIZE_Y;
 						m_possessionMeat->GetComponent<Transform>()->SetPosition(pos);
 						m_isMove = true;
-						m_moveDistance[1]--;
+						m_moveDistance[0]++;
 					}
 					break;
 				default:
 					break;
 				}
 		}
+	}
+
+	/// ----------------------------------------<summary>
+	/// 所持肉の回転
+	/// </summary>----------------------------------------
+	void FlyMaster::Rot_PossessionMeat(int angle) {
+		m_possessionMeat->Rotation();
 	}
 
 	/// ----------------------------------------<summary>
@@ -202,41 +212,175 @@ namespace basecross {
 			FlyMaster::Create_PossessionMeat(m_possessionMeatID);
 		}
 	}
+
 	/// ----------------------------------------<summary>
 	/// 所持肉をステージに設置する
 	/// </summary>----------------------------------------
 	void FlyMaster::Set_PossessionMeat() {
 		//肉に回転角度っていうか回転を何回してってのを保存して、それみて自分の判定データを
 		//照合してあるかないか見るか
+		
 
+		
 		//まずは設置する所を取得して
 		Vec3 SetupPos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
-		//設置してみる(テストで)
-		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
-		//所持肉の位置
-		Vec3 possessoionPos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
-		//所持肉IDで
-		switch (m_possessionMeatID)
-		{
-		case 唐揚げ:
-			stage->AddGameObject<Karaage>(Vec3(1,0,1),Vec3(possessoionPos.x,possessoionPos.y,0),Vec3(1));
-			break;
-		case ドラム:
-			stage->AddGameObject<Drum>(Vec3(1,0,1),Vec3(possessoionPos.x - 30,possessoionPos.y + 30,0),Vec3(1));
-			break;
-		case キール:
-			stage->AddGameObject<Keel>(Vec3(1,0,1),Vec3(possessoionPos.x - 30,possessoionPos.y + 30,0),Vec3(1));
-			break;
-		case リブ:
-			stage->AddGameObject<Rib>(Vec3(1,0,1),Vec3(possessoionPos.x - 40,possessoionPos.y + 40,0),Vec3(1));
-			break;
-		case ウィング:
-			stage->AddGameObject<Wing>(Vec3(1,0,1),Vec3(possessoionPos.x - 30,possessoionPos.y + 30,0),Vec3(1));
-			break;
-		default:
-			MessageBox(0,L"所持肉IDの不一致です。生成に失敗しました！",0,0);
-			break;
+		//置けないとかなかったら配置
+		if (Check_SetMeat()) {
+			//設置してみる(テストで)
+			auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
+			//所持肉の位置
+			Vec3 possessoionPos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
+			//所持肉IDで
+			switch (m_possessionMeatID)
+			{
+			case 唐揚げ:
+				stage->AddGameObject<Karaage>(Vec3(1, 0, 1), Vec3(possessoionPos.x, possessoionPos.y, 0), Vec3(1));
+				break;
+			case ドラム:
+				stage->AddGameObject<Drum>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 30, possessoionPos.y + 30, 0), Vec3(1));
+				break;
+			case キール:
+				stage->AddGameObject<Keel>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 60, possessoionPos.y + 60, 0), Vec3(1));
+				break;
+			case リブ:
+				stage->AddGameObject<Rib>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 40, possessoionPos.y + 40, 0), Vec3(1));
+				break;
+			case ウィング:
+				stage->AddGameObject<Wing>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 30, possessoionPos.y + 30, 0), Vec3(1));
+				break;
+			default:
+				MessageBox(0, L"所持肉IDの不一致です。生成に失敗しました！", 0, 0);
+				break;
+			}
+		}else {
+			MessageBox(0,L"設置できないよ！",0,0);
 		}
+
+	}
+
+	/// ----------------------------------------<summary>
+	/// 肉が設置できるかを調べる
+	/// </summary>----------------------------------------
+	bool FlyMaster::Check_SetMeat() {
+		//ゲームフィールドで移動と重複している所を見る
+		int SetGridPosition = m_gameField[m_moveDistance[0]][m_moveDistance[1]];
+		//全体(移動とそこから配列を見る)
+		if (SetGridPosition != Setup_FALSE) {
+			//始点
+			auto StartPosX = m_moveDistance[1];
+			auto StartPosY = m_moveDistance[0];
+
+			//所持肉IDで
+			switch (m_possessionMeatID)
+			{
+			case 唐揚げ:
+				for (int y = 0; y < 3; y++) {
+					for (int x = 0; x < 3; x++) {
+						if (m_gameField[StartPosY + y][StartPosX + x] == Hit_Karaage[y][x]) {
+							return false;
+							break;
+						}
+					}
+				}
+				//おく所を設置済みにする
+				for (int y = 0; y < 3; y++) {
+					for (int x = 0; x < 3; x++) {
+						if (m_gameField[StartPosY + y][StartPosX + x] == 0 && Hit_Karaage[y][x] == 9) {
+							m_gameField[StartPosY + y][StartPosX + x] = 9;
+							break;
+						}
+					}
+				}
+				return true;
+				break;
+			case ドラム:
+				for (int y = 0; y < 3; y++) {
+					for (int x = 0; x < 3; x++) {
+						if (m_gameField[StartPosY + y][StartPosX + x] == Hit_Drum[y][x]) {
+							return false;
+							break;
+						}
+					}
+				}
+				//おく所を設置済みにする
+				for (int y = 0; y < 3; y++) {
+					for (int x = 0; x < 3; x++) {
+						if (m_gameField[StartPosY + y][StartPosX + x] == 0 && Hit_Drum[y][x] == 9) {
+							m_gameField[StartPosY + y][StartPosX + x] = 9;
+						}
+					}
+				}
+				return true;
+				break;
+			case キール:
+				for (int y = 0; y < 3; y++) {
+					for (int x = 0; x < 3; x++) {
+						if (m_gameField[StartPosY + y][StartPosX + x] == Hit_Keel[y][x]) {
+							return false;
+							break;
+						}
+					}
+				}
+				//おく所を設置済みにする
+				for (int y = 0; y < 3; y++) {
+					for (int x = 0; x < 3; x++) {
+						if (m_gameField[StartPosY + y][StartPosX + x] == 0 && Hit_Keel[y][x] == 9) {
+							m_gameField[StartPosY + y][StartPosX + x] = 9;
+						}
+					}
+				}
+				return true;
+				break;
+			case リブ:
+				for (int y = 0; y < 3; y++) {
+					for (int x = 0; x < 3; x++) {
+						if (m_gameField[StartPosY + y][StartPosX + x] == Hit_Rib[y][x]) {
+							return false;
+							break;
+						}
+					}
+				}
+				//おく所を設置済みにする
+				for (int y = 0; y < 3; y++) {
+					for (int x = 0; x < 3; x++) {
+						if (m_gameField[StartPosY + y][StartPosX + x] == 0 && Hit_Rib[y][x] == 9) {
+							m_gameField[StartPosY + y][StartPosX + x] = 9;
+						}
+					}
+				}
+				return true;
+				break;
+			case ウィング:
+				for (int y = 0; y < 3; y++) {
+					for (int x = 0; x < 3; x++) {
+						if (m_gameField[StartPosY + y][StartPosX + x] == Hit_Wing[y][x]) {
+							return false;
+							break;
+						}
+					}
+				}
+				//おく所を設置済みにする
+				for (int y = 0; y < 3; y++) {
+					for (int x = 0; x < 3; x++) {
+						if (m_gameField[StartPosY + y][StartPosX + x] == 0 && Hit_Wing[y][x] == 9) {
+							m_gameField[StartPosY + y][StartPosX + x] = 9;
+						}
+					}
+				}
+				return true;
+				break;
+			default:
+				break;
+			}
+
+		}
+		////単体(移動で見る)
+		//if (SetGridPosition != Setup_FALSE) {
+		//	//設置するからそのマスを設置不可にする
+		//	m_gameField[m_moveDistance[0]][m_moveDistance[1]] = Setup_FALSE;
+		//	return true;
+		//}
+		return false;
 
 	}
 }

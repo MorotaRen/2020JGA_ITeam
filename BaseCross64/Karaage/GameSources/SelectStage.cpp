@@ -45,7 +45,7 @@ namespace basecross {
 			posY += height;
 		}
 
-		AddGameObject<Pointer>(true, Vec2(68, 88), Vec3(-466, -266, 0), L"Pointer_TX");
+		AddGameObject<Pointer>(true, Vec2(68, 88), Vec3(-466, 266, 0), L"Pointer_TX");
 	}
 
 

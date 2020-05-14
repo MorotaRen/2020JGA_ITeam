@@ -32,6 +32,8 @@
 #define MOVELIMIT_MIN_Y -270
 #define MOVELIMIT_MAX_X  60
 #define MOVELIMIT_MAX_Y  250
+//配置状況の数値
+#define Setup_FALSE 9
 
 namespace basecross {
 	//各種肉の個数情報
@@ -65,7 +67,7 @@ namespace basecross {
 		//今設置されてる各種肉
 		MeatsData m_meatsInstallationData;
 		//フィールド構造体
-		int m_gameField[GAMEFIELD_X][GAMEFIELD_Y] = {0};
+		int m_gameField[GAMEFIELD_Y][GAMEFIELD_X] = {0};
 		//接触マップチップ番号
 		int *m_hittingMapChipNum[2];
 		//所持中の肉
@@ -80,6 +82,35 @@ namespace basecross {
 		bool m_isMove;
 		//今の移動している距離(0=x 1=y)
 		int m_moveDistance[2]= { 0 };
+		//所持肉の回転数値
+		int m_RotationNum = 0;
+		//------------肉の各種判定------------//
+		int Hit_Karaage[3][3] = {
+								{9,1,1},
+								{1,1,1},
+								{1,1,1}
+		};
+		int Hit_Drum[3][3] = {
+								{9,1,1},
+								{9,1,1},
+								{1,1,1}
+		};
+		int Hit_Wing[3][3] = {
+								{9,9,1},
+								{9,1,1},
+								{1,1,1}
+		};
+		int Hit_Rib[3][3] = {
+								{9,9,1},
+								{9,9,1},
+								{1,1,1}
+		};
+		int Hit_Keel[3][3] = {
+								{9,9,9},
+								{9,9,9},
+								{1,9,1}
+		};
+		//------------------------------------//
 		//----------------------------------------//
 
 	public:
@@ -112,6 +143,10 @@ namespace basecross {
 		void Change_PossessionMeat();
 		//肉の設置
 		void Set_PossessionMeat();
+		//肉が設置できるか調べる
+		bool Check_SetMeat();
+		//所持肉の回転
+		void Rot_PossessionMeat(int angle);
 		//------------ゲッターセッター--------------//
 		void SetStockData(const MeatsData md) {
 			m_meatsStockData = md;

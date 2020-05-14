@@ -31,6 +31,8 @@ namespace basecross {
 		//‰Šú‰»
 		virtual void OnCreate() override;
 		virtual void OnUpdate() override;
+
+		void CreateGuest();
 	};
 
 

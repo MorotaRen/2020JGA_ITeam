@@ -31,7 +31,9 @@ namespace basecross {
 			//ビューとライトの作成
 			CreateViewLight();
 			AddGameObject<UIBase>(Vec2(0),Vec3(670.0f,400.0f,0.0f),L"BG_Kitchen");
-			AddGameObject<UIBase>(Vec2(-20,-60),Vec3(180.0f,370.0f,1.0f),L"BG_Flyer");
+			AddGameObject<UIBase>(Vec2(-20,-60),Vec3(210.0f,370.0f,1.0f),L"BG_Flyer");
+			//AddGameObject<UIBase>(Vec2(-20,-60),Vec3(180.0f,370.0f,1.0f),L"BG_Flyer");
+			CreateGuest();
 		}
 		catch (...) {
 			throw;
@@ -66,12 +68,16 @@ namespace basecross {
 		if (pad[0].wPressedButtons & XINPUT_GAMEPAD_A) {
 			FlyMaster::GetInstans().Set_PossessionMeat();
 		}
+		if (pad[0].wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
+			FlyMaster::GetInstans().Rot_PossessionMeat(90);
+		}
 		//---------------------------------------------//
 
 		FlyMaster::GetInstans(). Change_PossessionMeat();
 		FlyMaster::GetInstans().Recast_Move();
 	}
 
+<<<<<<< HEAD
 	//スコアのスプライト作成
 	void GameStage::CreateSocoreSprite() {
 		AddGameObject<ScoreSprite>(4,
@@ -86,6 +92,11 @@ namespace basecross {
 			L"", false,
 			Vec2(0.0f, 0.0f),
 			Vec3(0.0f, 0.0f, 0.0f));
+=======
+	void GameStage::CreateGuest()
+	{
+		AddGameObject<MultiSprite>(true, Vec2(300, 150), Vec3(400, 300, 0), L"Guest1_TX");
+>>>>>>> 2895b5c7c1f47d7f320016e98c96fb843d98e27d
 	}
 }
 //end basecross

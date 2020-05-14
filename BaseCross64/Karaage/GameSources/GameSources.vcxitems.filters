@@ -4,35 +4,45 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Character.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)FlyMaster.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameStage.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)MapChip.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Meat.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Number.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Player.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ProjectBehavior.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ProjectShader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Scene.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Number.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)UIWatch.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)MapChip.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SelectStage.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIMaster.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="$(MSBuildThisFileDirectory)GameResults.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameTitle.cpp" />
+=======
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIWatch.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />
+>>>>>>> 2895b5c7c1f47d7f320016e98c96fb843d98e27d
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Character.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)FlyMaster.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameStage.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MapChip.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Meat.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MouseManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Number.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Player.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ProjectBehavior.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ProjectShader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Scene.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)MouseManager.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Number.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)UIWatch.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)MapChip.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SelectStage.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIMaster.h" />
+<<<<<<< HEAD
     <ClInclude Include="$(MSBuildThisFileDirectory)GameResults.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameTitle.h" />
+=======
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIWatch.h" />
+>>>>>>> 2895b5c7c1f47d7f320016e98c96fb843d98e27d
   </ItemGroup>
 </Project>
