@@ -14,6 +14,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)UIWatch.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MapChip.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIMaster.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameResults.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameTitle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Character.h" />
@@ -30,5 +32,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)UIWatch.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MapChip.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIMaster.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameResults.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameTitle.h" />
   </ItemGroup>
 </Project>

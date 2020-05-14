@@ -1,6 +1,6 @@
 /*!
-@file GameStage.h
-@brief ゲームステージ
+@file GameResults.h
+@brief ゲームリザルト
 */
 
 #pragma once
@@ -9,9 +9,9 @@
 namespace basecross {
 
 	//--------------------------------------------------------------------------------------
-	//	ゲームステージクラス
+	//	ゲームリザルトクラス
 	//--------------------------------------------------------------------------------------
-	class GameStage : public Stage {
+	class GameResults : public Stage {
 		//ビューの作成
 		void CreateViewLight();
 
@@ -26,8 +26,8 @@ namespace basecross {
 	public:
 
 		//構築と破棄
-		GameStage() :Stage() {}
-		virtual ~GameStage() {}
+		GameResults() :Stage() {}
+		virtual ~GameResults() {}
 		//初期化
 		virtual void OnCreate() override;
 		virtual void OnUpdate() override;

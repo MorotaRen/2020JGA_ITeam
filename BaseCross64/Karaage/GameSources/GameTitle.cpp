@@ -1,6 +1,6 @@
 /*!
-@file GameStage.cpp
-@brief ゲームステージ実体
+@file GameTitle.cpp
+@brief ゲームタイトル実体
 */
 
 #include "stdafx.h"
@@ -11,7 +11,7 @@ namespace basecross {
 	//--------------------------------------------------------------------------------------
 	//	ゲームステージクラス実体
 	//--------------------------------------------------------------------------------------
-	void GameStage::CreateViewLight() {
+	void GameTitle::CreateViewLight() {
 		const Vec3 eye(0.0f, 20.0f, -0.5f);
 		const Vec3 at(0.0f);
 		auto PtrView = CreateView<SingleView>();
@@ -26,7 +26,7 @@ namespace basecross {
 		PtrMultiLight->SetDefaultLighting();
 	}
 
-	void GameStage::OnCreate() {
+	void GameTitle::OnCreate() {
 		try {
 			//ビューとライトの作成
 			CreateViewLight();
@@ -37,7 +37,7 @@ namespace basecross {
 			throw;
 		}
 	}
-	void GameStage::OnUpdate() {
+	void GameTitle::OnUpdate() {
 		if (!m_trigger) {
 			FlyMaster::GetInstans().Create_GameField();
 			FlyMaster::GetInstans().Create_PossessionMeat(0);
@@ -62,26 +62,10 @@ namespace basecross {
 		}
 		//---------------------------------------------//
 
-		//-------------------肉の配置-------------------//
-		if (pad[0].wPressedButtons & XINPUT_GAMEPAD_A) {
-			FlyMaster::GetInstans().Set_PossessionMeat();
-		}
-		//---------------------------------------------//
-
-		FlyMaster::GetInstans(). Change_PossessionMeat();
-		FlyMaster::GetInstans().Recast_Move();
-	}
-
-	//スコアのスプライト作成
-	void GameStage::CreateSocoreSprite() {
-		AddGameObject<ScoreSprite>(4,
-			L"", true,
-			Vec2(0.0f, 0.0f),
-			Vec3(0.0f, 0.0f, 0.0f));
 	}
 
 	//背景のスプライト作成
-	void GameStage::CreateBackgroundSprite() {
+	void GameTitle::CreateBackgroundSprite() {
 		AddGameObject<BackgroundSprite>(
 			L"", false,
 			Vec2(0.0f, 0.0f),

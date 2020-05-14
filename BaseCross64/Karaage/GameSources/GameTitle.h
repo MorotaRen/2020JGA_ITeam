@@ -1,6 +1,6 @@
 /*!
-@file GameStage.h
-@brief ゲームステージ
+@file GameTitle.h
+@brief ゲームタイトル
 */
 
 #pragma once
@@ -9,14 +9,11 @@
 namespace basecross {
 
 	//--------------------------------------------------------------------------------------
-	//	ゲームステージクラス
+	//	ゲームタイトルクラス
 	//--------------------------------------------------------------------------------------
-	class GameStage : public Stage {
+	class GameTitle : public Stage {
 		//ビューの作成
 		void CreateViewLight();
-
-		//スコアのスプライト作成
-		void CreateSocoreSprite();
 
 		//背景のスプライト作成
 		void CreateBackgroundSprite();
@@ -26,8 +23,8 @@ namespace basecross {
 	public:
 
 		//構築と破棄
-		GameStage() :Stage() {}
-		virtual ~GameStage() {}
+		GameTitle() :Stage() {}
+		virtual ~GameTitle() {}
 		//初期化
 		virtual void OnCreate() override;
 		virtual void OnUpdate() override;
