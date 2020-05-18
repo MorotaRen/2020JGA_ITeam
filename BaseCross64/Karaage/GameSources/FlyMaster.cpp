@@ -67,11 +67,11 @@ namespace basecross {
 		//在庫追加してエリア上の肉とマップ情報の初期化
 		Add_StockMeat();
 		Clear_InstallationMeat();
-
+		Sales(m_meatsInstallationData);
 	}
 
 	/// ----------------------------------------<summary>
-	/// 揚げる処理
+	/// 会計
 	/// </summary>----------------------------------------
 	void FlyMaster::Sales(MeatsData md) {
 
