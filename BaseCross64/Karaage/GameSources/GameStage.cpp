@@ -30,8 +30,9 @@ namespace basecross {
 		try {
 			//ビューとライトの作成
 			CreateViewLight();
-			AddGameObject<UIBase>(Vec2(0),Vec3(670.0f,400.0f,0.0f),L"BG_Kitchen");
-			AddGameObject<UIBase>(Vec2(-20,-60),Vec3(210.0f,370.0f,1.0f),L"BG_Flyer");
+			AddGameObject<MeatUI>(Vec2(0),Vec3(670.0f,400.0f,0.0f),L"BG_Kitchen");
+			AddGameObject<MeatUI>(Vec2(-20,-60),Vec3(210.0f,370.0f,1.0f),L"BG_Flyer");
+			AddGameObject<NumberUI>(Vec2(-500,200),Vec3(30.0f,30.0f,1.0f),L"Tex_Number");
 		}
 		catch (...) {
 			throw;
@@ -44,22 +45,25 @@ namespace basecross {
 			m_trigger = true;
 		}
 
-				//----PAD情報取得----//
+		//----PAD情報取得----//
 		auto pad = App::GetApp()->GetInputDevice().GetControlerVec();
 
 		//------------------上下移動------------------//
 		if (pad[0].fThumbLX > 0.5f) {
 			FlyMaster::GetInstans().Move_PossessionMeat(RIGHT);
-		}else
-		if (pad[0].fThumbLX < -0.5f) {
-			FlyMaster::GetInstans().Move_PossessionMeat(LEFT);
-		}else
-		if (pad[0].fThumbLY > 0.5f) {
-			FlyMaster::GetInstans().Move_PossessionMeat(UP);
-		}else
-		if (pad[0].fThumbLY < -0.5f) {
-			FlyMaster::GetInstans().Move_PossessionMeat(DOWN);
 		}
+		else
+			if (pad[0].fThumbLX < -0.5f) {
+				FlyMaster::GetInstans().Move_PossessionMeat(LEFT);
+			}
+			else
+				if (pad[0].fThumbLY > 0.5f) {
+					FlyMaster::GetInstans().Move_PossessionMeat(UP);
+				}
+				else
+					if (pad[0].fThumbLY < -0.5f) {
+						FlyMaster::GetInstans().Move_PossessionMeat(DOWN);
+					}
 		//---------------------------------------------//
 
 		//-------------------肉の配置-------------------//
@@ -69,10 +73,14 @@ namespace basecross {
 		if (pad[0].wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
 			FlyMaster::GetInstans().Rot_PossessionMeat(90);
 		}
+		if (pad[0].wPressedButtons & XINPUT_GAMEPAD_Y) {
+			auto md = FlyMaster::GetInstans().GetMeatsInstallationData();
+			FlyMaster::GetInstans().Sales(md);
+		}
 		//---------------------------------------------//
 
-		FlyMaster::GetInstans(). Change_PossessionMeat();
-		FlyMaster::GetInstans().Recast_Move();
+			FlyMaster::GetInstans().Change_PossessionMeat();
+			FlyMaster::GetInstans().Recast_Move();
 	}
 }
 //end basecross

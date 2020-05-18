@@ -72,7 +72,6 @@ namespace basecross {
 	/// 揚げる処理
 	/// </summary>----------------------------------------
 	void FlyMaster::Fly() {
-		//在庫追加してエリア上の肉とマップ情報の初期化
 		Add_StockMeat();
 		Clear_InstallationMeat();
 		Sales(m_meatsInstallationData);
@@ -88,6 +87,8 @@ namespace basecross {
 		tempMoney += md.Wing * PRICE_WING;
 		tempMoney += md.Lib * PRICE_LIB;
 		tempMoney += md.Keel * PRICE_KEEL;	
+
+		m_nowMoney += tempMoney;
 	}
 	/// ----------------------------------------<summary>
 	/// 渡された座標からマップ方向にレイを飛ばし接触したオブジェクトのマップ番号を返す
