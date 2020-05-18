@@ -19,10 +19,10 @@
 #define MAPCHIP_START_X -140.0f
 #define MAPCHIP_START_Y 250.0f
 //左右
-#define LEFT 4
-#define RIGHT 6
-#define UP 8
-#define DOWN 2
+#define LEFT	4
+#define RIGHT	6
+#define UP		8
+#define DOWN	2
 //デフォルトで解放されてる肉の種類数
 #define DEFAULT_RELEASE_MEATS 3
 //肉の種類の最大値
@@ -34,7 +34,18 @@
 #define MOVELIMIT_MAX_Y  250
 //配置状況の数値
 #define Setup_FALSE 9
-
+//各種肉の金額
+#define PRICE_KARAAGE	70; //唐揚げ
+#define PRICE_DRUM		100;   //脚
+#define PRICE_WING		130;   //手羽先
+#define PRICE_LIB		150;    //あばら
+#define PRICE_KEEL		200;   //胸
+//各種肉のオーダー最大数
+#define LIMIT_ORDER_KARAAGE	5;
+#define LIMIT_ORDER_DRUM	5;
+#define LIMIT_ORDER_WING	5;
+#define LIMIT_ORDER_LIB		5;
+#define LIMIT_ORDER_KEEL	5;
 namespace basecross {
 	//各種肉の個数情報
 	struct MeatsData
@@ -86,6 +97,10 @@ namespace basecross {
 		int m_moveDistance[2]= { 0 };
 		//所持肉の回転数値
 		int m_RotationNum = 0;
+		//目標金額
+		int m_targetMoney = 0;
+		//現在金額
+		int m_nowMoney = 0;
 		//------------肉の各種判定------------//
 		int Hit_Karaage[3][3] = {
 								{9,1,1},
@@ -153,6 +168,8 @@ namespace basecross {
 		void Sales(MeatsData md);
 		//配列の回転
 		void Rot_Array();
+		//ゲームを始める時
+		void GAMESTART(int TargetMoney);
 		//------------ゲッターセッター--------------//
 		void SetStockData(const MeatsData md) {
 			m_meatsStockData = md;

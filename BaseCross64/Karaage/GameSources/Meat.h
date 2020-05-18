@@ -5,17 +5,7 @@
 
 #pragma once
 #include "stdafx.h"
-#define PRICE_KARAAGE 70; //“‚—g‚°
-#define PRICE_DRUM 100;   //‹r
-#define PRICE_WING 130;   //è‰Hæ
-#define PRICE_LIB 150;    //‚ ‚Î‚ç
-#define PRICE_KEEL 200;   //‹¹
 
-#define KaraageOder 5;
-#define DrumOder 5;
-#define WingOder 5;
-#define LibOder 5;
-#define KeelOder 5;
 
 namespace basecross{
 	// “‚—g‚°

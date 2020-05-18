@@ -3,6 +3,14 @@
 
 namespace basecross {
 	/// ----------------------------------------<summary>
+	/// ゲームスタートの時の関数
+	/// これを起動でゲームが始まる
+	/// </summary>----------------------------------------
+	void FlyMaster::GAMESTART(int TargetMoney) {
+		//目標金額の設定
+		m_targetMoney = TargetMoney;
+	}
+	/// ----------------------------------------<summary>
 	/// 在庫数に追加する。追加した後は設置されている数はリセットされる
 	/// </summary>----------------------------------------
 	void FlyMaster::Add_StockMeat() {
@@ -74,7 +82,12 @@ namespace basecross {
 	/// 会計
 	/// </summary>----------------------------------------
 	void FlyMaster::Sales(MeatsData md) {
-
+		int tempMoney = 0;
+		tempMoney += md.Karage * PRICE_KARAAGE;
+		tempMoney += md.Drum * PRICE_DRUM;
+		tempMoney += md.Wing * PRICE_WING;
+		tempMoney += md.Lib * PRICE_LIB;
+		tempMoney += md.Keel * PRICE_KEEL;	
 	}
 	/// ----------------------------------------<summary>
 	/// 渡された座標からマップ方向にレイを飛ばし接触したオブジェクトのマップ番号を返す
