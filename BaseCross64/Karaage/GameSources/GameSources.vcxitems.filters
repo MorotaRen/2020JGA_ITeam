@@ -28,5 +28,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)UIWatch.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MapChip.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIMaster.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Config.h" />
   </ItemGroup>
 </Project>

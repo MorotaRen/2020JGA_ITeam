@@ -30,9 +30,6 @@ namespace basecross {
 		try {
 			//ビューとライトの作成
 			CreateViewLight();
-			AddGameObject<MeatUI>(Vec2(0),Vec3(670.0f,400.0f,0.0f),L"BG_Kitchen");
-			AddGameObject<MeatUI>(Vec2(-20,-60),Vec3(210.0f,370.0f,1.0f),L"BG_Flyer");
-			AddGameObject<NumberUI>(Vec2(-500,200),Vec3(30.0f,30.0f,1.0f),L"Tex_Number");
 		}
 		catch (...) {
 			throw;
@@ -40,6 +37,8 @@ namespace basecross {
 	}
 	void GameStage::OnUpdate() {
 		if (!m_trigger) {
+			FlyMaster::GetInstans().GAMESTART(700);
+			//FlyMaster::GetInstans().Create_GameUI();
 			FlyMaster::GetInstans().Create_GameField();
 			FlyMaster::GetInstans().Create_PossessionMeat(0);
 			m_trigger = true;
