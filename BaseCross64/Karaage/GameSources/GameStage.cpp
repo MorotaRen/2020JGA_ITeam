@@ -33,7 +33,6 @@ namespace basecross {
 			AddGameObject<UIBase>(Vec2(0),Vec3(670.0f,400.0f,0.0f),L"BG_Kitchen");
 			AddGameObject<UIBase>(Vec2(-20,-60),Vec3(210.0f,370.0f,1.0f),L"BG_Flyer");
 			//AddGameObject<UIBase>(Vec2(-20,-60),Vec3(180.0f,370.0f,1.0f),L"BG_Flyer");
-			CreateGuest();
 		}
 		catch (...) {
 			throw;
@@ -75,13 +74,17 @@ namespace basecross {
 
 		FlyMaster::GetInstans(). Change_PossessionMeat();
 		FlyMaster::GetInstans().Recast_Move();
+
+		if (pad[0].wPressedButtons & XINPUT_GAMEPAD_B) {
+			CreateGuest();
+		}
 	}
 
 	void GameStage::CreateGuest()
 	{
 		//AddGameObject<MultiSprite>(true, Vec2(300, 150), Vec3(400, 300, 0), L"Guest1_TX");
-		//auto ptr = AddGameObject<Guest>(Vec3(0),Vec3(0),Vec3(0));
-		AddGameObject<GuestTimerGauge>(Vec2(400, 300), false);
+		auto ptr = AddGameObject<Guest>(Vec3(0),Vec3(0),Vec3(0));
+		//AddGameObject<GuestTimerGauge>(Vec2(400, 300), false);
 	}
 }
 //end basecross

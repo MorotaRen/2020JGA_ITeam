@@ -34,12 +34,17 @@ namespace basecross {
 		Vec3 m_startPos;
 		wstring m_textureKey;
 
+		Vec3 m_posArray[9];
+		int m_selectNum;
+
+		float m_frameCount;
+
 		//バックアップ頂点データ
 		vector<VertexPositionTexture> m_backupVertices;
 
 	public:
-		Pointer(const shared_ptr<Stage>& StagePtr, bool Trace,
-			const Vec2& StartScale, const Vec3& StartPos, wstring TextureKey);
+		Pointer(const shared_ptr<Stage>& stagePtr, bool trace,
+			const Vec2& startScale, const Vec3& startPos,Vec3 posArray[9]);
 		virtual ~Pointer();
 		virtual void OnCreate() override;
 		virtual void OnUpdate() override;

@@ -34,18 +34,22 @@ namespace basecross {
 		float height = (float)App::GetApp()->GetGameHeight() / 3;
 		float width = (float)App::GetApp()->GetGameWidth() / 3;
 
-		float posX = -width, posY = -height;
+		Vec3 pointerPos[9];
 
+		float posX = -width, posY = height;
+		int num = 0;
 		for (int i = 0; i < 3; i++) {
 			posX = -width;
 			for (int j = 0; j < 3; j++) {
 				AddGameObject<MultiSprite>(true, Vec2(200, 100), Vec3(posX, posY, 0), L"Select_Stage_TX");
+				pointerPos[num] = Vec3(posX, posY, 0);
+				num++;
 				posX += width;
 			}
-			posY += height;
+			posY -= height;
 		}
 
-		AddGameObject<Pointer>(true, Vec2(68, 88), Vec3(-466, 266, 0), L"Pointer_TX");
+		AddGameObject<Pointer>(true, Vec2(68, 88), Vec3(-466, 266, 0), pointerPos);
 	}
 
 
@@ -60,13 +64,19 @@ namespace basecross {
 		}
 	}
 
-	Pointer::Pointer(const shared_ptr<Stage>& StagePtr, bool Trace, const Vec2& StartScale, const Vec3& StartPos, wstring TextureKey) :
-		GameObject(StagePtr),
-		m_trace(Trace),
-		m_startScale(StartScale),
-		m_startPos(StartPos),
-		m_textureKey(TextureKey)
-	{}
+	Pointer::Pointer(const shared_ptr<Stage>& Stage, bool trace, const Vec2& startScale, const Vec3& startPos, Vec3 posArray[9]) 
+		: GameObject(Stage),
+		m_trace(trace),
+		m_startScale(startScale),
+		m_startPos(startPos)
+	{
+		for (int i = 0; i < 9; i++) {
+			m_posArray[i] = posArray[i];
+		}
+
+		m_selectNum = 0;
+		m_frameCount = 0.0f;
+	}
 	Pointer::~Pointer() {}
 
 	void Pointer::OnCreate() {
@@ -84,23 +94,52 @@ namespace basecross {
 		auto ptrTransform = GetComponent<Transform>();
 		ptrTransform->SetScale(m_startScale.x, m_startScale.y, 1.0f);
 		ptrTransform->SetRotation(0, 0, 0);
-		ptrTransform->SetPosition(m_startPos.x, m_startPos.y, 0.0f);
+		ptrTransform->SetPosition(m_posArray[m_selectNum]);
 		//頂点とインデックスを指定してスプライト作成
 		auto ptrDraw = AddComponent<PTSpriteDraw>(m_backupVertices, indices);
-		ptrDraw->SetTextureResource(m_textureKey);
+		ptrDraw->SetTextureResource(L"Pointer_TX");
 	}
 
 	void Pointer::OnUpdate()
 	{
+		m_frameCount += App::GetApp()->GetElapsedTime();
 		auto pad = GamePadManager::GetGamePad();
-
+		
+		
 		if (pad[0].bConnected) {
+			//決定
 			if (pad[0].wPressedButtons & XINPUT_GAMEPAD_A) {
 				auto ptrScene = App::GetApp()->GetScene<Scene>();
 				PostEvent(0.0f, GetThis<ObjectInterface>(), ptrScene, L"ToGameStage");
 			}
+
+			//戻る
+			if (pad[0].wPressedButtons & XINPUT_GAMEPAD_B) {
+				auto ptrScene = App::GetApp()->GetScene<Scene>();
+				PostEvent(0.0f, GetThis<ObjectInterface>(), ptrScene, L"ToTitleStage");
+			}
 		}
-		
+
+		//選択
+		auto ptrTrans = GetComponent<Transform>();
+		if (0.5f < m_frameCount) {
+			if (pad[0].fThumbLX >= 0.8f) {
+				m_selectNum++;
+				if (m_selectNum > 8) {
+					m_selectNum = 0;
+				}
+				ptrTrans->SetPosition(m_posArray[m_selectNum]);
+				m_frameCount = 0.0f;
+			}
+			if (pad[0].fThumbLX <= -0.8) {
+				m_selectNum--;
+				if (m_selectNum < 0) {
+					m_selectNum = 8;
+				}
+				ptrTrans->SetPosition(m_posArray[m_selectNum]);
+				m_frameCount = 0.0f;
+			}
+		}
 	}
 
 }
