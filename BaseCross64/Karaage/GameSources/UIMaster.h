@@ -34,5 +34,6 @@ namespace basecross {
 		void OnCreate() override;
 		void Set_Num(int num);
 		void Update_num();
+		void Set_Rect(int num,shared_ptr<GameObject> numobj);
 	};
 }

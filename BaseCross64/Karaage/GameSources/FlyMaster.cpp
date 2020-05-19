@@ -35,7 +35,7 @@ namespace basecross {
 	}
 
 	/// ----------------------------------------<summary>
-	/// İŒÉ“÷‚Ì‰Šú‰»
+	/// İŒÉ“÷‚Ì‰Šú‰»0
 	/// </summary>----------------------------------------
 	void FlyMaster::Clear_StockMeat() {
 		m_meatsStockData.Karage = 0;
