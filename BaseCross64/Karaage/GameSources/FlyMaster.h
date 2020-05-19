@@ -101,6 +101,8 @@ namespace basecross {
 		int m_targetMoney = 0;
 		//現在金額
 		int m_nowMoney = 0;
+		//数字のポインタ
+		vector<shared_ptr<GameObject>> m_Numbers;
 		//------------肉の各種判定------------//
 		int Hit_Karaage[3][3] = {
 								{9,1,1},
