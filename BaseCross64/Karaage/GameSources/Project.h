@@ -28,9 +28,12 @@
 #include "UI.h"
 
 //シーンやステージ
+#include "Scene.h"
+
+#include "GameResults.h"
+#include "GameTitle.h"
 #include "GameStage.h"
 #include "SelectStage.h"
-#include "Scene.h"
 
 
 

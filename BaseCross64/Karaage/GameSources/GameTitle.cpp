@@ -30,8 +30,6 @@ namespace basecross {
 		try {
 			//ビューとライトの作成
 			CreateViewLight();
-			AddGameObject<UIBase>(Vec2(0),Vec3(670.0f,400.0f,0.0f),L"BG_Kitchen");
-			AddGameObject<UIBase>(Vec2(-20,-60),Vec3(180.0f,370.0f,1.0f),L"BG_Flyer");
 		}
 		catch (...) {
 			throw;
@@ -66,10 +64,10 @@ namespace basecross {
 
 	//背景のスプライト作成
 	void GameTitle::CreateBackgroundSprite() {
-		AddGameObject<BackgroundSprite>(
-			L"", false,
-			Vec2(0.0f, 0.0f),
-			Vec3(0.0f, 0.0f, 0.0f));
+		//AddGameObject<BackgroundSprite>(
+		//	L"", false,
+		//	Vec2(0.0f, 0.0f),
+		//	Vec3(0.0f, 0.0f, 0.0f));
 	}
 }
 //end basecross

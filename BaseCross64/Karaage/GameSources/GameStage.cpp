@@ -15,6 +15,7 @@ namespace basecross {
 		const Vec3 eye(0.0f, 20.0f, -0.5f);
 		const Vec3 at(0.0f);
 		auto PtrView = CreateView<SingleView>();
+		
 		//ƒrƒ…[‚ÌƒJƒƒ‰‚Ìİ’è
 		auto PtrCamera = ObjectFactory::Create<Camera>();
 		PtrView->SetCamera(PtrCamera);
@@ -38,7 +39,7 @@ namespace basecross {
 	void GameStage::OnUpdate() {
 		if (!m_trigger) {
 			FlyMaster::GetInstans().GAMESTART(700);
-			//FlyMaster::GetInstans().Create_GameUI();
+			FlyMaster::GetInstans().Create_GameUI();
 			FlyMaster::GetInstans().Create_GameField();
 			FlyMaster::GetInstans().Create_PossessionMeat(0);
 			m_trigger = true;

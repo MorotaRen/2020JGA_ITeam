@@ -21,8 +21,6 @@ namespace basecross {
 		//”wŒi‚ÌƒXƒvƒ‰ƒCƒgì¬
 		void CreateBackgroundSprite();
 
-		bool m_trigger = false;
-
 	public:
 
 		//\’z‚Æ”jŠü

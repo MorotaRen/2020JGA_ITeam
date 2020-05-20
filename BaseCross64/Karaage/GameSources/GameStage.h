@@ -15,11 +15,11 @@ namespace basecross {
 		//ビューの作成
 		void CreateViewLight();
 
-		//スコアのスプライト作成
-		void CreateSocoreSprite();
+		////スコアのスプライト作成
+		//void CreateSocoreSprite();
 
-		//背景のスプライト作成
-		void CreateBackgroundSprite();
+		////背景のスプライト作成
+		//void CreateBackgroundSprite();
 
 		bool m_trigger = false;
 
@@ -32,7 +32,7 @@ namespace basecross {
 		virtual void OnCreate() override;
 		virtual void OnUpdate() override;
 
-		void CreateGuest();
+		//void CreateGuest();
 	};
 
 

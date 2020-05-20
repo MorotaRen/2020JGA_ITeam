@@ -30,54 +30,28 @@ namespace basecross {
 		try {
 			//ビューとライトの作成
 			CreateViewLight();
-			AddGameObject<UIBase>(Vec2(0),Vec3(670.0f,400.0f,0.0f),L"BG_Kitchen");
-			AddGameObject<UIBase>(Vec2(-20,-60),Vec3(180.0f,370.0f,1.0f),L"BG_Flyer");
 		}
 		catch (...) {
 			throw;
 		}
 	}
 	void GameResults::OnUpdate() {
-		if (!m_trigger) {
-			FlyMaster::GetInstans().Create_GameField();
-			FlyMaster::GetInstans().Create_PossessionMeat(0);
-			m_trigger = true;
-		}
-
-				//----PAD情報取得----//
-		auto pad = App::GetApp()->GetInputDevice().GetControlerVec();
-
-		//------------------上下移動------------------//
-		if (pad[0].fThumbLX > 0.5f) {
-			FlyMaster::GetInstans().Move_PossessionMeat(RIGHT);
-		}else
-		if (pad[0].fThumbLX < -0.5f) {
-			FlyMaster::GetInstans().Move_PossessionMeat(LEFT);
-		}else
-		if (pad[0].fThumbLY > 0.5f) {
-			FlyMaster::GetInstans().Move_PossessionMeat(UP);
-		}else
-		if (pad[0].fThumbLY < -0.5f) {
-			FlyMaster::GetInstans().Move_PossessionMeat(DOWN);
-		}
-		//---------------------------------------------//
-
 	}
 
 	//スコアのスプライト作成
 	void GameResults::CreateSocoreSprite() {
-		AddGameObject<ScoreSprite>(4,
-			L"", true,
-			Vec2(0.0f, 0.0f),
-			Vec3(0.0f, 0.0f, 0.0f));
+		//AddGameObject<ScoreSprite>(4,
+		//	L"", true,
+		//	Vec2(0.0f, 0.0f),
+		//	Vec3(0.0f, 0.0f, 0.0f));
 	}
 
 	//背景のスプライト作成
 	void GameResults::CreateBackgroundSprite() {
-		AddGameObject<BackgroundSprite>(
-			L"", false,
-			Vec2(0.0f, 0.0f),
-			Vec3(0.0f, 0.0f, 0.0f));
+		//AddGameObject<BackgroundSprite>(
+		//	L"", false,
+		//	Vec2(0.0f, 0.0f),
+		//	Vec3(0.0f, 0.0f, 0.0f));
 	}
 }
 //end basecross
