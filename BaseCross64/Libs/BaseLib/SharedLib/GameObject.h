@@ -69,12 +69,7 @@ namespace basecross {
 			m_BehaviorMap[TypeIndex] = Ptr;
 		}
 	public:
-		void Rotation() {
-			auto trancomp = GetComponent<Transform>();
-			auto rot = trancomp->GetRotation();
-			rot.z += 90;
-			trancomp->SetRotation(rot);
-		}
+		void Rotation();
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief	コンストラクタ

@@ -7,43 +7,15 @@
 /// </summary>----------------------------------------
 
 #include "stdafx.h"
-//ゲームフィールドの縦横
-#define GAMEFIELD_X 5
-#define GAMEFIELD_Y 10	
-//揚げた後のリキャスト時間
-#define FLY_RECAST_TIME 20
-//マップチップのサイズ
-#define MAPCHIP_SIZE_X 60.0f
-#define MAPCHIP_SIZE_Y 60.0f
-//マップチップの開始地点
-#define MAPCHIP_START_X -140.0f
-#define MAPCHIP_START_Y 250.0f
-//左右
-#define LEFT 4
-#define RIGHT 6
-#define UP 8
-#define DOWN 2
-//デフォルトで解放されてる肉の種類数
-#define DEFAULT_RELEASE_MEATS 3
-//肉の種類の最大値
-#define MAX_MEATCOUNT 5
-//移動リミット
-#define MOVELIMIT_MIN_X -140
-#define MOVELIMIT_MIN_Y -270
-#define MOVELIMIT_MAX_X  60
-#define MOVELIMIT_MAX_Y  250
-//配置状況の数値
-#define Setup_FALSE 9
-
 namespace basecross {
 	//各種肉の個数情報
 	struct MeatsData
 	{
-		unsigned int Meat_1x1;
-		unsigned int Meat_1x2;
-		unsigned int Meat_2x2;
-		unsigned int Meat_3x3;
-		unsigned int Meat_L;
+		unsigned int Karage;
+		unsigned int Drum;
+		unsigned int Wing;
+		unsigned int Lib;
+		unsigned int Keel;
 	};
 	//肉のID
 	enum MeatID
@@ -60,7 +32,7 @@ namespace basecross {
 		//シングルトン用コンストラクタ
 		FlyMaster(const FlyMaster&);
 
-		//-------------------変数-----------------//
+		//-------------------変数---------m--------//
 
 		//各種肉の在庫
 		MeatsData m_meatsStockData;
@@ -72,6 +44,8 @@ namespace basecross {
 		int *m_hittingMapChipNum[2];
 		//所持中の肉
 		shared_ptr<GameObject> m_possessionMeat;
+		//設置した肉達
+		vector<shared_ptr<GameObject>> m_installationMeat;
 		//テスト用の数値
 		bool m_TEST_w;
 		//現在解放中の肉数
@@ -84,6 +58,17 @@ namespace basecross {
 		int m_moveDistance[2]= { 0 };
 		//所持肉の回転数値
 		int m_RotationNum = 0;
+		//目標金額
+		int m_targetMoney = 0;
+		//現在金額
+		int m_nowMoney = 0;
+		//数字のポインタ
+		vector<shared_ptr<GameObject>> m_Numbers = {0,0,0,0,0,0};
+
+		int m_number;
+		int m_NowNumber[6];
+		vector<Rect2D<float>> m_numRects = vector<Rect2D<float>>(10);
+
 		//------------肉の各種判定------------//
 		int Hit_Karaage[3][3] = {
 								{9,1,1},
@@ -127,6 +112,8 @@ namespace basecross {
 		void Clear_StockMeat();
 		//フィールドの生成
 		void Create_GameField();
+		//UIの作成
+		void Create_GameUI();
 		//揚げる
 		void Fly();
 		//渡された座標からマップ方向にレイを飛ばし接触したオブジェクトのマップ番号を返す
@@ -147,6 +134,17 @@ namespace basecross {
 		bool Check_SetMeat();
 		//所持肉の回転
 		void Rot_PossessionMeat(int angle);
+		//売上計算
+		void Sales(MeatsData md);
+		//配列の回転
+		void Rot_Array();
+		//ゲームを始める時
+		void GAMESTART(int TargetMoney);
+
+		void Set_Num(int num);
+		void Update_num();
+		void Set_Rect(int num, shared_ptr<GameObject> numobj);
+
 		//------------ゲッターセッター--------------//
 		void SetStockData(const MeatsData md) {
 			m_meatsStockData = md;
@@ -165,6 +163,12 @@ namespace basecross {
 		}
 		shared_ptr<GameObject> GetPossessionMeat() {
 			return m_possessionMeat;
+		}
+		vector<shared_ptr<GameObject>> GetNumbers() {
+			return m_Numbers;
+		}
+		vector<Rect2D<float>> GetRects() {
+			return m_numRects;
 		}
 		//----------------------------------------//
 

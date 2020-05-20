@@ -67,7 +67,13 @@ namespace basecross {
 		auto Transptr = GetComponent<Transform>();
 		Transptr->SetToBefore();
 	}
-
+	void GameObject::Rotation() {
+		auto trancomp = GetComponent<Transform>();
+		Quat rot = trancomp->GetQuaternion();
+		Quat quat = Quat(Vec3(0, 0, 1), 1.57f);
+		rot *= quat;
+		trancomp->SetQuaternion(rot); 
+	}
 	void GameObject::ComponentUpdate() {
 		auto Transptr = GetComponent<Transform>();
 		auto RightPtr = GetComponent<Rigidbody>(false);

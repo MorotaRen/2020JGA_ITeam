@@ -30,10 +30,6 @@ namespace basecross {
 		try {
 			//ビューとライトの作成
 			CreateViewLight();
-			AddGameObject<UIBase>(Vec2(0),Vec3(670.0f,400.0f,0.0f),L"BG_Kitchen");
-			AddGameObject<UIBase>(Vec2(-20,-60),Vec3(210.0f,370.0f,1.0f),L"BG_Flyer");
-			//AddGameObject<UIBase>(Vec2(-20,-60),Vec3(180.0f,370.0f,1.0f),L"BG_Flyer");
-			CreateGuest();
 		}
 		catch (...) {
 			throw;
@@ -41,27 +37,32 @@ namespace basecross {
 	}
 	void GameStage::OnUpdate() {
 		if (!m_trigger) {
+			FlyMaster::GetInstans().GAMESTART(700);
+			//FlyMaster::GetInstans().Create_GameUI();
 			FlyMaster::GetInstans().Create_GameField();
 			FlyMaster::GetInstans().Create_PossessionMeat(0);
 			m_trigger = true;
 		}
 
-				//----PAD情報取得----//
+		//----PAD情報取得----//
 		auto pad = App::GetApp()->GetInputDevice().GetControlerVec();
 
 		//------------------上下移動------------------//
 		if (pad[0].fThumbLX > 0.5f) {
 			FlyMaster::GetInstans().Move_PossessionMeat(RIGHT);
-		}else
-		if (pad[0].fThumbLX < -0.5f) {
-			FlyMaster::GetInstans().Move_PossessionMeat(LEFT);
-		}else
-		if (pad[0].fThumbLY > 0.5f) {
-			FlyMaster::GetInstans().Move_PossessionMeat(UP);
-		}else
-		if (pad[0].fThumbLY < -0.5f) {
-			FlyMaster::GetInstans().Move_PossessionMeat(DOWN);
 		}
+		else
+			if (pad[0].fThumbLX < -0.5f) {
+				FlyMaster::GetInstans().Move_PossessionMeat(LEFT);
+			}
+			else
+				if (pad[0].fThumbLY > 0.5f) {
+					FlyMaster::GetInstans().Move_PossessionMeat(UP);
+				}
+				else
+					if (pad[0].fThumbLY < -0.5f) {
+						FlyMaster::GetInstans().Move_PossessionMeat(DOWN);
+					}
 		//---------------------------------------------//
 
 		//-------------------肉の配置-------------------//
@@ -71,32 +72,14 @@ namespace basecross {
 		if (pad[0].wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
 			FlyMaster::GetInstans().Rot_PossessionMeat(90);
 		}
+		if (pad[0].wPressedButtons & XINPUT_GAMEPAD_Y) {
+			auto md = FlyMaster::GetInstans().GetMeatsInstallationData();
+			FlyMaster::GetInstans().Sales(md);
+		}
 		//---------------------------------------------//
 
-		FlyMaster::GetInstans(). Change_PossessionMeat();
-		FlyMaster::GetInstans().Recast_Move();
-	}
-
-<<<<<<< HEAD
-	//スコアのスプライト作成
-	void GameStage::CreateSocoreSprite() {
-		AddGameObject<ScoreSprite>(4,
-			L"", true,
-			Vec2(0.0f, 0.0f),
-			Vec3(0.0f, 0.0f, 0.0f));
-	}
-
-	//背景のスプライト作成
-	void GameStage::CreateBackgroundSprite() {
-		AddGameObject<BackgroundSprite>(
-			L"", false,
-			Vec2(0.0f, 0.0f),
-			Vec3(0.0f, 0.0f, 0.0f));
-=======
-	void GameStage::CreateGuest()
-	{
-		AddGameObject<MultiSprite>(true, Vec2(300, 150), Vec3(400, 300, 0), L"Guest1_TX");
->>>>>>> 2895b5c7c1f47d7f320016e98c96fb843d98e27d
+			FlyMaster::GetInstans().Change_PossessionMeat();
+			FlyMaster::GetInstans().Recast_Move();
 	}
 }
 //end basecross

@@ -22,6 +22,7 @@
 
 
 //ƒVƒXƒeƒ€Œn
+#include "Config.h"
 #include "FlyMaster.h"
 #include "MouseManager.h"
 #include "UI.h"
