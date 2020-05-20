@@ -7,21 +7,6 @@
 #include "Project.h"
 #include "BaseMath.h"
 
-<<<<<<< HEAD
-namespace basecross {
-
-	//スコアのスプライト
-	ScoreSprite::ScoreSprite(const shared_ptr<Stage>& Stageptr, UINT Truss,
-		const wstring& Texturekey, bool Trace,
-		const Vec2& Startscale, const Vec3& Startpos) :
-		GameObject(Stageptr),
-		m_Truss(Truss),
-		m_Texturekey(Texturekey),
-		m_Trace(Trace),
-		m_Startscale(Startscale),
-		m_Startpos(Startpos),
-		m_Score(0.0f)
-	{}
 namespace basecross{
 	//--------------------------------------------------------------------------------------
 	///	客の本体
