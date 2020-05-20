@@ -22,23 +22,21 @@ namespace basecross {
 		m_Startpos(Startpos),
 		m_Score(0.0f)
 	{}
-=======
 namespace basecross{
-	Customer::Customer(shared_ptr<Stage>&Stage, Vec3 scale, Vec3 rotation, Vec3 position)
+	//--------------------------------------------------------------------------------------
+	///	客の本体
+	//--------------------------------------------------------------------------------------
+	Guest::Guest(shared_ptr<Stage>&Stage, Vec3 position)
 		: GameObject(Stage),
-		m_scale(scale),
-		m_rotation(rotation),
 		m_position(position)
 	{
 		m_timer = 0;
 		m_clear = false;
 	}
 
-	void Customer::OnCreate() 
+	void Guest::OnCreate() 
 	{
 		auto ptrTrans = GetComponent<Transform>();
-		ptrTrans->SetScale(m_scale);
-		ptrTrans->SetRotation(m_rotation);
 		ptrTrans->SetPosition(m_position);
 
 		int num = rand() % 5 + 1;
@@ -50,138 +48,91 @@ namespace basecross{
 
 			m_meet[meetNum]++;
 		}
+
+		auto ptrStage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
+
+		ptrStage->AddGameObject<MultiSprite>(true, Vec2(300, 150), m_position, L"Guest1_TX");
+		ptrStage->AddGameObject<GuestTimerGauge>(m_position, false);
 	}
 
-	void Customer::OnUpdate()
+	void Guest::OnUpdate()
 	{
-
-	}
->>>>>>> 2895b5c7c1f47d7f320016e98c96fb843d98e27d
-
-	void ScoreSprite::OnCreate() {
-		float Xpiecesize = 1.0f / (float)m_Truss;
-		float Helfsize = 0.5f;
-
-		vector<uint16_t> indices;
-		for (UINT i = 0; i < m_Truss; i++) {
-			float vertex0 = -Helfsize + Xpiecesize * (float)i;
-			float vertex1 = vertex0 + Xpiecesize;
-
-			//0
-			m_Backupvertices.push_back(
-				VertexPositionTexture(Vec3(vertex0, Helfsize, 0.0f), Vec2(0.0f, 0.0f))
-			);
-			//1
-			m_Backupvertices.push_back(
-				VertexPositionTexture(Vec3(vertex1, Helfsize, 0.0f), Vec2(0.1f, 0.0f))
-			);
-			//2
-			m_Backupvertices.push_back(
-				VertexPositionTexture(Vec3(vertex0, -Helfsize, 0.0f), Vec2(0.0f, 1.0f))
-			);
-			//3
-			m_Backupvertices.push_back(
-				VertexPositionTexture(Vec3(vertex1, -Helfsize, 0.0f), Vec2(0.1f, 1.0f))
-			);
-
-			indices.push_back(i * 4 + 0);
-			indices.push_back(i * 4 + 1);
-			indices.push_back(i * 4 + 2);
-			indices.push_back(i * 4 + 1);
-			indices.push_back(i * 4 + 3);
-			indices.push_back(i * 4 + 2);
-		}
-
-		SetAlphaActive(m_Trace);
-		auto ptrTrans = GetComponent<Transform>();
-		ptrTrans->SetScale(m_Startscale.x, m_Startscale.y, 1.0f);
-		ptrTrans->SetRotation(0.0f, 0.0f, 0.0f);
-		ptrTrans->SetPosition(m_Startpos.x, m_Startpos.y, 0.0f);
-
-		auto ptrDraw = AddComponent<PTSpriteDraw>(m_Backupvertices, indices);
-		ptrDraw->SetTextureResource(m_Texturekey);
-		GetStage()->SetSharedGameObject(L"ScoreSprite", GetThis<ScoreSprite>());
+		auto elapsed = App::GetApp()->GetElapsedTime();
+		m_timer -= elapsed;
 	}
 
-	void ScoreSprite::OnUpdate() {
-		vector<VertexPositionTexture> newVertices;
-		UINT Num;
-		int Vernum = 0;
-		for (UINT i = m_Truss; i > 0; i--) {
-			UINT base = (UINT)pow(10, i);
-			Num = ((UINT)m_Score) % base;
-			Num = Num / (base / 10);
-			Vec2 uv0 = m_Backupvertices[Vernum].textureCoordinate;
-			uv0.x = (float)Num / 10.0f;
-			auto v = VertexPositionTexture(
-				m_Backupvertices[Vernum].position,
-				uv0
-			);
-			newVertices.push_back(v);
+	//--------------------------------------------------------------------------------------
+	///	客のタイマー
+	//--------------------------------------------------------------------------------------
+	GuestTimerGauge::GuestTimerGauge(shared_ptr<Stage>& Stage, const Vec3 position, bool isFix)
+		: GameObject(Stage),
+		m_isFix(isFix)
+		//m_guest(guest)
+	{
+		m_timer = 20.0f;
 
-			Vec2 uv1 = m_Backupvertices[Vernum + 1].textureCoordinate;
-			uv1.x = uv0.x + 0.1f;
-			v = VertexPositionTexture(
-				m_Backupvertices[Vernum + 1].position,
-				uv1
-			);
-			newVertices.push_back(v);
-
-			Vec2 uv2 = m_Backupvertices[Vernum + 2].textureCoordinate;
-			uv2.x = uv0.x;
-
-			v = VertexPositionTexture(
-				m_Backupvertices[Vernum + 2].position,
-				uv2
-			);
-			newVertices.push_back(v);
-
-			Vec2 uv3 = m_Backupvertices[Vernum + 3].textureCoordinate;
-			uv3.x = uv0.x + 0.1f;
-
-			v = VertexPositionTexture(
-				m_Backupvertices[Vernum + 3].position,
-				uv3
-			);
-			newVertices.push_back(v);
-
-			Vernum += 4;
-		}
-		auto ptrDraw = GetComponent<PTSpriteDraw>();
-		ptrDraw->UpdateVertices(newVertices);
+		m_guestPos = position;
 	}
-
-	//背景のスプライト
-	BackgroundSprite::BackgroundSprite(const shared_ptr<Stage>& Stageptr, const wstring& Texturekey, bool Trace,
-		const Vec2& Startscale, const Vec3& Startpos) :
-		GameObject(Stageptr),
-		m_Texturekey(Texturekey),
-		m_Trace(Trace),
-		m_Startscale(Startscale),
-		m_Startpos(Startpos)
-	{}
-
-	BackgroundSprite::~BackgroundSprite() {}
-	void BackgroundSprite::OnCreate() {
-		float Helfsize = 0.5f;
-
+	void GuestTimerGauge::OnCreate()
+	{
+		float HelfSize = 0.5f;
 		vector<VertexPositionColorTexture> vertices = {
-			{VertexPositionColorTexture(Vec3( -Helfsize,  Helfsize, 0),Col4(1.0f,1.0f,1.0f,1.0f),Vec2(0.0f, 0.0f)) },
-			{VertexPositionColorTexture(Vec3(  Helfsize,  Helfsize, 0),Col4(0.0f,1.0f,1.0f,1.0f),Vec2(5.0f, 0.0f)) },
-			{VertexPositionColorTexture(Vec3( -Helfsize, -Helfsize, 0),Col4(1.0f,0.0f,1.0f,1.0f),Vec2(0.0f, 5.0f)) },
-			{VertexPositionColorTexture(Vec3( -Helfsize, -Helfsize, 0),Col4(0.0f,0.0f,0.0f,1.0f),Vec2(5.0f, 5.0f)) }
+			{VertexPositionColorTexture(Vec3(-0,HelfSize,0),Col4(1.0f,1.0f,1.0f,1.0f),Vec2(0.0f,0.0f)) },
+			{VertexPositionColorTexture(Vec3(HelfSize*2.0f,HelfSize,0),Col4(1.0f,1.0f,1.0f,1.0f),Vec2(1.0f,0.0f))},
+			{VertexPositionColorTexture(Vec3(-0,-HelfSize,0),Col4(1.0f,1.0f,1.0f,1.0f),Vec2(0.0f,1.0f)) },
+			{VertexPositionColorTexture(Vec3(HelfSize*2.0f,-HelfSize,0),Col4(1.0f,1.0f,1.0f,1.0f),Vec2(1.0f,1.0f))}
 		};
-
-		vector<uint16_t> indices = { 0, 1, 2, 1, 3, 2 };
-		SetAlphaActive(m_Trace);
-		auto ptrTrans = GetComponent<Transform>();
-		ptrTrans->SetScale(m_Startscale.x, m_Startscale.y, 1.0f);
-		ptrTrans->SetRotation(0, 0, 0);
-		ptrTrans->SetPosition(m_Startpos);
-
+		vector<uint16_t> indices = { 0,1,2,1,3,2 };
 		auto ptrDraw = AddComponent<PCTSpriteDraw>(vertices, indices);
 		ptrDraw->SetSamplerState(SamplerState::LinearWrap);
-		ptrDraw->SetTextureResource(m_Texturekey);
+		SetAlphaActive(true);
+		auto ptrTrans = GetComponent<Transform>();
+		//ptrTrans->SetPosition(m_position.x, m_position.y, 0.0f);
+		SetPosition(m_guestPos);
+		if (m_isFix == false) {
+			ptrTrans->SetScale(250.0f, 15.0f, 1.0f);
+			m_Per = 250.0f / 20.0f;
+			ptrTrans->SetPivot(0.0f, 0.0f, 0.0f);
+			ptrDraw->SetTextureResource(L"TimerGauge_TX");
+			SetDrawLayer(150);
+		}
+		else {
+			ptrTrans->SetScale(363.0f, 260.0f, 1.0f);
+			ptrDraw->SetTextureResource(L"TimerGaugeFrame_TX");
+			SetDrawLayer(149);
+		}
+		ptrTrans->SetRotation(0.0f, 0.0f, 0.0f);
+	}
+
+	void GuestTimerGauge::OnUpdate()
+	{
+		SetTime();
+		ChangeScale();
+	}
+
+	void GuestTimerGauge::SetTime()
+	{
+		m_timer -= App::GetApp()->GetElapsedTime();
+		if (m_timer < 0) {
+			GetStage()->RemoveGameObject<GuestTimerGauge>(GetThis<GuestTimerGauge>());
+		}
+	}
+
+	void GuestTimerGauge::ChangeScale()
+	{
+		//if (m_timer > 0) {
+			auto ptrTrans = GetComponent<Transform>();
+			auto scale = ptrTrans->GetScale();
+			scale.x = m_Per * m_timer;
+			ptrTrans->SetScale(scale);
+		//}
+	}
+
+	void GuestTimerGauge::SetPosition(Vec3 guestPos)
+	{
+		auto ptrTrans = GetComponent<Transform>();
+		Vec3 position = guestPos + Vec3(-125.0f, -50.0f, 0.0f);
+		ptrTrans->SetPosition(position);
 	}
 }
 

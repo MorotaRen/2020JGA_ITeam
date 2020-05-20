@@ -12,6 +12,7 @@
 //ƒLƒƒƒ‰ƒNƒ^
 #include "Player.h"
 #include "Meat.h"
+#include "Character.h"
 
 #include "Number.h"
 #include "UIWatch.h"

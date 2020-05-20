@@ -55,10 +55,9 @@ namespace basecross{
 			SetTexture(L"Select_Stage_TX", L"Select_StageTx.png");
 			SetTexture(L"Pointer_TX", L"pointer.png");
 			SetTexture(L"Guest1_TX", L"Guest.png");
-			SetTexture(L"BG_Flyer",L"Flyer.png");
 			SetTexture(L"Test",L"Test_Image.png");
 			SetTexture(L"Tex_Number",L"Number.png");
-
+			SetTexture(L"TimerGauge_TX", L"TimerGauge.png");
 
 			//肉(線あり)
 			SetMeat_Line(L"Meat_Drum_Line",L"Chicken_Drum3.png");
@@ -92,7 +91,7 @@ namespace basecross{
 			SetClearColor(Col);
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
-			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToGameStage");
+			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToSelectStage");
 		}
 		catch (...) {
 			throw;
@@ -109,6 +108,12 @@ namespace basecross{
 		}
 		if (event->m_MsgStr == L"ToSelectStage") {
 			ResetActiveStage<SelectStage>();
+		}
+		if (event->m_MsgStr == L"ToTitleStage") {
+			//ResetActiveStage<TitleStage>();
+		}
+		if (event->m_MsgStr == L"ToResultStage") {
+			//ResetActiveStage<ResultStage>();
 		}
 	}
 

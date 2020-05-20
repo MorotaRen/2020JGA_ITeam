@@ -15,6 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Config.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Character.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)FlyMaster.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameResults.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameStage.h" />
@@ -34,6 +35,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)UIWatch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Character.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)FlyMaster.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameResults.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameStage.cpp" />

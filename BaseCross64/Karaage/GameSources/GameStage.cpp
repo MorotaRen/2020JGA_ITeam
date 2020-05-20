@@ -31,6 +31,9 @@ namespace basecross {
 		try {
 			//ビューとライトの作成
 			CreateViewLight();
+			AddGameObject<UIBase>(Vec2(0),Vec3(670.0f,400.0f,0.0f),L"BG_Kitchen");
+			AddGameObject<UIBase>(Vec2(-20,-60),Vec3(210.0f,370.0f,1.0f),L"BG_Flyer");
+			//AddGameObject<UIBase>(Vec2(-20,-60),Vec3(180.0f,370.0f,1.0f),L"BG_Flyer");
 		}
 		catch (...) {
 			throw;
@@ -79,8 +82,17 @@ namespace basecross {
 		}
 		//---------------------------------------------//
 
-			FlyMaster::GetInstans().Change_PossessionMeat();
-			FlyMaster::GetInstans().Recast_Move();
+		FlyMaster::GetInstans(). Change_PossessionMeat();
+		FlyMaster::GetInstans().Recast_Move();
+
+		if (pad[0].wPressedButtons & XINPUT_GAMEPAD_B) {
+			CreateGuest();
+		}
+	}
+
+	void GameStage::CreateGuest()
+	{
+		auto ptr = AddGameObject<Guest>(Vec3(400,300,0));
 	}
 }
 //end basecross

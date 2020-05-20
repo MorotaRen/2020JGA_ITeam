@@ -24,10 +24,11 @@ namespace basecross {
 			const Vec2& Startscale, const Vec3& Startpos);
 =======
 namespace basecross{
-	class Customer : public GameObject
+	//--------------------------------------------------------------------------------------
+	///	ãqÇÃñ{ëÃ
+	//--------------------------------------------------------------------------------------
+	class Guest : public GameObject
 	{
-		Vec3 m_scale;
-		Vec3 m_rotation;
 		Vec3 m_position;
 
 		float m_timer;
@@ -36,11 +37,56 @@ namespace basecross{
 		bool m_clear;
 
 	public :
-		Customer(shared_ptr<Stage>&Stage, Vec3 scale, Vec3 rotation, Vec3 position);
-		~Customer() {};
+		Guest(shared_ptr<Stage>&Stage, Vec3 position);
+		~Guest() {};
 
 		virtual void OnCreate() override;
 		virtual void OnUpdate() override;
+
+		float GetTime()
+		{
+			return m_timer;
+		}
+	};
+
+	//--------------------------------------------------------------------------------------
+	///	ãqÇÃÉ^ÉCÉ}Å[
+	//--------------------------------------------------------------------------------------
+	class GuestTimerGauge : public GameObject
+	{
+		Vec3 m_guestPos;
+		Vec2 m_scale;
+		bool m_isFix;
+		float m_timer;
+		float m_Per;
+
+		//Guest m_guest;
+	public:
+		GuestTimerGauge(shared_ptr<Stage>& Stage, const Vec3 position, bool isFix);
+		virtual ~GuestTimerGauge() {};
+		virtual void OnCreate()override;
+		virtual void OnUpdate() override;
+		//void Damage();
+		void SetTime();
+		void ChangeScale();
+		void SetPosition(Vec3 guestPos);
+	};
+
+	//--------------------------------------------------------------------------------------
+	///	ãqÇÃíçï∂
+	//--------------------------------------------------------------------------------------
+	class GuestOrder : public GameObject
+	{
+		Vec2 m_position;
+		Vec2 m_scale;
+		wstring m_meetName;
+		
+	public :
+		GuestOrder(shared_ptr<Stage>&Stage, Vec3 position, wstring meetName);
+		~GuestOrder() {};
+		virtual void OnCreate()override;
+		virtual void OnUpdate()override;
+
 	};
 >>>>>>> 2895b5c7c1f47d7f320016e98c96fb843d98e27d
 
