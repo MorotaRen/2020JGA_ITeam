@@ -75,7 +75,7 @@ namespace basecross {
 		}
 		if (pad[0].wPressedButtons & XINPUT_GAMEPAD_Y) {
 			auto md = FlyMaster::GetInstans().GetMeatsInstallationData();
-			FlyMaster::GetInstans().Sales(md);
+			FlyMaster::GetInstans().Fly();
 		}
 		//---------------------------------------------//
 

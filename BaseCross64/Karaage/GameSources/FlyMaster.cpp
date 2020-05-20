@@ -26,12 +26,12 @@ namespace basecross {
 			};
 		}
 		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
-		m_Numbers[0] = (stage->AddGameObject<NumberUI>(Vec2(-520, 150), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_Numbers[1] = (stage->AddGameObject<NumberUI>(Vec2(-420, 150), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_Numbers[2] = (stage->AddGameObject<NumberUI>(Vec2(-470, 150), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_Numbers[3] = (stage->AddGameObject<NumberUI>(Vec2(-370, 150), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_Numbers[4] = (stage->AddGameObject<NumberUI>(Vec2(-320, 150), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_Numbers[5] = (stage->AddGameObject<NumberUI>(Vec2(-270, 150), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		m_Numbers[5] = (stage->AddGameObject<NumberUI>(Vec2(-520, 150), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		m_Numbers[4] = (stage->AddGameObject<NumberUI>(Vec2(-420, 150), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		m_Numbers[3] = (stage->AddGameObject<NumberUI>(Vec2(-470, 150), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		m_Numbers[2] = (stage->AddGameObject<NumberUI>(Vec2(-370, 150), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		m_Numbers[1] = (stage->AddGameObject<NumberUI>(Vec2(-320, 150), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		m_Numbers[0] = (stage->AddGameObject<NumberUI>(Vec2(-270, 150), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
 
 	}
 	/// ----------------------------------------<summary>
@@ -51,7 +51,7 @@ namespace basecross {
 		m_meatsStockData.Wing += m_meatsInstallationData.Wing;
 		m_meatsStockData.Lib += m_meatsInstallationData.Lib;
 		m_meatsStockData.Keel += m_meatsInstallationData.Keel;
-
+		Sales(m_meatsInstallationData);
 		Clear_InstallationMeat();
 	}
 
@@ -59,15 +59,21 @@ namespace basecross {
 	/// 設置済み肉の初期化
 	/// </summary>----------------------------------------
 	void FlyMaster::Clear_InstallationMeat() {
+		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
+		for (int i = 0; i < m_installationMeat.size(); i++) {
+			stage->RemoveGameObject<GameObject>(m_installationMeat[i]);
+		}
+		m_installationMeat.clear();
 		m_meatsInstallationData.Karage = 0;
 		m_meatsInstallationData.Drum = 0;
 		m_meatsInstallationData.Wing = 0;
 		m_meatsInstallationData.Lib = 0;
 		m_meatsInstallationData.Keel = 0;
+
 	}
 
 	/// ----------------------------------------<summary>
-	/// 在庫肉の初期化0
+	/// 在庫肉の初期化
 	/// </summary>----------------------------------------
 	void FlyMaster::Clear_StockMeat() {
 		m_meatsStockData.Karage = 0;
@@ -105,8 +111,6 @@ namespace basecross {
 	/// </summary>----------------------------------------
 	void FlyMaster::Fly() {
 		Add_StockMeat();
-		Clear_InstallationMeat();
-		Sales(m_meatsInstallationData);
 	}
 
 	/// ----------------------------------------<summary>
@@ -145,28 +149,22 @@ namespace basecross {
 		case 唐揚げ:
 			newMeat = stage->AddGameObject<Karaage>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), quat);
 			Reset_PossessionMeat(newMeat);
-			m_installationMeat.push_back(newMeat);
-			m_meatsInstallationData.Karage++;
 			break;
 		case ドラム:
 			newMeat = stage->AddGameObject<Drum>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), quat);
 			Reset_PossessionMeat(newMeat);
-			m_meatsInstallationData.Drum++;
 			break;
 		case キール:
 			newMeat = stage->AddGameObject<Keel>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), quat);
 			Reset_PossessionMeat(newMeat);
-			m_meatsInstallationData.Keel++;
 			break;
 		case リブ:
 			newMeat = stage->AddGameObject<Rib>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), quat);
 			Reset_PossessionMeat(newMeat);
-			m_meatsInstallationData.Lib++;
 			break;
 		case ウィング:
 			newMeat = stage->AddGameObject<Wing>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), quat);
 			Reset_PossessionMeat(newMeat);
-			m_meatsInstallationData.Wing++;
 			break;
 		
 		default:
@@ -292,11 +290,14 @@ namespace basecross {
 			auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
 			//所持肉の位置
 			Vec3 possessoionPos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
+			shared_ptr<GameObject> newMeat;
 			//所持肉IDで
 			switch (m_possessionMeatID)
 			{
 			case 唐揚げ:
-				stage->AddGameObject<Karaage>(Vec3(1, 0, 1), Vec3(possessoionPos.x, possessoionPos.y, 0), newMeatRot);
+				newMeat = stage->AddGameObject<Karaage>(Vec3(1, 0, 1), Vec3(possessoionPos.x, possessoionPos.y, 0), newMeatRot);
+				m_installationMeat.push_back(newMeat);
+				m_meatsInstallationData.Karage++;
 				break;
 			case ドラム:
 				stage->AddGameObject<Drum>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 30, possessoionPos.y + 30, 0), newMeatRot);
