@@ -82,9 +82,7 @@ namespace basecross {
 
 	void GameStage::CreateGuest()
 	{
-		//AddGameObject<MultiSprite>(true, Vec2(300, 150), Vec3(400, 300, 0), L"Guest1_TX");
-		auto ptr = AddGameObject<Guest>(Vec3(0),Vec3(0),Vec3(0));
-		//AddGameObject<GuestTimerGauge>(Vec2(400, 300), false);
+		auto ptr = AddGameObject<Guest>(Vec3(400,300,0));
 	}
 }
 //end basecross

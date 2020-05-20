@@ -12,8 +12,6 @@ namespace basecross{
 	//--------------------------------------------------------------------------------------
 	class Guest : public GameObject
 	{
-		Vec3 m_scale;
-		Vec3 m_rotation;
 		Vec3 m_position;
 
 		float m_timer;
@@ -22,7 +20,7 @@ namespace basecross{
 		bool m_clear;
 
 	public :
-		Guest(shared_ptr<Stage>&Stage, Vec3 scale, Vec3 rotation, Vec3 position);
+		Guest(shared_ptr<Stage>&Stage, Vec3 position);
 		~Guest() {};
 
 		virtual void OnCreate() override;
@@ -39,7 +37,7 @@ namespace basecross{
 	//--------------------------------------------------------------------------------------
 	class GuestTimerGauge : public GameObject
 	{
-		Vec2 m_position;
+		Vec3 m_guestPos;
 		Vec2 m_scale;
 		bool m_isFix;
 		float m_timer;

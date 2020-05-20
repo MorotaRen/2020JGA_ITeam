@@ -11,10 +11,8 @@ namespace basecross{
 	//--------------------------------------------------------------------------------------
 	///	‹q‚Ì–{‘Ì
 	//--------------------------------------------------------------------------------------
-	Guest::Guest(shared_ptr<Stage>&Stage, Vec3 scale, Vec3 rotation, Vec3 position)
+	Guest::Guest(shared_ptr<Stage>&Stage, Vec3 position)
 		: GameObject(Stage),
-		m_scale(scale),
-		m_rotation(rotation),
 		m_position(position)
 	{
 		m_timer = 0;
@@ -24,8 +22,6 @@ namespace basecross{
 	void Guest::OnCreate() 
 	{
 		auto ptrTrans = GetComponent<Transform>();
-		ptrTrans->SetScale(m_scale);
-		ptrTrans->SetRotation(m_rotation);
 		ptrTrans->SetPosition(m_position);
 
 		int num = rand() % 5 + 1;
@@ -40,6 +36,7 @@ namespace basecross{
 
 		auto ptrStage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
 
+		ptrStage->AddGameObject<MultiSprite>(true, Vec2(300, 150), m_position, L"Guest1_TX");
 		ptrStage->AddGameObject<GuestTimerGauge>(m_position, false);
 	}
 
@@ -59,7 +56,7 @@ namespace basecross{
 	{
 		m_timer = 20.0f;
 
-		m_position = Vec2(position.x, position.y);
+		m_guestPos = position;
 	}
 
 	void GuestTimerGauge::OnCreate()
@@ -76,7 +73,8 @@ namespace basecross{
 		ptrDraw->SetSamplerState(SamplerState::LinearWrap);
 		SetAlphaActive(true);
 		auto ptrTrans = GetComponent<Transform>();
-		ptrTrans->SetPosition(m_position.x, m_position.y, 0.0f);
+		//ptrTrans->SetPosition(m_position.x, m_position.y, 0.0f);
+		SetPosition(m_guestPos);
 		if (m_isFix == false) {
 			ptrTrans->SetScale(250.0f, 15.0f, 1.0f);
 			m_Per = 250.0f / 20.0f;
@@ -119,7 +117,8 @@ namespace basecross{
 	void GuestTimerGauge::SetPosition(Vec3 guestPos)
 	{
 		auto ptrTrans = GetComponent<Transform>();
-		//Vec3 position = guestPos + Vec3()
+		Vec3 position = guestPos + Vec3(-125.0f, -50.0f, 0.0f);
+		ptrTrans->SetPosition(position);
 	}
 }
 //end basecross
