@@ -40,7 +40,7 @@ namespace basecross {
 	void FlyMaster::Create_GameUI() {
 		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
 		stage->AddGameObject<MeatUI>(Vec2(0), Vec3(670.0f, 400.0f, 0.0f), L"BG_Kitchen");
-		stage->AddGameObject<MeatUI>(Vec2(-20, -60), Vec3(210.0f, 370.0f, 1.0f), L"BG_Flyer");
+		stage->AddGameObject<MeatUI>(Vec2(-20, -17), Vec3(195.0f, 230.0f, 1.0f), L"BG_Flyer");
 	}
 	/// ----------------------------------------<summary>
 	/// 在庫数に追加する。追加した後は設置されている数はリセットされる
@@ -89,18 +89,11 @@ namespace basecross {
 	void FlyMaster::Create_GameField() {
 		//アクティブステージの取得
 		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
-		//-----以下テストフィールドの作成なので後ほど削除予定------//
 		for (int y = 0; y < GAMEFIELD_Y;y++) {
 			for (int x = 0; x < GAMEFIELD_X;x++) {
-				//stage->AddGameObject<MapChip>(Vec2(MAPCHIP_START_X + x * MAPCHIP_SIZE_X, 
-				//								   MAPCHIP_START_Y + -y *MAPCHIP_SIZE_Y),
-				//								   m_TEST_w);
-				//if (m_TEST_w) {
-				//	m_TEST_w = false;
-				//}
-				//else {
-				//	m_TEST_w = true;
-				//}
+				stage->AddGameObject<MapChip>(Vec2(MAPCHIP_START_X + x * MAPCHIP_SIZE_X, 
+												   MAPCHIP_START_Y + -y *MAPCHIP_SIZE_Y),
+												   0);
 			}
 		}
 
