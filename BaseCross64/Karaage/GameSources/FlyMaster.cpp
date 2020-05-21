@@ -6,9 +6,9 @@ namespace basecross {
 	/// ゲームスタートの時の関数
 	/// これを起動でゲームが始まる
 	/// </summary>----------------------------------------
-	void FlyMaster::GAMESTART(int TargetMoney) {
+	void FlyMaster::GAMESTART(int targetMoney,int time) {
 		//目標金額の設定
-		m_targetMoney = TargetMoney;
+		m_targetMoney = targetMoney;
 		//数字UIの範囲
 		float Range = 0.1f;
 		m_numRects.resize(10);
@@ -33,6 +33,11 @@ namespace basecross {
 		m_Numbers[1] = (stage->AddGameObject<NumberUI>(Vec2(-320, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
 		m_Numbers[0] = (stage->AddGameObject<NumberUI>(Vec2(-270, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
 
+		m_TimerNumbers[3] = (stage->AddGameObject<NumberUI>(Vec2(-540, 220), Vec3(20.0f, 20.0f, 1.0f), L"Tex_Number"));
+		m_TimerNumbers[2] = (stage->AddGameObject<NumberUI>(Vec2(-510, 220), Vec3(20.0f, 20.0f, 1.0f), L"Tex_Number"));
+		m_TimerNumbers[1] = (stage->AddGameObject<NumberUI>(Vec2(-480, 220), Vec3(20.0f, 20.0f, 1.0f), L"Tex_Number"));
+		m_TimerNumbers[0] = (stage->AddGameObject<NumberUI>(Vec2(-450, 220), Vec3(20.0f, 20.0f, 1.0f), L"Tex_Number"));
+
 	}
 	/// ----------------------------------------<summary>
 	/// ゲームのUIの作成
@@ -41,7 +46,7 @@ namespace basecross {
 		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
 		stage->AddGameObject<MeatUI>(Vec2(0), Vec3(670.0f, 400.0f, 0.0f), L"BG_Kitchen");
 		stage->AddGameObject<MeatUI>(Vec2(-20, -17), Vec3(195.0f, 230.0f, 1.0f), L"BG_Flyer");
-		stage->AddGameObject<MeatUI>(Vec2(-500, 220), Vec3(80.0f, 80.0f, 1.0f), L"Tex_Timer");
+		stage->AddGameObject<MeatUI>(Vec2(-500, 220), Vec3(100.0f, 100.0f, 1.0f), L"Tex_Timer");
 	}
 	/// ----------------------------------------<summary>
 	/// 在庫数に追加する。追加した後は設置されている数はリセットされる
@@ -632,5 +637,21 @@ namespace basecross {
 			break;
 		}
 	}
+
+	/// ----------------------------------------<summary>
+	///	タイマーの設定
+	/// </summary>----------------------------------------
+	void FlyMaster::Set_Timer(int time, vector<shared_ptr<GameObject>> changenumobj) {
+
+		m_NowTime[0] = (time % 10); time /= 10;
+		m_NowTime[1] = (time % 10); time /= 10;
+		m_NowTime[2] = (time % 10); time /= 10;
+		m_NowTime[3] = (time % 10); time /= 10;
+
+		for (int i = 0; i < changenumobj.size();i++) {
+			Set_Rect(m_NowTime[i],changenumobj[i]);
+		}
+	}
+
 }
 //end basecross

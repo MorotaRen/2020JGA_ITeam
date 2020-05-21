@@ -64,9 +64,12 @@ namespace basecross {
 		int m_nowMoney = 0;
 		//数字のポインタ
 		vector<shared_ptr<GameObject>> m_Numbers = {0,0,0,0,0,0};
+		//タイマー用数字
+		vector<shared_ptr<GameObject>> m_TimerNumbers = {0,0,0,0};
 
 		int m_number;
 		int m_NowNumber[6];
+		int m_NowTime[4];
 		vector<Rect2D<float>> m_numRects = vector<Rect2D<float>>(10);
 
 		//------------肉の各種判定------------//
@@ -136,14 +139,15 @@ namespace basecross {
 		//配列の回転
 		void Rot_Array();
 		//ゲームを始める時
-		void GAMESTART(int TargetMoney);
+		void GAMESTART(int TargetMoney,int Time);
 		//表示用数値の分解
 		void Set_Num(int num,vector<shared_ptr<GameObject>> changennumobj);
 		//数字変更
 		void Update_num(vector<shared_ptr<GameObject>> objs);
 		//数字変更に伴うスプライトのUV座標の変更
 		void Set_Rect(int num, shared_ptr<GameObject> numobj);
-
+		//タイマーセット
+		void Set_Timer(int time,vector<shared_ptr<GameObject>> changenumobj);
 		//------------ゲッターセッター--------------//
 		void SetStockData(const MeatsData md) {
 			m_meatsStockData = md;
