@@ -58,6 +58,7 @@ namespace basecross{
 			SetTexture(L"Test",L"Test_Image.png");
 			SetTexture(L"Tex_Number",L"Number.png");
 			SetTexture(L"TimerGauge_TX", L"TimerGauge.png");
+			SetTexture(L"TimerGaugeFrame_TX", L"TimerGaugeFrame.png");
 
 			//“÷(ü‚ ‚è)
 			SetMeat_Line(L"Meat_Drum_Line",L"Chicken_Drum3.png");
