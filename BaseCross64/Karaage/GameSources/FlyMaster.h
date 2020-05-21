@@ -62,6 +62,8 @@ namespace basecross {
 		int m_targetMoney = 0;
 		//現在金額
 		int m_nowMoney = 0;
+		//現在時刻
+		int m_time = 0;
 		//数字のポインタ
 		vector<shared_ptr<GameObject>> m_Numbers = {0,0,0,0,0,0};
 		//タイマー用数字
@@ -139,7 +141,7 @@ namespace basecross {
 		//配列の回転
 		void Rot_Array();
 		//ゲームを始める時
-		void GAMESTART(int TargetMoney,int Time);
+		void GAMESTART(int targetMoney,int time);
 		//表示用数値の分解
 		void Set_Num(int num,vector<shared_ptr<GameObject>> changennumobj);
 		//数字変更
@@ -148,6 +150,8 @@ namespace basecross {
 		void Set_Rect(int num, shared_ptr<GameObject> numobj);
 		//タイマーセット
 		void Set_Timer(int time,vector<shared_ptr<GameObject>> changenumobj);
+		//タイマーの更新		
+		void Update_Timer();
 		//------------ゲッターセッター--------------//
 		void SetStockData(const MeatsData md) {
 			m_meatsStockData = md;

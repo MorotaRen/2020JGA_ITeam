@@ -38,6 +38,8 @@ namespace basecross {
 		m_TimerNumbers[1] = (stage->AddGameObject<NumberUI>(Vec2(-480, 220), Vec3(20.0f, 20.0f, 1.0f), L"Tex_Number"));
 		m_TimerNumbers[0] = (stage->AddGameObject<NumberUI>(Vec2(-450, 220), Vec3(20.0f, 20.0f, 1.0f), L"Tex_Number"));
 
+		//タイマーセット
+		Set_Timer(time, m_TimerNumbers);
 	}
 	/// ----------------------------------------<summary>
 	/// ゲームのUIの作成
@@ -642,7 +644,7 @@ namespace basecross {
 	///	タイマーの設定
 	/// </summary>----------------------------------------
 	void FlyMaster::Set_Timer(int time, vector<shared_ptr<GameObject>> changenumobj) {
-
+		m_time = time;
 		m_NowTime[0] = (time % 10); time /= 10;
 		m_NowTime[1] = (time % 10); time /= 10;
 		m_NowTime[2] = (time % 10); time /= 10;
@@ -653,5 +655,13 @@ namespace basecross {
 		}
 	}
 
+	/// ----------------------------------------<summary>
+	///	タイマーの更新
+	/// </summary>----------------------------------------
+	void FlyMaster::Update_Timer() {
+		auto deltatime = App::GetApp()->GetElapsedTime();
+		m_time -= 0.1f *deltatime;
+		Set_Timer(m_time,m_TimerNumbers);
+	}
 }
 //end basecross
