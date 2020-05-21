@@ -23,9 +23,9 @@ namespace basecross{
 
 	public:
 		//テクスチャ読み込み
-		void SetTexture(wstring name, wstring filename)
+		void SetTexture(wstring name, wstring filepass, wstring filename)
 		{
-			strTexture = dataDir + L"Texture\\" + filename;
+			strTexture = dataDir + filepass + filename;
 			App::GetApp()->RegisterTexture(name, strTexture);
 		}
 		//音楽読み込み
@@ -35,7 +35,7 @@ namespace basecross{
 			App::GetApp()->RegisterWav(name, strSound);
 		}
 		//線ありの肉読み込み
-		void SetMeat_Line(wstring name,wstring filename) {
+		void SetMeat_Line(wstring name, wstring filename) {
 			strTexture = dataDir + L"Texture\\Meats\\IsLine\\" + filename;
 			App::GetApp()->RegisterTexture(name, strTexture);
 		}
@@ -47,17 +47,18 @@ namespace basecross{
 
 			//テクスチャ
 			//SetTexture(L"RANK_UI", L"Rank2.png");
-			SetTexture(L"Black_TEST",L"Black.png");
-			SetTexture(L"White_TEST",L"White.png");
-			SetTexture(L"BG_Kitchen", L"Kitchen.png");
-			SetTexture(L"BG_Flyer", L"Flyer.png");
-			SetTexture(L"Select_BG", L"Select_Background.png");
-			SetTexture(L"Select_Stage_TX", L"Select_StageTx.png");
-			SetTexture(L"Pointer_TX", L"pointer.png");
-			SetTexture(L"Guest1_TX", L"Guest.png");
-			SetTexture(L"Test",L"Test_Image.png");
-			SetTexture(L"Tex_Number",L"Number.png");
-			SetTexture(L"TimerGauge_TX", L"TimerGauge.png");
+			//SetTexture(L"Black_TEST",L"Black.png");
+			//SetTexture(L"White_TEST",L"White.png");
+			SetTexture(L"BG_Kitchen", L"Texture\\GameUIs\\", L"Kitchen.png");
+			SetTexture(L"BG_Flyer", L"Texture\\GameUIs\\", L"Flyer.png");
+			SetTexture(L"BG_Mass", L"Texture\\GameUIs\\", L"Masu.png");
+			SetTexture(L"Select_BG", L"Texture\\UIs\\", L"Select_Background.png");
+			SetTexture(L"Select_Stage_TX", L"Texture\\UIs\\", L"Select_StageTx.png");
+			SetTexture(L"Pointer_TX", L"Texture\\UIs\\", L"pointer.png");
+			SetTexture(L"Guest1_TX", L"Texture\\Characters\\", L"Guest1.png");
+			SetTexture(L"Tex_Number", L"Texture\\UIs\\", L"Number.png");
+			SetTexture(L"Tex_Timer", L"Texture\\GameUIs\\", L"Timer.png");
+
 
 			//肉(線あり)
 			SetMeat_Line(L"Meat_Drum_Line",L"Chicken_Drum3.png");
