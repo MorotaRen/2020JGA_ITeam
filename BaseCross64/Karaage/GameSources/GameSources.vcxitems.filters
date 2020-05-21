@@ -17,7 +17,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)GameTitle.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SelectStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UI.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Character.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)FlyMaster.h" />
@@ -38,6 +37,5 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)GameTitle.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SelectStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UI.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Character.h" />
   </ItemGroup>
 </Project>
