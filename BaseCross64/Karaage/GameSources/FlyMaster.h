@@ -75,20 +75,17 @@ namespace basecross {
 								{1,1,1},
 								{1,1,1}
 		};
-		int Hit_Drum[3][3] = {
-								{9,1,1},
-								{9,1,1},
-								{1,1,1}
+		int Hit_Drum[2][2] = {
+								{9,1},
+								{9,1},
 		};
-		int Hit_Wing[3][3] = {
-								{9,9,1},
-								{9,1,1},
-								{1,1,1}
+		int Hit_Wing[2][2] = {
+								{9,9},
+								{9,1},
 		};
-		int Hit_Rib[3][3] = {
-								{9,9,1},
-								{9,9,1},
-								{1,1,1}
+		int Hit_Rib[2][2] = {
+								{9,9},
+								{9,9},
 		};
 		int Hit_Keel[3][3] = {
 								{9,9,9},
@@ -140,9 +137,11 @@ namespace basecross {
 		void Rot_Array();
 		//ゲームを始める時
 		void GAMESTART(int TargetMoney);
-
-		void Set_Num(int num);
-		void Update_num();
+		//表示用数値の分解
+		void Set_Num(int num,vector<shared_ptr<GameObject>> changennumobj);
+		//数字変更
+		void Update_num(vector<shared_ptr<GameObject>> objs);
+		//数字変更に伴うスプライトのUV座標の変更
 		void Set_Rect(int num, shared_ptr<GameObject> numobj);
 
 		//------------ゲッターセッター--------------//

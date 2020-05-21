@@ -26,12 +26,12 @@ namespace basecross {
 			};
 		}
 		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
-		m_Numbers[5] = (stage->AddGameObject<NumberUI>(Vec2(-520, 150), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_Numbers[4] = (stage->AddGameObject<NumberUI>(Vec2(-420, 150), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_Numbers[3] = (stage->AddGameObject<NumberUI>(Vec2(-470, 150), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_Numbers[2] = (stage->AddGameObject<NumberUI>(Vec2(-370, 150), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_Numbers[1] = (stage->AddGameObject<NumberUI>(Vec2(-320, 150), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_Numbers[0] = (stage->AddGameObject<NumberUI>(Vec2(-270, 150), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		m_Numbers[5] = (stage->AddGameObject<NumberUI>(Vec2(-520, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		m_Numbers[4] = (stage->AddGameObject<NumberUI>(Vec2(-420, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		m_Numbers[3] = (stage->AddGameObject<NumberUI>(Vec2(-470, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		m_Numbers[2] = (stage->AddGameObject<NumberUI>(Vec2(-370, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		m_Numbers[1] = (stage->AddGameObject<NumberUI>(Vec2(-320, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		m_Numbers[0] = (stage->AddGameObject<NumberUI>(Vec2(-270, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
 
 	}
 	/// ----------------------------------------<summary>
@@ -40,7 +40,8 @@ namespace basecross {
 	void FlyMaster::Create_GameUI() {
 		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
 		stage->AddGameObject<MeatUI>(Vec2(0), Vec3(670.0f, 400.0f, 0.0f), L"BG_Kitchen");
-		stage->AddGameObject<MeatUI>(Vec2(-20, -60), Vec3(210.0f, 370.0f, 1.0f), L"BG_Flyer");
+		stage->AddGameObject<MeatUI>(Vec2(-20, -17), Vec3(195.0f, 230.0f, 1.0f), L"BG_Flyer");
+		stage->AddGameObject<MeatUI>(Vec2(-500, 220), Vec3(80.0f, 80.0f, 1.0f), L"Tex_Timer");
 	}
 	/// ----------------------------------------<summary>
 	/// 在庫数に追加する。追加した後は設置されている数はリセットされる
@@ -89,18 +90,11 @@ namespace basecross {
 	void FlyMaster::Create_GameField() {
 		//アクティブステージの取得
 		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
-		//-----以下テストフィールドの作成なので後ほど削除予定------//
 		for (int y = 0; y < GAMEFIELD_Y;y++) {
 			for (int x = 0; x < GAMEFIELD_X;x++) {
-				//stage->AddGameObject<MapChip>(Vec2(MAPCHIP_START_X + x * MAPCHIP_SIZE_X, 
-				//								   MAPCHIP_START_Y + -y *MAPCHIP_SIZE_Y),
-				//								   m_TEST_w);
-				//if (m_TEST_w) {
-				//	m_TEST_w = false;
-				//}
-				//else {
-				//	m_TEST_w = true;
-				//}
+				stage->AddGameObject<MapChip>(Vec2(MAPCHIP_START_X + x * MAPCHIP_SIZE_X, 
+												   MAPCHIP_START_Y + -y *MAPCHIP_SIZE_Y),
+												   0);
 			}
 		}
 
@@ -125,7 +119,7 @@ namespace basecross {
 		tempMoney += md.Keel * PRICE_KEEL;	
 
 		m_nowMoney += tempMoney;
-		Set_Num(m_nowMoney);
+		Set_Num(m_nowMoney,m_Numbers);
 	}
 	/// ----------------------------------------<summary>
 	/// 渡された座標からマップ方向にレイを飛ばし接触したオブジェクトのマップ番号を返す
@@ -249,7 +243,7 @@ namespace basecross {
 	}
 
 	/// ----------------------------------------<summary>
-	/// リキャストタイマー
+	/// 移動リキャスト
 	/// </summary>----------------------------------------
 	void FlyMaster::Recast_Move() {
 		auto pad = App::GetApp()->GetInputDevice().GetControlerVec();
@@ -300,16 +294,24 @@ namespace basecross {
 				m_meatsInstallationData.Karage++;
 				break;
 			case ドラム:
-				stage->AddGameObject<Drum>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 30, possessoionPos.y + 30, 0), newMeatRot);
+				newMeat = stage->AddGameObject<Drum>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 30, possessoionPos.y + 30, 0), newMeatRot);
+				m_installationMeat.push_back(newMeat);
+				m_meatsInstallationData.Drum++;
 				break;
 			case キール:
-				stage->AddGameObject<Keel>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 60, possessoionPos.y + 60, 0), newMeatRot);
+				newMeat = stage->AddGameObject<Keel>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 60, possessoionPos.y + 60, 0), newMeatRot);
+				m_installationMeat.push_back(newMeat);
+				m_meatsInstallationData.Keel++;
 				break;
 			case リブ:
-				stage->AddGameObject<Rib>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 40, possessoionPos.y + 40, 0), newMeatRot);
+				newMeat = stage->AddGameObject<Rib>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 40, possessoionPos.y + 40, 0), newMeatRot);
+				m_installationMeat.push_back(newMeat);
+				m_meatsInstallationData.Lib++;
 				break;
 			case ウィング:
-				stage->AddGameObject<Wing>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 30, possessoionPos.y + 30, 0), newMeatRot);
+				newMeat = stage->AddGameObject<Wing>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 30, possessoionPos.y + 30, 0), newMeatRot);
+				m_installationMeat.push_back(newMeat);
+				m_meatsInstallationData.Wing++;
 				break;
 			default:
 				MessageBox(0, L"所持肉IDの不一致です。生成に失敗しました！", 0, 0);
@@ -452,7 +454,8 @@ namespace basecross {
 	/// </summary>----------------------------------------
 	void FlyMaster::Rot_Array() {
 		//一時置き場
-		int temp[3][3] = { 0 };
+		int temp3x3[3][3] = { 0 };
+		int temp2x2[3][3] = { 0 };
 
 		//所持肉IDで
 		switch (m_possessionMeatID)
@@ -460,59 +463,63 @@ namespace basecross {
 		case 唐揚げ:
 			//回転しないので何もしない
 			break;
+
 		case ドラム:
 			//一時置き場にコピー
-			for (int i = 0; i < 3; i++) {
-				for (int k = 0; k < 3; k++) {
-					temp[i][k] = Hit_Drum[i][k];
+			for (int i = 0; i < 2; i++) {
+				for (int k = 0; k < 2; k++) {
+					temp2x2[i][k] = Hit_Drum[i][k];
 				}
 			}
 			//転置後行を逆にして右回り
-			for (int i = 0; i < 3; i++) {
-				for (int k = 0; k < 3; k++) {
-					Hit_Drum[i][k] = temp[k][2 - i];
+			for (int i = 0; i < 2; i++) {
+				for (int k = 0; k < 2; k++) {
+					Hit_Drum[i][k] = temp2x2[k][2 - i];
 				}
 			}
 			break;
+
 		case キール:
 			//一時置き場にコピー
 			for (int i = 0; i < 3; i++) {
 				for (int k = 0; k < 3; k++) {
-					temp[i][k] = Hit_Keel[i][k];
+					temp3x3[i][k] = Hit_Keel[i][k];
 				}
 			}
 			//転置後行を逆にして右回り
 			for (int i = 0; i < 3; i++) {
 				for (int k = 0; k < 3; k++) {
-					Hit_Keel[i][k] = temp[k][2 - i];
+					Hit_Keel[i][k] = temp3x3[k][2 - i];
 				}
 			}
 			break;
+
 		case リブ:
 			//一時置き場にコピー
-			for (int i = 0; i < 3; i++) {
-				for (int k = 0; k < 3; k++) {
-					temp[i][k] = Hit_Rib[i][k];
+			for (int i = 0; i < 2; i++) {
+				for (int k = 0; k < 2; k++) {
+					temp2x2[i][k] = Hit_Rib[i][k];
 				}
 			}
 			//転置後行を逆にして右回り
-			for (int i = 0; i < 3; i++) {
-				for (int k = 0; k < 3; k++) {
-					Hit_Rib[i][k] = temp[k][2 - i];
+			for (int i = 0; i < 2; i++) {
+				for (int k = 0; k < 2; k++) {
+					Hit_Rib[i][k] = temp2x2[k][2 - i];
 				}
 			}
 			break;
+
 		case ウィング:
 			//一時置き場にコピー
-			for (int i = 0; i < 3; i++) {
-				for (int k = 0; k < 3; k++) {
-					temp[i][k] = Hit_Wing[i][k];
+			for (int i = 0; i < 2; i++) {
+				for (int k = 0; k < 2; k++) {
+					temp2x2[i][k] = Hit_Wing[i][k];
 				}
 			}
 			//転置後行を逆にして右回り
-			for (int i = 0; i < 3; i++) {
-				for (int k = 0; k < 3; k++) {
-					Hit_Wing[i][k] = temp[k][2 - i];
+			for (int i = 0; i < 2; i++) {
+				for (int k = 0; k < 2; k++) {
+					Hit_Wing[i][k] = temp2x2[k][2 - i];
 				}
 			}
 			break;
@@ -522,8 +529,10 @@ namespace basecross {
 		}
 	}
 
-
-	void FlyMaster::Set_Num(int num) {
+	/// ----------------------------------------<summary>
+	/// スプライトに表示するために各桁を分解
+	/// </summary>----------------------------------------
+	void FlyMaster::Set_Num(int num,vector<shared_ptr<GameObject>> changennumobj) {
 		//最大6桁かな…(100,000)
 		//一桁ずつ取って格納
 		m_NowNumber[0] = (num % 10); num /= 10;//1
@@ -532,14 +541,19 @@ namespace basecross {
 		m_NowNumber[3] = (num % 10); num /= 10;//4
 		m_NowNumber[4] = (num % 10); num /= 10;//5
 		m_NowNumber[5] = (num % 10); num /= 10;//6
-		Update_num();
+		Update_num(changennumobj);
 	}
-	void FlyMaster::Update_num() {
-		auto nums = FlyMaster::GetInstans().GetNumbers();
-		for (int i = 0; i < 6; i++) {
-			Set_Rect(m_NowNumber[i], nums[i]);
+	/// ----------------------------------------<summary>
+	/// スプライトの数字変更
+	/// </summary>----------------------------------------
+	void FlyMaster::Update_num(vector<shared_ptr<GameObject>> objs) {
+		for (int i = 0; i < objs.size(); i++) {
+			Set_Rect(m_NowNumber[i], objs[i]);
 		}
 	}
+	/// ----------------------------------------<summary>
+	/// スプライトのRect変更
+	/// </summary>----------------------------------------
 	void FlyMaster::Set_Rect(int num, shared_ptr<GameObject> numobj) {
 		vector<VertexPositionColorTexture> vertices;
 		switch (num)

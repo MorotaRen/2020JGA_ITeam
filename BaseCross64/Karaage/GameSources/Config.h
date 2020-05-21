@@ -34,13 +34,13 @@
 
 //ゲームフィールドの縦横(X5Y10)
 #define GAMEFIELD_X 5
-#define GAMEFIELD_Y 10	
+#define GAMEFIELD_Y 6	
 //マップチップのサイズ(XY60)
 #define MAPCHIP_SIZE_X 60.0f
 #define MAPCHIP_SIZE_Y 60.0f
 //マップチップの開始地点(X-140Y250)
 #define MAPCHIP_START_X -140.0f
-#define MAPCHIP_START_Y 250.0f
+#define MAPCHIP_START_Y 150.0f
 //左右(4682)
 #define LEFT	4
 #define RIGHT	6
@@ -48,9 +48,9 @@
 #define DOWN	2
 //移動リミット(-140,-270,60,250)
 #define MOVELIMIT_MIN_X -140
-#define MOVELIMIT_MIN_Y -270
+#define MOVELIMIT_MIN_Y -110
 #define MOVELIMIT_MAX_X  60
-#define MOVELIMIT_MAX_Y  250
+#define MOVELIMIT_MAX_Y  150
 //配置状況の数値(9)
 #define Setup_FALSE 9
 
