@@ -18,7 +18,7 @@ namespace basecross {
 		ptrTrans->SetPosition(m_pos.x, m_pos.y, 0.0f);
 		//頂点とインデックスを指定してスプライト作成
 		auto ptrDraw = AddComponent<PCTSpriteDraw>(vertices, indices);
-		ptrDraw->SetSamplerState(SamplerState::LinearWrap);
+		//ptrDraw->SetSamplerState(SamplerState::LinearWrap);
 		ptrDraw->SetTextureResource(L"BG_Mass");
 		SetAlphaActive(true);
 	}

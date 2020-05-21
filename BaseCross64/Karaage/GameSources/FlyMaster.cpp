@@ -242,7 +242,7 @@ namespace basecross {
 	}
 
 	/// ----------------------------------------<summary>
-	/// リキャストタイマー
+	/// 移動リキャスト
 	/// </summary>----------------------------------------
 	void FlyMaster::Recast_Move() {
 		auto pad = App::GetApp()->GetInputDevice().GetControlerVec();
@@ -293,16 +293,24 @@ namespace basecross {
 				m_meatsInstallationData.Karage++;
 				break;
 			case ドラム:
-				stage->AddGameObject<Drum>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 30, possessoionPos.y + 30, 0), newMeatRot);
+				newMeat = stage->AddGameObject<Drum>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 30, possessoionPos.y + 30, 0), newMeatRot);
+				m_installationMeat.push_back(newMeat);
+				m_meatsInstallationData.Drum++;
 				break;
 			case キール:
-				stage->AddGameObject<Keel>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 60, possessoionPos.y + 60, 0), newMeatRot);
+				newMeat = stage->AddGameObject<Keel>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 60, possessoionPos.y + 60, 0), newMeatRot);
+				m_installationMeat.push_back(newMeat);
+				m_meatsInstallationData.Keel++;
 				break;
 			case リブ:
-				stage->AddGameObject<Rib>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 40, possessoionPos.y + 40, 0), newMeatRot);
+				newMeat = stage->AddGameObject<Rib>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 40, possessoionPos.y + 40, 0), newMeatRot);
+				m_installationMeat.push_back(newMeat);
+				m_meatsInstallationData.Lib++;
 				break;
 			case ウィング:
-				stage->AddGameObject<Wing>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 30, possessoionPos.y + 30, 0), newMeatRot);
+				newMeat = stage->AddGameObject<Wing>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 30, possessoionPos.y + 30, 0), newMeatRot);
+				m_installationMeat.push_back(newMeat);
+				m_meatsInstallationData.Wing++;
 				break;
 			default:
 				MessageBox(0, L"所持肉IDの不一致です。生成に失敗しました！", 0, 0);
@@ -445,7 +453,8 @@ namespace basecross {
 	/// </summary>----------------------------------------
 	void FlyMaster::Rot_Array() {
 		//一時置き場
-		int temp[3][3] = { 0 };
+		int temp3x3[3][3] = { 0 };
+		int temp2x2[3][3] = { 0 };
 
 		//所持肉IDで
 		switch (m_possessionMeatID)
@@ -453,59 +462,63 @@ namespace basecross {
 		case 唐揚げ:
 			//回転しないので何もしない
 			break;
+
 		case ドラム:
 			//一時置き場にコピー
-			for (int i = 0; i < 3; i++) {
-				for (int k = 0; k < 3; k++) {
-					temp[i][k] = Hit_Drum[i][k];
+			for (int i = 0; i < 2; i++) {
+				for (int k = 0; k < 2; k++) {
+					temp2x2[i][k] = Hit_Drum[i][k];
 				}
 			}
 			//転置後行を逆にして右回り
-			for (int i = 0; i < 3; i++) {
-				for (int k = 0; k < 3; k++) {
-					Hit_Drum[i][k] = temp[k][2 - i];
+			for (int i = 0; i < 2; i++) {
+				for (int k = 0; k < 2; k++) {
+					Hit_Drum[i][k] = temp2x2[k][2 - i];
 				}
 			}
 			break;
+
 		case キール:
 			//一時置き場にコピー
 			for (int i = 0; i < 3; i++) {
 				for (int k = 0; k < 3; k++) {
-					temp[i][k] = Hit_Keel[i][k];
+					temp3x3[i][k] = Hit_Keel[i][k];
 				}
 			}
 			//転置後行を逆にして右回り
 			for (int i = 0; i < 3; i++) {
 				for (int k = 0; k < 3; k++) {
-					Hit_Keel[i][k] = temp[k][2 - i];
+					Hit_Keel[i][k] = temp3x3[k][2 - i];
 				}
 			}
 			break;
+
 		case リブ:
 			//一時置き場にコピー
-			for (int i = 0; i < 3; i++) {
-				for (int k = 0; k < 3; k++) {
-					temp[i][k] = Hit_Rib[i][k];
+			for (int i = 0; i < 2; i++) {
+				for (int k = 0; k < 2; k++) {
+					temp2x2[i][k] = Hit_Rib[i][k];
 				}
 			}
 			//転置後行を逆にして右回り
-			for (int i = 0; i < 3; i++) {
-				for (int k = 0; k < 3; k++) {
-					Hit_Rib[i][k] = temp[k][2 - i];
+			for (int i = 0; i < 2; i++) {
+				for (int k = 0; k < 2; k++) {
+					Hit_Rib[i][k] = temp2x2[k][2 - i];
 				}
 			}
 			break;
+
 		case ウィング:
 			//一時置き場にコピー
-			for (int i = 0; i < 3; i++) {
-				for (int k = 0; k < 3; k++) {
-					temp[i][k] = Hit_Wing[i][k];
+			for (int i = 0; i < 2; i++) {
+				for (int k = 0; k < 2; k++) {
+					temp2x2[i][k] = Hit_Wing[i][k];
 				}
 			}
 			//転置後行を逆にして右回り
-			for (int i = 0; i < 3; i++) {
-				for (int k = 0; k < 3; k++) {
-					Hit_Wing[i][k] = temp[k][2 - i];
+			for (int i = 0; i < 2; i++) {
+				for (int k = 0; k < 2; k++) {
+					Hit_Wing[i][k] = temp2x2[k][2 - i];
 				}
 			}
 			break;
@@ -515,7 +528,9 @@ namespace basecross {
 		}
 	}
 
-
+	/// ----------------------------------------<summary>
+	/// スプライトに表示するために各桁を分解
+	/// </summary>----------------------------------------
 	void FlyMaster::Set_Num(int num) {
 		//最大6桁かな…(100,000)
 		//一桁ずつ取って格納
@@ -527,12 +542,18 @@ namespace basecross {
 		m_NowNumber[5] = (num % 10); num /= 10;//6
 		Update_num();
 	}
+	/// ----------------------------------------<summary>
+	/// スプライトの数字変更
+	/// </summary>----------------------------------------
 	void FlyMaster::Update_num() {
 		auto nums = FlyMaster::GetInstans().GetNumbers();
 		for (int i = 0; i < 6; i++) {
 			Set_Rect(m_NowNumber[i], nums[i]);
 		}
 	}
+	/// ----------------------------------------<summary>
+	/// スプライトのRect変更
+	/// </summary>----------------------------------------
 	void FlyMaster::Set_Rect(int num, shared_ptr<GameObject> numobj) {
 		vector<VertexPositionColorTexture> vertices;
 		switch (num)
