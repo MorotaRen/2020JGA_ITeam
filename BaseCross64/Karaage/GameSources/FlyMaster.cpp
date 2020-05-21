@@ -26,12 +26,12 @@ namespace basecross {
 			};
 		}
 		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
-		m_Numbers[5] = (stage->AddGameObject<NumberUI>(Vec2(-520, 150), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_Numbers[4] = (stage->AddGameObject<NumberUI>(Vec2(-420, 150), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_Numbers[3] = (stage->AddGameObject<NumberUI>(Vec2(-470, 150), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_Numbers[2] = (stage->AddGameObject<NumberUI>(Vec2(-370, 150), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_Numbers[1] = (stage->AddGameObject<NumberUI>(Vec2(-320, 150), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_Numbers[0] = (stage->AddGameObject<NumberUI>(Vec2(-270, 150), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		m_Numbers[5] = (stage->AddGameObject<NumberUI>(Vec2(-520, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		m_Numbers[4] = (stage->AddGameObject<NumberUI>(Vec2(-420, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		m_Numbers[3] = (stage->AddGameObject<NumberUI>(Vec2(-470, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		m_Numbers[2] = (stage->AddGameObject<NumberUI>(Vec2(-370, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		m_Numbers[1] = (stage->AddGameObject<NumberUI>(Vec2(-320, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		m_Numbers[0] = (stage->AddGameObject<NumberUI>(Vec2(-270, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
 
 	}
 	/// ----------------------------------------<summary>
@@ -41,6 +41,7 @@ namespace basecross {
 		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
 		stage->AddGameObject<MeatUI>(Vec2(0), Vec3(670.0f, 400.0f, 0.0f), L"BG_Kitchen");
 		stage->AddGameObject<MeatUI>(Vec2(-20, -17), Vec3(195.0f, 230.0f, 1.0f), L"BG_Flyer");
+		stage->AddGameObject<MeatUI>(Vec2(-500, 220), Vec3(80.0f, 80.0f, 1.0f), L"Tex_Timer");
 	}
 	/// ----------------------------------------<summary>
 	/// 在庫数に追加する。追加した後は設置されている数はリセットされる
@@ -118,7 +119,7 @@ namespace basecross {
 		tempMoney += md.Keel * PRICE_KEEL;	
 
 		m_nowMoney += tempMoney;
-		Set_Num(m_nowMoney);
+		Set_Num(m_nowMoney,m_Numbers);
 	}
 	/// ----------------------------------------<summary>
 	/// 渡された座標からマップ方向にレイを飛ばし接触したオブジェクトのマップ番号を返す
@@ -531,7 +532,7 @@ namespace basecross {
 	/// ----------------------------------------<summary>
 	/// スプライトに表示するために各桁を分解
 	/// </summary>----------------------------------------
-	void FlyMaster::Set_Num(int num) {
+	void FlyMaster::Set_Num(int num,vector<shared_ptr<GameObject>> changennumobj) {
 		//最大6桁かな…(100,000)
 		//一桁ずつ取って格納
 		m_NowNumber[0] = (num % 10); num /= 10;//1
@@ -540,15 +541,14 @@ namespace basecross {
 		m_NowNumber[3] = (num % 10); num /= 10;//4
 		m_NowNumber[4] = (num % 10); num /= 10;//5
 		m_NowNumber[5] = (num % 10); num /= 10;//6
-		Update_num();
+		Update_num(changennumobj);
 	}
 	/// ----------------------------------------<summary>
 	/// スプライトの数字変更
 	/// </summary>----------------------------------------
-	void FlyMaster::Update_num() {
-		auto nums = FlyMaster::GetInstans().GetNumbers();
-		for (int i = 0; i < 6; i++) {
-			Set_Rect(m_NowNumber[i], nums[i]);
+	void FlyMaster::Update_num(vector<shared_ptr<GameObject>> objs) {
+		for (int i = 0; i < objs.size(); i++) {
+			Set_Rect(m_NowNumber[i], objs[i]);
 		}
 	}
 	/// ----------------------------------------<summary>
