@@ -55,6 +55,7 @@ namespace basecross {
 	void FlyMaster::Create_GameUI() {
 		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
 		stage->AddGameObject<MeatUI>(Vec2(0), Vec3(670.0f, 400.0f, 0.0f), L"BG_Kitchen");
+		//stage->AddGameObject<OverUI>(Vec2(-20, -20), Vec3(190.0f, 330.0f, 1.0f), L"Tex_Oil");
 		stage->AddGameObject<MeatUI>(Vec2(-20, -17), Vec3(195.0f, 230.0f, 1.0f), L"BG_Flyer");
 		stage->AddGameObject<MeatUI>(Vec2(-500, 220), Vec3(100.0f, 100.0f, 1.0f), L"Tex_Timer");
 	}
@@ -135,6 +136,7 @@ namespace basecross {
 
 		m_nowMoney += tempMoney;
 		Set_Num(m_nowMoney,m_Numbers);
+		Check_Comparison();
 	}
 	/// ----------------------------------------<summary>
 	/// –Ú•W‹àŠz‚ÆŒ»İ‹àŠz‚Ì”äŠr
