@@ -62,11 +62,19 @@ namespace basecross {
 		int m_targetMoney = 0;
 		//現在金額
 		int m_nowMoney = 0;
-		//数字のポインタ
+		//現在時刻
+		float m_time = 0;
+		//現在金額数字のポインタ
 		vector<shared_ptr<GameObject>> m_Numbers = {0,0,0,0,0,0};
-
-		int m_number;
+		//目標金額数字のポインタ
+		vector<shared_ptr<GameObject>> m_targetMoneyNumbers = {0,0,0,0,0,0};
+		//タイマー用数字
+		vector<shared_ptr<GameObject>> m_TimerNumbers = {0,0,0,0,0};
+		//適用する数字を分解したもの
 		int m_NowNumber[6];
+		//タイマー用の適用数字を分解したもの
+		int m_NowTime[4];
+		//ナンバーのUV座標達
 		vector<Rect2D<float>> m_numRects = vector<Rect2D<float>>(10);
 
 		//------------肉の各種判定------------//
@@ -136,14 +144,19 @@ namespace basecross {
 		//配列の回転
 		void Rot_Array();
 		//ゲームを始める時
-		void GAMESTART(int TargetMoney);
+		void GAMESTART(int targetMoney,int time);
 		//表示用数値の分解
 		void Set_Num(int num,vector<shared_ptr<GameObject>> changennumobj);
 		//数字変更
 		void Update_num(vector<shared_ptr<GameObject>> objs);
 		//数字変更に伴うスプライトのUV座標の変更
 		void Set_Rect(int num, shared_ptr<GameObject> numobj);
-
+		//タイマーセット
+		void Set_Timer(int time,vector<shared_ptr<GameObject>> changenumobj);
+		//タイマーの更新		
+		void Update_Timer();
+		//目標と現在を比較する
+		bool Check_Comparison();
 		//------------ゲッターセッター--------------//
 		void SetStockData(const MeatsData md) {
 			m_meatsStockData = md;

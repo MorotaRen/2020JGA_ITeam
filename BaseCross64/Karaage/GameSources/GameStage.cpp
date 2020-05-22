@@ -39,8 +39,9 @@ namespace basecross {
 	void GameStage::OnUpdate() {
 		if (!m_trigger) {
 			FlyMaster::GetInstans().Create_GameUI();
-			FlyMaster::GetInstans().GAMESTART(700);
+			FlyMaster::GetInstans().GAMESTART(700,7000);
 			FlyMaster::GetInstans().Create_GameField();
+
 			FlyMaster::GetInstans().Create_PossessionMeat(0);
 			m_trigger = true;
 		}
@@ -90,6 +91,10 @@ namespace basecross {
 	void GameStage::CreateGuest()
 	{
 		auto ptr = AddGameObject<Guest>(Vec3(400,300,0));
+	}
+
+	void GameStage::OnUpdate2() {
+		FlyMaster::GetInstans().Update_Timer();
 	}
 }
 //end basecross

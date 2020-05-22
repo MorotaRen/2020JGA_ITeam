@@ -6,9 +6,9 @@ namespace basecross {
 	/// ゲームスタートの時の関数
 	/// これを起動でゲームが始まる
 	/// </summary>----------------------------------------
-	void FlyMaster::GAMESTART(int TargetMoney) {
+	void FlyMaster::GAMESTART(int targetMoney,int time) {
 		//目標金額の設定
-		m_targetMoney = TargetMoney;
+		m_targetMoney = targetMoney;
 		//数字UIの範囲
 		float Range = 0.1f;
 		m_numRects.resize(10);
@@ -26,13 +26,28 @@ namespace basecross {
 			};
 		}
 		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
+		//現在金額数字
 		m_Numbers[5] = (stage->AddGameObject<NumberUI>(Vec2(-520, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
 		m_Numbers[4] = (stage->AddGameObject<NumberUI>(Vec2(-420, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
 		m_Numbers[3] = (stage->AddGameObject<NumberUI>(Vec2(-470, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
 		m_Numbers[2] = (stage->AddGameObject<NumberUI>(Vec2(-370, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
 		m_Numbers[1] = (stage->AddGameObject<NumberUI>(Vec2(-320, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
 		m_Numbers[0] = (stage->AddGameObject<NumberUI>(Vec2(-270, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-
+		//タイマー用数字
+		m_TimerNumbers[4] = (stage->AddGameObject<NumberUI>(Vec2(-540, 220), Vec3(20.0f, 20.0f, 1.0f), L"Tex_Number"));
+		m_TimerNumbers[3] = (stage->AddGameObject<NumberUI>(Vec2(-510, 220), Vec3(20.0f, 20.0f, 1.0f), L"Tex_Number"));
+		m_TimerNumbers[2] = (stage->AddGameObject<NumberUI>(Vec2(-480, 220), Vec3(20.0f, 20.0f, 1.0f), L"Tex_Number"));
+		m_TimerNumbers[1] = (stage->AddGameObject<NumberUI>(Vec2(-450, 220), Vec3(20.0f, 20.0f, 1.0f), L"Tex_Number"));
+		//目標金額数字
+		m_targetMoneyNumbers[5] = (stage->AddGameObject<NumberUI>(Vec2(-520, 30), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		m_targetMoneyNumbers[4] = (stage->AddGameObject<NumberUI>(Vec2(-420, 30), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		m_targetMoneyNumbers[3] = (stage->AddGameObject<NumberUI>(Vec2(-470, 30), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		m_targetMoneyNumbers[2] = (stage->AddGameObject<NumberUI>(Vec2(-370, 30), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		m_targetMoneyNumbers[1] = (stage->AddGameObject<NumberUI>(Vec2(-320, 30), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		m_targetMoneyNumbers[0] = (stage->AddGameObject<NumberUI>(Vec2(-270, 30), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		//タイマーセット
+		Set_Timer(time, m_TimerNumbers);
+		Set_Num(targetMoney,m_targetMoneyNumbers);
 	}
 	/// ----------------------------------------<summary>
 	/// ゲームのUIの作成
@@ -40,8 +55,9 @@ namespace basecross {
 	void FlyMaster::Create_GameUI() {
 		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
 		stage->AddGameObject<MeatUI>(Vec2(0), Vec3(670.0f, 400.0f, 0.0f), L"BG_Kitchen");
+		//stage->AddGameObject<OverUI>(Vec2(-20, -20), Vec3(190.0f, 330.0f, 1.0f), L"Tex_Oil");
 		stage->AddGameObject<MeatUI>(Vec2(-20, -17), Vec3(195.0f, 230.0f, 1.0f), L"BG_Flyer");
-		stage->AddGameObject<MeatUI>(Vec2(-500, 220), Vec3(80.0f, 80.0f, 1.0f), L"Tex_Timer");
+		stage->AddGameObject<MeatUI>(Vec2(-500, 220), Vec3(100.0f, 100.0f, 1.0f), L"Tex_Timer");
 	}
 	/// ----------------------------------------<summary>
 	/// 在庫数に追加する。追加した後は設置されている数はリセットされる
@@ -120,6 +136,20 @@ namespace basecross {
 
 		m_nowMoney += tempMoney;
 		Set_Num(m_nowMoney,m_Numbers);
+		Check_Comparison();
+	}
+	/// ----------------------------------------<summary>
+	/// 目標金額と現在金額の比較
+	///	達成ならTRUE
+	/// </summary>----------------------------------------
+	bool FlyMaster::Check_Comparison() {
+		if (m_targetMoney <= m_nowMoney) {
+			MessageBox(0,L"げーむくりあ",0,0);
+			return true;
+		}else {
+			return false;
+		}
+		
 	}
 	/// ----------------------------------------<summary>
 	/// 渡された座標からマップ方向にレイを飛ばし接触したオブジェクトのマップ番号を返す
@@ -631,6 +661,30 @@ namespace basecross {
 		default:
 			break;
 		}
+	}
+
+	/// ----------------------------------------<summary>
+	///	タイマーの設定
+	/// </summary>----------------------------------------
+	void FlyMaster::Set_Timer(int time, vector<shared_ptr<GameObject>> changenumobj) {
+		m_time = time;
+		m_NowTime[0] = (time % 10); time /= 10;
+		m_NowTime[1] = (time % 10); time /= 10;
+		m_NowTime[2] = (time % 10); time /= 10;
+		m_NowTime[3] = (time % 10); time /= 10;
+
+		for (int i = 1; i < changenumobj.size();i++) {
+			Set_Rect(m_NowTime[i],changenumobj[i]);
+		}
+	}
+
+	/// ----------------------------------------<summary>
+	///	タイマーの更新
+	/// </summary>----------------------------------------
+	void FlyMaster::Update_Timer() {
+		auto deltatime = App::GetApp()->GetElapsedTime();
+		m_time -=  1 * deltatime;
+		Set_Timer(m_time,m_TimerNumbers);
 	}
 }
 //end basecross
