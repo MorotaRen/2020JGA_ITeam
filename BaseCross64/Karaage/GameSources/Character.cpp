@@ -38,12 +38,28 @@ namespace basecross{
 
 		ptrStage->AddGameObject<MultiSprite>(true, Vec2(300, 150), m_position, L"Guest1_TX");
 		ptrStage->AddGameObject<GuestTimerGauge>(m_position, false);
+		ptrStage->AddGameObject<GuestTimerGauge>(m_position, true);
 	}
 
 	void Guest::OnUpdate()
 	{
 		auto elapsed = App::GetApp()->GetElapsedTime();
 		m_timer -= elapsed;
+		ClearCheck();
+	}
+
+	void Guest::ClearCheck()
+	{
+		for (int i = 0; i < 5; i++) {
+			if (m_meet[i] == 0) {
+				if (i == 4) {
+					m_clear = true;
+				}
+			}
+			else {
+				break;
+			}
+		}
 	}
 
 	//--------------------------------------------------------------------------------------
@@ -75,24 +91,26 @@ namespace basecross{
 		//ptrTrans->SetPosition(m_position.x, m_position.y, 0.0f);
 		SetPosition(m_guestPos);
 		if (m_isFix == false) {
-			ptrTrans->SetScale(250.0f, 15.0f, 1.0f);
-			m_Per = 250.0f / 20.0f;
+			ptrTrans->SetScale(250.0f, 30.0f, 1.0f);
+			m_Per = 250.0f / m_timer;
 			ptrTrans->SetPivot(0.0f, 0.0f, 0.0f);
 			ptrDraw->SetTextureResource(L"TimerGauge_TX");
-			SetDrawLayer(150);
+			SetDrawLayer(149);
 		}
 		else {
-			ptrTrans->SetScale(363.0f, 260.0f, 1.0f);
+			ptrTrans->SetScale(250.0f, 30.0f, 1.0f);
 			ptrDraw->SetTextureResource(L"TimerGaugeFrame_TX");
-			SetDrawLayer(149);
+			SetDrawLayer(150);
 		}
 		ptrTrans->SetRotation(0.0f, 0.0f, 0.0f);
 	}
 
 	void GuestTimerGauge::OnUpdate()
 	{
-		SetTime();
-		ChangeScale();
+		if (!m_isFix) {
+			SetTime();
+			ChangeScale();
+		}
 	}
 
 	void GuestTimerGauge::SetTime()

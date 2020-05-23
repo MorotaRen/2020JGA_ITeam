@@ -58,7 +58,8 @@ namespace basecross{
 			SetTexture(L"Guest1_TX", L"Texture\\Characters\\", L"Guest1.png");
 			SetTexture(L"Tex_Number", L"Texture\\UIs\\", L"Number.png");
 			SetTexture(L"Tex_Timer", L"Texture\\GameUIs\\", L"Timer.png");
-
+			SetTexture(L"TimerGauge_TX", L"Texture\\GameUIs\\", L"TimerGauge.png");
+			SetTexture(L"TimerGaugeFrame_TX", L"Texture\\GameUIs\\", L"TimerGaugeFrame.png");
 
 			//“÷(ü‚ ‚è)
 			SetMeat_Line(L"Meat_Drum_Line",L"Chicken_Drum3.png");
