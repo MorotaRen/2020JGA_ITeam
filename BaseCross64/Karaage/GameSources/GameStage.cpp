@@ -39,10 +39,6 @@ namespace basecross {
 	void GameStage::OnUpdate() {
 		if (!m_trigger) {
 			FlyMaster::GetInstans().GAMESTART(700,7000);
-			FlyMaster::GetInstans().Create_GameUI();
-			FlyMaster::GetInstans().Create_GameField();
-
-			FlyMaster::GetInstans().Create_PossessionMeat(0);
 			m_trigger = true;
 		}
 

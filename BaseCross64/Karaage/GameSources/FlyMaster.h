@@ -76,7 +76,10 @@ namespace basecross {
 		int m_NowTime[4];
 		//ナンバーのUV座標達
 		vector<Rect2D<float>> m_numRects = vector<Rect2D<float>>(10);
-
+		//タイマー終了時の判定(油)
+		bool m_timerForOil;
+		//タイマー終了時の判定(Game)
+		bool m_timerForGame;
 		//------------肉の各種判定------------//
 		int Hit_Karaage[3][3] = {
 								{9,1,1},
@@ -129,7 +132,7 @@ namespace basecross {
 		void Create_PossessionMeat(int createMeatID);
 		//所持肉の移動
 		void Move_PossessionMeat(int direction);
-		//リキャストタイマー
+		//移動リキャスト
 		void Recast_Move();
 		//所持肉の切り替え
 		void Change_PossessionMeat();
@@ -159,6 +162,8 @@ namespace basecross {
 		void Update_Timer();
 		//目標と現在を比較する
 		bool Check_Comparison();
+		//フライヤータイマー
+		bool Fly_Timer();
 		//------------ゲッターセッター--------------//
 		void SetStockData(const MeatsData md) {
 			m_meatsStockData = md;

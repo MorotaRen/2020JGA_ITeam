@@ -67,7 +67,6 @@ namespace basecross {
 	void FlyMaster::Create_GameUI() {
 		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
 		stage->AddGameObject<MeatUI>(Vec2(0), Vec3(670.0f, 400.0f, 0.0f), L"BG_Kitchen");
-		//stage->AddGameObject<OverUI>(Vec2(-20, -20), Vec3(190.0f, 330.0f, 1.0f), L"Tex_Oil");
 		stage->AddGameObject<MeatUI>(Vec2(-20, -17), Vec3(195.0f, 230.0f, 1.0f), L"BG_Flyer");
 		stage->AddGameObject<MeatUI>(Vec2(-500, 220), Vec3(100.0f, 100.0f, 1.0f), L"Tex_Timer");
 	}
@@ -132,6 +131,9 @@ namespace basecross {
 	/// 揚げる処理
 	/// </summary>----------------------------------------
 	void FlyMaster::Fly() {
+		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
+		stage->AddGameObject<OverUI>(Vec2(-20, -20), Vec3(190.0f, 330.0f, 1.0f), L"Tex_Oil");
+		//ここでリキャスト持たせるか…
 		Add_StockMeat();
 	}
 
@@ -697,6 +699,12 @@ namespace basecross {
 		auto deltatime = App::GetApp()->GetElapsedTime();
 		m_time -=  1 * deltatime;
 		Set_Timer(m_time,m_TimerNumbers);
+	}
+	/// ----------------------------------------<summary>
+	///	フライヤータイマー
+	/// </summary>----------------------------------------
+	bool FlyMaster::Fly_Timer() {
+		
 	}
 }
 //end basecross
