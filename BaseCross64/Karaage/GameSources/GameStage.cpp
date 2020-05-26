@@ -90,6 +90,7 @@ namespace basecross {
 	}
 
 	void GameStage::OnUpdate2() {
+
 		FlyMaster::GetInstans().Update_Timer();
 	}
 }

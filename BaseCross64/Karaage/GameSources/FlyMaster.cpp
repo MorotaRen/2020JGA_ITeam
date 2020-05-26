@@ -579,12 +579,9 @@ namespace basecross {
 	void FlyMaster::Set_Num(int num,vector<shared_ptr<GameObject>> changennumobj) {
 		//最大6桁かな…(100,000)
 		//一桁ずつ取って格納
-		m_NowNumber[0] = (num % 10); num /= 10;//1
-		m_NowNumber[1] = (num % 10); num /= 10;//2
-		m_NowNumber[2] = (num % 10); num /= 10;//3
-		m_NowNumber[3] = (num % 10); num /= 10;//4
-		m_NowNumber[4] = (num % 10); num /= 10;//5
-		m_NowNumber[5] = (num % 10); num /= 10;//6
+		for (int i = 0; i < changennumobj.size();i++) {
+			m_NowNumber[i] = (num % 10); num /= 10;//1
+		}
 		Update_num(changennumobj);
 	}
 	/// ----------------------------------------<summary>
@@ -704,7 +701,7 @@ namespace basecross {
 	///	フライヤータイマー
 	/// </summary>----------------------------------------
 	bool FlyMaster::Fly_Timer() {
-		
+		return true;
 	}
 }
 //end basecross
