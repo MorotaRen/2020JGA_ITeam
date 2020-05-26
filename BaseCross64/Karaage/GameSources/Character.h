@@ -20,6 +20,10 @@ namespace basecross {
 
 		bool m_clear;
 
+		Vec2 m_numberPos[5];
+		vector<shared_ptr<GameObject>> m_MeetCount = { 0,0,0,0,0 };
+		vector<Rect2D<float>> m_numRects = vector<Rect2D<float>>(10);
+
 	public :
 		Guest(shared_ptr<Stage>&Stage, Vec3 position);
 		~Guest() {};
@@ -32,6 +36,9 @@ namespace basecross {
 			return m_timer;
 		}
 		void ClearCheck();
+		
+		void Update_num(vector<shared_ptr<GameObject>> objs);
+		void SetRect(int num, shared_ptr<GameObject> numobj);
 	};
 
 	//--------------------------------------------------------------------------------------
@@ -64,10 +71,9 @@ namespace basecross {
 	{
 		Vec2 m_position;
 		Vec2 m_scale;
-		wstring m_meetName;
 		
 	public :
-		GuestOrder(shared_ptr<Stage>&Stage, Vec3 position, wstring meetName);
+		GuestOrder(shared_ptr<Stage>&Stage, Vec3 position);
 		~GuestOrder() {};
 		virtual void OnCreate()override;
 		virtual void OnUpdate()override;

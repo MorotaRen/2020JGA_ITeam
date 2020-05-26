@@ -17,6 +17,12 @@ namespace basecross{
 	{
 		m_timer = 0;
 		m_clear = false;
+
+		m_numberPos[0] = Vec2(position.x - 50.0f, position.y + 20.0f);
+		m_numberPos[1] = Vec2(position.x - 50.0f, position.y + 10.0f);
+		m_numberPos[2] = Vec2(position.x - 50.0f, position.y + 0.0f);
+		m_numberPos[3] = Vec2(position.x + 10.0f, position.y + 20.0f);
+		m_numberPos[4] = Vec2(position.x + 10.0f, position.y + 10.0f);
 	}
 
 	void Guest::OnCreate() 
@@ -39,6 +45,11 @@ namespace basecross{
 		ptrStage->AddGameObject<MultiSprite>(true, Vec2(300, 150), m_position, L"Guest1_TX");
 		ptrStage->AddGameObject<GuestTimerGauge>(m_position, false);
 		ptrStage->AddGameObject<GuestTimerGauge>(m_position, true);
+
+		for (int i = 0; i < m_MeetCount.size(); i++) {
+			/*m_MeetCount[i] = */ptrStage->AddGameObject<NumberUI>(Vec2(0,0)/*m_numberPos[i]*/, Vec3(15.0f, 15.0f, 1.0f), L"Tex_Number");
+		}
+		//Update_num(m_MeetCount);
 	}
 
 	void Guest::OnUpdate()
@@ -46,6 +57,7 @@ namespace basecross{
 		auto elapsed = App::GetApp()->GetElapsedTime();
 		m_timer -= elapsed;
 		ClearCheck();
+		//Update_num(m_MeetCount);
 	}
 
 	void Guest::ClearCheck()
@@ -62,6 +74,20 @@ namespace basecross{
 		}
 	}
 
+	void Guest::Update_num(vector<shared_ptr<GameObject>> objs) {
+		for (int i = 0; i < objs.size(); i++) {
+			SetRect(m_meet[i], objs[i]);
+		}
+	}
+
+	void Guest::SetRect(int num, shared_ptr<GameObject> numobj) {		
+		vector<VertexPositionColorTexture> vertices;
+		vertices.push_back(VertexPositionColorTexture(Vec3(-1.0f, 1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[num].left, 0.0f)));
+		vertices.push_back(VertexPositionColorTexture(Vec3(1.0f, 1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[num].top, 0.0f)));
+		vertices.push_back(VertexPositionColorTexture(Vec3(-1.0f, -1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[num].right, 1.0f)));
+		vertices.push_back(VertexPositionColorTexture(Vec3(1.0f, -1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[num].bottom, 1.0f)));
+		numobj->GetComponent<PCTSpriteDraw>()->UpdateVertices(vertices);			
+		}
 	//--------------------------------------------------------------------------------------
 	///	ãqÇÃÉ^ÉCÉ}Å[
 	//--------------------------------------------------------------------------------------
@@ -136,6 +162,26 @@ namespace basecross{
 		auto ptrTrans = GetComponent<Transform>();
 		Vec3 position = guestPos + Vec3(-125.0f, -50.0f, 0.0f);
 		ptrTrans->SetPosition(position);
+	}
+
+	//--------------------------------------------------------------------------------------
+	///	ãqÇÃíçï∂
+	//--------------------------------------------------------------------------------------
+	GuestOrder::GuestOrder(shared_ptr<Stage>&Stage, Vec3 position)
+		: GameObject(Stage),
+		m_position(position)
+	{
+
+	}
+
+	void GuestOrder::OnCreate()
+	{
+
+	}
+
+	void GuestOrder::OnUpdate()
+	{
+
 	}
 }
 
