@@ -45,9 +45,21 @@ namespace basecross {
 		m_targetMoneyNumbers[2] = (stage->AddGameObject<NumberUI>(Vec2(-370, 30), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
 		m_targetMoneyNumbers[1] = (stage->AddGameObject<NumberUI>(Vec2(-320, 30), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
 		m_targetMoneyNumbers[0] = (stage->AddGameObject<NumberUI>(Vec2(-270, 30), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		
 		//タイマーセット
 		Set_Timer(time, m_TimerNumbers);
 		Set_Num(targetMoney,m_targetMoneyNumbers);
+
+		//UIの作成
+		FlyMaster::GetInstans().Create_GameUI();
+		FlyMaster::GetInstans().Create_GameField();
+		FlyMaster::GetInstans().Create_PossessionMeat(0);
+	}
+	/// ----------------------------------------<summary>
+	/// ゲームセット	
+	/// </summary>----------------------------------------
+	void FlyMaster::GAMESET() {
+
 	}
 	/// ----------------------------------------<summary>
 	/// ゲームのUIの作成

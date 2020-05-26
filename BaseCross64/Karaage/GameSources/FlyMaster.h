@@ -145,6 +145,8 @@ namespace basecross {
 		void Rot_Array();
 		//ゲームを始める時
 		void GAMESTART(int targetMoney,int time);
+		//ゲームセット
+		void GAMESET();
 		//表示用数値の分解
 		void Set_Num(int num,vector<shared_ptr<GameObject>> changennumobj);
 		//数字変更
