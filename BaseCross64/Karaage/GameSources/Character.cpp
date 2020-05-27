@@ -47,9 +47,10 @@ namespace basecross{
 		ptrStage->AddGameObject<GuestTimerGauge>(m_position, true);
 
 		for (int i = 0; i < m_MeetCount.size(); i++) {
-			/*m_MeetCount[i] = */ptrStage->AddGameObject<NumberUI>(Vec2(0,0)/*m_numberPos[i]*/, Vec3(15.0f, 15.0f, 1.0f), L"Tex_Number");
+			m_MeetCount[i] = ptrStage->AddGameObject<NumberUI>(Vec2(-270,10)/*m_numberPos[i]*/, Vec3(15.0f, 15.0f, 1.0f), L"Tex_Number");
 		}
 		//Update_num(m_MeetCount);
+		FlyMaster::GetInstans().Set_Num(100, m_MeetCount);
 	}
 
 	void Guest::OnUpdate()
