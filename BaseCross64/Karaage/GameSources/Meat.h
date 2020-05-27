@@ -17,22 +17,33 @@
 #define LibOder 5;
 #define KeelOder 5;
 
+#define KaraageTimer 2;
+#define DrumTimer 3;
+#define WingTimer 3;
+#define LibTimer 3;
+#define KeelTimer 4;
+
 namespace basecross{
+
+
 	// “‚—g‚°
 	class Karaage : public GameObject {
 		Vec3 m_Scale;
 		Vec3 m_Position;
 		Vec3 m_Rotation;
+		float FlyTimer;
 	public:
 		Karaage(const shared_ptr<Stage>& stagePtr,
 			const Vec3& Scale,
 			const Vec3& Position,
 			const Vec3& Rotation);
+
 		virtual ~Karaage() {}
 		virtual void OnCreate() override;
 		virtual void OnUpdate() override;
-		virtual void OnUpdate2() override;
 		void DrawString();
+		void Destroy();
+		void Timer();
 	};
 
 	//ƒhƒ‰ƒ€
@@ -97,5 +108,8 @@ namespace basecross{
 		virtual void OnCreate() override;
 		virtual void OnUpdate() override;
 	};
+
+
+
 }
 //end basecross

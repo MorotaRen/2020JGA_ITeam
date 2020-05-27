@@ -29,13 +29,29 @@ namespace basecross {
 
 	void Karaage::OnUpdate()
 	{
-
+		Timer();
+		Destroy();
 	}
 
-	void Karaage::OnUpdate2()
+	//タイマー
+	void Karaage::Timer()
 	{
-		DrawString();
+		float elapsedTime = App::GetApp()->GetElapsedTime();
+		FlyTimer += elapsedTime;
+		if (FlyTimer >= 10.0f)
+		{
+			FlyTimer = FlyTimer - 10;
+		}
 	}
+
+	//消す処理
+	void Karaage::Destroy()
+	{
+		if (FlyTimer >= 6) {
+			GetStage()->RemoveGameObject<Karaage>(GetThis<Karaage>());
+		}
+	}
+
 
 	// ドラム
 	Drum::Drum(const shared_ptr<Stage>& stagePtr, const Vec3& Scale, const Vec3& Position, const Vec3& Rotation) :
@@ -162,5 +178,7 @@ namespace basecross {
 		auto ptrString = GetComponent<StringSprite>();
 		ptrString->SetText(str);
 	}
+
+
 }
 //end basecross

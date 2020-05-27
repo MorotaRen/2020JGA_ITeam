@@ -12,6 +12,13 @@ namespace basecross{
 	//--------------------------------------------------------------------------------------
 	///	ゲームシーン
 	//--------------------------------------------------------------------------------------
+	void Scene::CreateResourses() {
+		wstring dataDir;
+		App::GetApp()->GetAssetsDirectory(dataDir);
+		wstring strTexture = dataDir + L"Number.png";
+		App::GetApp()->RegisterTexture(L"NUMBER_TX", strTexture);
+	}
+
 	void Scene::OnCreate(){
 		try {
 			//クリアする色を設定
@@ -20,6 +27,7 @@ namespace basecross{
 			SetClearColor(Col);
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
+			CreateResourses();
 			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToGameStage");
 		}
 		catch (...) {
