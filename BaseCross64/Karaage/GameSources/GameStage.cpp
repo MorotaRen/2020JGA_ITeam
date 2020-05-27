@@ -44,40 +44,43 @@ namespace basecross {
 
 		//----PAD情報取得----//
 		auto pad = App::GetApp()->GetInputDevice().GetControlerVec();
+		bool isRecast = FlyMaster::GetInstans().GetTimerForOil();
+		if (!isRecast) {
 
-		//------------------上下移動------------------//
-		if (pad[0].fThumbLX > 0.5f) {
-			FlyMaster::GetInstans().Move_PossessionMeat(RIGHT);
-		}
-		else
-			if (pad[0].fThumbLX < -0.5f) {
-				FlyMaster::GetInstans().Move_PossessionMeat(LEFT);
+			//------------------上下移動------------------//
+			if (pad[0].fThumbLX > 0.5f) {
+				FlyMaster::GetInstans().Move_PossessionMeat(RIGHT);
 			}
 			else
-				if (pad[0].fThumbLY > 0.5f) {
-					FlyMaster::GetInstans().Move_PossessionMeat(UP);
+				if (pad[0].fThumbLX < -0.5f) {
+					FlyMaster::GetInstans().Move_PossessionMeat(LEFT);
 				}
 				else
-					if (pad[0].fThumbLY < -0.5f) {
-						FlyMaster::GetInstans().Move_PossessionMeat(DOWN);
+					if (pad[0].fThumbLY > 0.5f) {
+						FlyMaster::GetInstans().Move_PossessionMeat(UP);
 					}
-		//---------------------------------------------//
+					else
+						if (pad[0].fThumbLY < -0.5f) {
+							FlyMaster::GetInstans().Move_PossessionMeat(DOWN);
+						}
+			//---------------------------------------------//
 
-		//-------------------肉の配置-------------------//
-		if (pad[0].wPressedButtons & XINPUT_GAMEPAD_A) {
-			FlyMaster::GetInstans().Set_PossessionMeat();
-		}
-		if (pad[0].wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
-			FlyMaster::GetInstans().Rot_PossessionMeat(90);
-		}
-		if (pad[0].wPressedButtons & XINPUT_GAMEPAD_Y) {
-			auto md = FlyMaster::GetInstans().GetMeatsInstallationData();
-			FlyMaster::GetInstans().Fly();
-		}
-		//---------------------------------------------//
+			//-------------------肉の配置-------------------//
+			if (pad[0].wPressedButtons & XINPUT_GAMEPAD_A) {
+				FlyMaster::GetInstans().Set_PossessionMeat();
+			}
+			if (pad[0].wPressedButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
+				FlyMaster::GetInstans().Rot_PossessionMeat(90);
+			}
+			if (pad[0].wPressedButtons & XINPUT_GAMEPAD_Y) {
+				auto md = FlyMaster::GetInstans().GetMeatsInstallationData();
+				FlyMaster::GetInstans().Fly();
+			}
+			//---------------------------------------------//
 
-		FlyMaster::GetInstans(). Change_PossessionMeat();
-		FlyMaster::GetInstans().Recast_Move();
+			FlyMaster::GetInstans().Change_PossessionMeat();
+			FlyMaster::GetInstans().Recast_Move();
+		}
 
 		if (pad[0].wPressedButtons & XINPUT_GAMEPAD_B) {
 			CreateGuest();
@@ -90,8 +93,13 @@ namespace basecross {
 	}
 
 	void GameStage::OnUpdate2() {
-
+		//ゲーム時間
 		FlyMaster::GetInstans().Update_Timer();
+		//揚げ時間のタイマー
+		bool isRecast = FlyMaster::GetInstans().GetTimerForOil();
+		if (isRecast) {
+			FlyMaster::GetInstans().Fly_Timer();
+		}
 	}
 }
 //end basecross

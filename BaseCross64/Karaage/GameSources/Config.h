@@ -4,7 +4,7 @@
 //------------------誰でも変更可能------------------//
 
 //揚げた後のリキャスト時間
-#define FLY_RECAST_TIME 20
+#define FLY_RECAST_TIME 2
 
 //デフォルトで解放されてる肉の種類数
 #define DEFAULT_RELEASE_MEATS 3

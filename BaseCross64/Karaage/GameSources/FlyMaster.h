@@ -64,6 +64,8 @@ namespace basecross {
 		int m_nowMoney = 0;
 		//現在時刻
 		float m_time = 0;
+		//フライヤータイマーの現在時間
+		float m_flyTime = FLY_RECAST_TIME;
 		//現在金額数字のポインタ
 		vector<shared_ptr<GameObject>> m_Numbers = {0,0,0,0,0,0};
 		//目標金額数字のポインタ
@@ -80,6 +82,8 @@ namespace basecross {
 		bool m_timerForOil;
 		//タイマー終了時の判定(Game)
 		bool m_timerForGame;
+		//オーバーレイ用のスプライトポインタ
+		shared_ptr<GameObject> m_overSprite_Oil;
 		//------------肉の各種判定------------//
 		int Hit_Karaage[3][3] = {
 								{9,1,1},
@@ -163,7 +167,7 @@ namespace basecross {
 		//目標と現在を比較する
 		bool Check_Comparison();
 		//フライヤータイマー
-		bool Fly_Timer();
+		void Fly_Timer();
 		//------------ゲッターセッター--------------//
 		void SetStockData(const MeatsData md) {
 			m_meatsStockData = md;
@@ -188,6 +192,12 @@ namespace basecross {
 		}
 		vector<Rect2D<float>> GetRects() {
 			return m_numRects;
+		}
+		void SetTimeForOil(bool bl) {
+			m_timerForOil = bl;
+		}
+		bool GetTimerForOil() {
+			return m_timerForOil;
 		}
 		//----------------------------------------//
 
