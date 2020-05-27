@@ -56,9 +56,8 @@ namespace basecross {
 		FlyMaster::GetInstans().Create_PossessionMeat(0);
 
 		//オーバーレイ用のスプライト
-		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
 		m_overSprite_Oil =  stage->AddGameObject<OverUI>(Vec2(-20, -20), Vec3(190.0f, 330.0f, 1.0f), L"Tex_Oil");
-
+		m_overSprite_Oil->SetDrawActive(false);
 	}
 	/// ----------------------------------------<summary>
 	/// ゲームセット	
@@ -136,9 +135,9 @@ namespace basecross {
 	/// 揚げる処理
 	/// </summary>----------------------------------------
 	void FlyMaster::Fly() {
-		
+		m_overSprite_Oil->SetDrawActive(true);
 		m_timerForOil = true;
-		Add_StockMeat();
+		m_possessionMeat->SetDrawActive(false);
 	}
 
 	/// ----------------------------------------<summary>
@@ -709,6 +708,9 @@ namespace basecross {
 		m_flyTime -= 1 * deltatime;
 		if (m_flyTime <= 0) {
 			m_flyTime = FLY_RECAST_TIME;
+			Add_StockMeat();
+			m_overSprite_Oil->SetDrawActive(false);
+			m_possessionMeat->SetDrawActive(true);
 			m_timerForOil = false;
 		}
 		else {
