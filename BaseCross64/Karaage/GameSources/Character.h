@@ -37,8 +37,7 @@ namespace basecross {
 		}
 		void ClearCheck();
 		
-		void Update_num(vector<shared_ptr<GameObject>> objs);
-		void SetRect(int num, shared_ptr<GameObject> numobj);
+		void Update_OrderCount();
 	};
 
 	//--------------------------------------------------------------------------------------

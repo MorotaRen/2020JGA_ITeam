@@ -90,7 +90,9 @@ namespace basecross {
 
 	void GameStage::CreateGuest()
 	{
-		auto ptr = AddGameObject<Guest>(Vec3(400,300,0));
+		AddGameObject<Guest>(Vec3(400,320,0));
+		AddGameObject<Guest>(Vec3(400,170,0));
+		AddGameObject<Guest>(Vec3(400, 20,0));
 	}
 
 	void GameStage::OnUpdate2() {

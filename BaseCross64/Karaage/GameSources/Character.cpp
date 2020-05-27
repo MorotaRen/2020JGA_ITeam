@@ -18,11 +18,11 @@ namespace basecross{
 		m_timer = 0;
 		m_clear = false;
 
-		m_numberPos[0] = Vec2(position.x - 50.0f, position.y + 20.0f);
-		m_numberPos[1] = Vec2(position.x - 50.0f, position.y + 10.0f);
-		m_numberPos[2] = Vec2(position.x - 50.0f, position.y + 0.0f);
-		m_numberPos[3] = Vec2(position.x + 10.0f, position.y + 20.0f);
-		m_numberPos[4] = Vec2(position.x + 10.0f, position.y + 10.0f);
+		m_numberPos[0] = Vec2(position.x - 65.0f, position.y + 55.0f);
+		m_numberPos[1] = Vec2(position.x - 65.0f, position.y + 20.0f);
+		m_numberPos[2] = Vec2(position.x - 65.0f, position.y - 15.0f);
+		m_numberPos[3] = Vec2(position.x + 40.0f, position.y + 55.0f);
+		m_numberPos[4] = Vec2(position.x + 40.0f, position.y + 20.0f);
 	}
 
 	void Guest::OnCreate() 
@@ -47,18 +47,25 @@ namespace basecross{
 		ptrStage->AddGameObject<GuestTimerGauge>(m_position, true);
 
 		for (int i = 0; i < m_MeetCount.size(); i++) {
-			m_MeetCount[i] = ptrStage->AddGameObject<NumberUI>(Vec2(-270,10)/*m_numberPos[i]*/, Vec3(15.0f, 15.0f, 1.0f), L"Tex_Number");
+			m_MeetCount[i] = ptrStage->AddGameObject<NumberUI>(m_numberPos[i], Vec3(15.0f, 15.0f, 1.0f), L"Tex_Number");
 		}
-		//Update_num(m_MeetCount);
-		FlyMaster::GetInstans().Set_Num(100, m_MeetCount);
+
+		int countNum = 0;
+		for (int i = 0; i < 5; i++) {
+			countNum += m_meet[i];
+			if(i != 5)
+			countNum *= 10;
+		}
+		FlyMaster::GetInstans().Set_Num(countNum, m_MeetCount);
 	}
 
 	void Guest::OnUpdate()
 	{
 		auto elapsed = App::GetApp()->GetElapsedTime();
 		m_timer -= elapsed;
+
+		Update_OrderCount();
 		ClearCheck();
-		//Update_num(m_MeetCount);
 	}
 
 	void Guest::ClearCheck()
@@ -75,20 +82,16 @@ namespace basecross{
 		}
 	}
 
-	void Guest::Update_num(vector<shared_ptr<GameObject>> objs) {
-		for (int i = 0; i < objs.size(); i++) {
-			SetRect(m_meet[i], objs[i]);
+	void Guest::Update_OrderCount() {
+		int countNum = 0;
+		for (int i = 0; i < 5; i++) {
+			countNum += m_meet[i];
+			if (i != 5)
+				countNum *= 10;
 		}
+		FlyMaster::GetInstans().Set_Num(countNum, m_MeetCount);
 	}
 
-	void Guest::SetRect(int num, shared_ptr<GameObject> numobj) {		
-		vector<VertexPositionColorTexture> vertices;
-		vertices.push_back(VertexPositionColorTexture(Vec3(-1.0f, 1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[num].left, 0.0f)));
-		vertices.push_back(VertexPositionColorTexture(Vec3(1.0f, 1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[num].top, 0.0f)));
-		vertices.push_back(VertexPositionColorTexture(Vec3(-1.0f, -1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[num].right, 1.0f)));
-		vertices.push_back(VertexPositionColorTexture(Vec3(1.0f, -1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[num].bottom, 1.0f)));
-		numobj->GetComponent<PCTSpriteDraw>()->UpdateVertices(vertices);			
-		}
 	//--------------------------------------------------------------------------------------
 	///	客のタイマー
 	//--------------------------------------------------------------------------------------
