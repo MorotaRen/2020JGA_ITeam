@@ -75,6 +75,10 @@ namespace basecross{
 			SetMeat_Line(L"RawMeat_Wing_Line",L"RawMeat_Wing3.png");
 
 			//‰¹Šy
+			SetSound(L"SE_Fly",L"Fly.wav");
+			//SetSound(L"SE_Timer",L"Timer.wav");
+			//SetSound(L"BGM_1",L"BGM_1.wav");
+			//SetSound(L"BGM_2",L"BGM_2.wav");
 
 		}
 	};
