@@ -86,7 +86,6 @@ namespace basecross {
 		Sales(m_meatsInstallationData);
 		Clear_InstallationMeat();
 	}
-
 	/// ----------------------------------------<summary>
 	/// 設置済み肉の初期化
 	/// </summary>----------------------------------------
@@ -103,7 +102,6 @@ namespace basecross {
 		m_meatsInstallationData.Keel = 0;
 
 	}
-
 	/// ----------------------------------------<summary>
 	/// 在庫肉の初期化
 	/// </summary>----------------------------------------
@@ -114,7 +112,6 @@ namespace basecross {
 		m_meatsStockData.Lib = 0;
 		m_meatsStockData.Keel = 0;
 	}
-
 	/// ----------------------------------------<summary>
 	/// ゲームフィールドの作成
 	/// </summary>----------------------------------------
@@ -130,7 +127,6 @@ namespace basecross {
 		}
 
 	}
-
 	/// ----------------------------------------<summary>
 	/// 揚げる処理
 	/// </summary>----------------------------------------
@@ -138,8 +134,8 @@ namespace basecross {
 		m_overSprite_Oil->SetDrawActive(true);
 		m_timerForOil = true;
 		m_possessionMeat->SetDrawActive(false);
+		App::GetApp()->GetScene<Scene>()->MusicOnecStart(L"SE_Fly",1.0f);
 	}
-
 	/// ----------------------------------------<summary>
 	/// 会計
 	/// </summary>----------------------------------------
@@ -176,7 +172,6 @@ namespace basecross {
 		returnNum[1] = 1;
 		return returnNum;
 	}
-
 	/// ----------------------------------------<summary>
 	/// 所持肉の生成
 	/// </summary>----------------------------------------
@@ -187,23 +182,23 @@ namespace basecross {
 		m_possessionMeatID = createMeatID;
 	switch (createMeatID)
 		{
-		case 唐揚げ:
+		case karaage:
 			newMeat = stage->AddGameObject<Karaage>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), quat);
 			Reset_PossessionMeat(newMeat);
 			break;
-		case ドラム:
+		case drum:
 			newMeat = stage->AddGameObject<Drum>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), quat);
 			Reset_PossessionMeat(newMeat);
 			break;
-		case キール:
+		case keel:
 			newMeat = stage->AddGameObject<Keel>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), quat);
 			Reset_PossessionMeat(newMeat);
 			break;
-		case リブ:
+		case rib:
 			newMeat = stage->AddGameObject<Rib>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), quat);
 			Reset_PossessionMeat(newMeat);
 			break;
-		case ウィング:
+		case wing:
 			newMeat = stage->AddGameObject<Wing>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), quat);
 			Reset_PossessionMeat(newMeat);
 			break;
@@ -213,7 +208,6 @@ namespace basecross {
 		}
 
 	}
-
 	/// ----------------------------------------<summary>
 	/// 所持肉のリセット
 	/// </summary>----------------------------------------
@@ -229,7 +223,6 @@ namespace basecross {
 		//所持なしの場合
 		FlyMaster::GetInstans().SetPossessionMeat(obj);
 	}
-
 	/// ----------------------------------------<summary>
 	/// 所持肉の移動
 	/// </summary>----------------------------------------
@@ -280,7 +273,6 @@ namespace basecross {
 				}
 		}
 	}
-
 	/// ----------------------------------------<summary>
 	/// 所持肉の回転
 	/// </summary>----------------------------------------
@@ -288,7 +280,6 @@ namespace basecross {
 		m_possessionMeat->Rotation();
 		Rot_Array();
 	}
-
 	/// ----------------------------------------<summary>
 	/// 移動リキャスト
 	/// </summary>----------------------------------------
@@ -299,7 +290,6 @@ namespace basecross {
 			m_isMove = false;
 		}
 	}
-
 	/// ----------------------------------------<summary>
 	/// 所持肉の切り替え
 	/// </summary>----------------------------------------
@@ -315,7 +305,6 @@ namespace basecross {
 			FlyMaster::Create_PossessionMeat(m_possessionMeatID);
 		}
 	}
-
 	/// ----------------------------------------<summary>
 	/// 所持肉をステージに設置する
 	/// </summary>----------------------------------------
@@ -335,27 +324,27 @@ namespace basecross {
 			//所持肉IDで
 			switch (m_possessionMeatID)
 			{
-			case 唐揚げ:
+			case karaage:
 				newMeat = stage->AddGameObject<Karaage>(Vec3(1, 0, 1), Vec3(possessoionPos.x, possessoionPos.y, 0), newMeatRot);
 				m_installationMeat.push_back(newMeat);
 				m_meatsInstallationData.Karage++;
 				break;
-			case ドラム:
+			case drum:
 				newMeat = stage->AddGameObject<Drum>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 30, possessoionPos.y + 30, 0), newMeatRot);
 				m_installationMeat.push_back(newMeat);
 				m_meatsInstallationData.Drum++;
 				break;
-			case キール:
+			case keel:
 				newMeat = stage->AddGameObject<Keel>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 60, possessoionPos.y + 60, 0), newMeatRot);
 				m_installationMeat.push_back(newMeat);
 				m_meatsInstallationData.Keel++;
 				break;
-			case リブ:
+			case rib:
 				newMeat = stage->AddGameObject<Rib>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 40, possessoionPos.y + 40, 0), newMeatRot);
 				m_installationMeat.push_back(newMeat);
 				m_meatsInstallationData.Lib++;
 				break;
-			case ウィング:
+			case wing:
 				newMeat = stage->AddGameObject<Wing>(Vec3(1, 0, 1), Vec3(possessoionPos.x - 30, possessoionPos.y + 30, 0), newMeatRot);
 				m_installationMeat.push_back(newMeat);
 				m_meatsInstallationData.Wing++;
@@ -369,7 +358,6 @@ namespace basecross {
 		}
 
 	}
-
 	/// ----------------------------------------<summary>
 	/// 肉が設置できるかを調べる
 	/// </summary>----------------------------------------
@@ -385,7 +373,7 @@ namespace basecross {
 			//所持肉IDで
 			switch (m_possessionMeatID)
 			{
-			case 唐揚げ:
+			case karaage:
 				for (int y = 0; y < 3; y++) {
 					for (int x = 0; x < 3; x++) {
 						if (m_gameField[StartPosY + y][StartPosX + x] == Hit_Karaage[y][x]) {
@@ -405,7 +393,7 @@ namespace basecross {
 				}
 				return true;
 				break;
-			case ドラム:
+			case drum:
 				for (int y = 0; y < 3; y++) {
 					for (int x = 0; x < 3; x++) {
 						if (m_gameField[StartPosY + y][StartPosX + x] == Hit_Drum[y][x]) {
@@ -424,7 +412,7 @@ namespace basecross {
 				}
 				return true;
 				break;
-			case キール:
+			case keel:
 				for (int y = 0; y < 3; y++) {
 					for (int x = 0; x < 3; x++) {
 						if (m_gameField[StartPosY + y][StartPosX + x] == Hit_Keel[y][x]) {
@@ -443,7 +431,7 @@ namespace basecross {
 				}
 				return true;
 				break;
-			case リブ:
+			case rib:
 				for (int y = 0; y < 3; y++) {
 					for (int x = 0; x < 3; x++) {
 						if (m_gameField[StartPosY + y][StartPosX + x] == Hit_Rib[y][x]) {
@@ -462,7 +450,7 @@ namespace basecross {
 				}
 				return true;
 				break;
-			case ウィング:
+			case wing:
 				for (int y = 0; y < 3; y++) {
 					for (int x = 0; x < 3; x++) {
 						if (m_gameField[StartPosY + y][StartPosX + x] == Hit_Wing[y][x]) {
@@ -495,7 +483,6 @@ namespace basecross {
 		return false;
 
 	}
-
 	/// ----------------------------------------<summary>
 	/// 配列回転
 	/// </summary>----------------------------------------
@@ -507,11 +494,11 @@ namespace basecross {
 		//所持肉IDで
 		switch (m_possessionMeatID)
 		{
-		case 唐揚げ:
+		case karaage:
 			//回転しないので何もしない
 			break;
 
-		case ドラム:
+		case drum:
 			//一時置き場にコピー
 			for (int i = 0; i < 2; i++) {
 				for (int k = 0; k < 2; k++) {
@@ -526,7 +513,7 @@ namespace basecross {
 			}
 			break;
 
-		case キール:
+		case keel:
 			//一時置き場にコピー
 			for (int i = 0; i < 3; i++) {
 				for (int k = 0; k < 3; k++) {
@@ -541,7 +528,7 @@ namespace basecross {
 			}
 			break;
 
-		case リブ:
+		case rib:
 			//一時置き場にコピー
 			for (int i = 0; i < 2; i++) {
 				for (int k = 0; k < 2; k++) {
@@ -556,7 +543,7 @@ namespace basecross {
 			}
 			break;
 
-		case ウィング:
+		case wing:
 			//一時置き場にコピー
 			for (int i = 0; i < 2; i++) {
 				for (int k = 0; k < 2; k++) {
@@ -575,7 +562,6 @@ namespace basecross {
 			break;
 		}
 	}
-
 	/// ----------------------------------------<summary>
 	/// スプライトに表示するために各桁を分解
 	/// </summary>----------------------------------------
@@ -676,7 +662,6 @@ namespace basecross {
 			break;
 		}
 	}
-
 	/// ----------------------------------------<summary>
 	///	タイマーの設定
 	/// </summary>----------------------------------------
@@ -691,7 +676,6 @@ namespace basecross {
 			Set_Rect(m_NowTime[i],changenumobj[i]);
 		}
 	}
-
 	/// ----------------------------------------<summary>
 	///	タイマーの更新
 	/// </summary>----------------------------------------
@@ -708,6 +692,7 @@ namespace basecross {
 		m_flyTime -= 1 * deltatime;
 		if (m_flyTime <= 0) {
 			m_flyTime = FLY_RECAST_TIME;
+			App::GetApp()->GetScene<Scene>()->MusicStop();
 			Add_StockMeat();
 			m_overSprite_Oil->SetDrawActive(false);
 			m_possessionMeat->SetDrawActive(true);

@@ -16,6 +16,9 @@ namespace basecross{
 
 		weak_ptr<XAudio2Manager> m_audioManager = App::GetApp()->GetXAudio2Manager();
 		weak_ptr<SoundItem> m_numMusic;
+		//今再生してるSE
+		shared_ptr<SoundItem> m_nowPlay;
+
 
 		//--------------------------------------------------------------------------------------
 		/*!
@@ -53,6 +56,10 @@ namespace basecross{
 		///	ループ再生
 		///-------------------------------------------------------------------------------------]
 		shared_ptr<SoundItem> MusicRoopsStart(wstring key, float volume);
+		///-------------------------------------------------------------------------------------
+		///	ストップ
+		///-------------------------------------------------------------------------------------]
+		void MusicStop();
 	};
 
 }

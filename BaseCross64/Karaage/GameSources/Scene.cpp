@@ -130,14 +130,24 @@ namespace basecross{
 	///--------------------------------------------------------------------------------------
 	shared_ptr<SoundItem> Scene::MusicOnecStart(wstring key,float volume) {
 		auto audiomanager = m_audioManager.lock();
-		return audiomanager->Start(key,XAUDIO2_NO_LOOP_REGION,volume);
+		m_nowPlay = audiomanager->Start(key, XAUDIO2_NO_LOOP_REGION, volume);
+		return m_nowPlay;
+
 	}
 	///--------------------------------------------------------------------------------------
 	///	ループ再生
 	///--------------------------------------------------------------------------------------
 	shared_ptr<SoundItem> Scene::MusicRoopsStart(wstring key,float volume) {
 		auto audiomanager = m_audioManager.lock();
-		return audiomanager->Start(key, XAUDIO2_LOOP_INFINITE, volume);
+		m_nowPlay = audiomanager->Start(key, XAUDIO2_LOOP_INFINITE, volume);
+		return m_nowPlay;
+	}
+	///--------------------------------------------------------------------------------------
+	///	ストップ
+	///--------------------------------------------------------------------------------------
+	void Scene::MusicStop() {
+		auto audiomanager = m_audioManager.lock();
+		audiomanager->Stop(m_nowPlay);
 	}
 }
 //end basecross

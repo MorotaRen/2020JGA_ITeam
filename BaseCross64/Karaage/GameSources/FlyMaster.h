@@ -20,7 +20,7 @@ namespace basecross {
 	//肉のID
 	enum MeatID
 	{
-		唐揚げ,ドラム,キール,リブ,ウィング
+		karaage,drum,keel,rib,wing
 	};
 
 	class FlyMaster	final{
@@ -32,7 +32,7 @@ namespace basecross {
 		//シングルトン用コンストラクタ
 		FlyMaster(const FlyMaster&);
 
-		//-------------------変数---------m--------//
+		//-------------------変数------------------//
 
 		//各種肉の在庫
 		MeatsData m_meatsStockData;
@@ -83,7 +83,7 @@ namespace basecross {
 		//タイマー終了時の判定(Game)
 		bool m_timerForGame;
 		//オーバーレイ用のスプライトポインタ
-		shared_ptr<GameObject> m_overSprite_Oil;
+		shared_ptr<GameObject> m_overSprite_Oil;		
 		//------------肉の各種判定------------//
 		int Hit_Karaage[3][3] = {
 								{9,1,1},
