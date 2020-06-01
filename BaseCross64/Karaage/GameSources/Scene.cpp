@@ -77,9 +77,9 @@ namespace basecross{
 
 			//音楽
 			SetSound(L"SE_Fly",L"Fly.wav");
-			//SetSound(L"SE_Timer",L"Timer.wav");
-			//SetSound(L"BGM_1",L"BGM_1.wav");
-			//SetSound(L"BGM_2",L"BGM_2.wav");
+			SetSound(L"SE_Timer",L"Timer.wav");
+			SetSound(L"BGM_1",L"BGM_1.wav");
+			SetSound(L"BGM_2",L"BGM_2.wav");
 
 		}
 	};
@@ -125,5 +125,19 @@ namespace basecross{
 		}
 	}
 
+	///--------------------------------------------------------------------------------------
+	///	単発再生
+	///--------------------------------------------------------------------------------------
+	shared_ptr<SoundItem> Scene::MusicOnecStart(wstring key,float volume) {
+		auto audiomanager = m_audioManager.lock();
+		return audiomanager->Start(key,XAUDIO2_NO_LOOP_REGION,volume);
+	}
+	///--------------------------------------------------------------------------------------
+	///	ループ再生
+	///--------------------------------------------------------------------------------------
+	shared_ptr<SoundItem> Scene::MusicRoopsStart(wstring key,float volume) {
+		auto audiomanager = m_audioManager.lock();
+		return audiomanager->Start(key, XAUDIO2_LOOP_INFINITE, volume);
+	}
 }
 //end basecross

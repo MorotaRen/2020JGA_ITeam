@@ -681,7 +681,7 @@ namespace basecross {
 	///	タイマーの設定
 	/// </summary>----------------------------------------
 	void FlyMaster::Set_Timer(int time, vector<shared_ptr<GameObject>> changenumobj) {
-		m_time = time;
+		m_time = (float)time;
 		m_NowTime[0] = (time % 10); time /= 10;
 		m_NowTime[1] = (time % 10); time /= 10;
 		m_NowTime[2] = (time % 10); time /= 10;
