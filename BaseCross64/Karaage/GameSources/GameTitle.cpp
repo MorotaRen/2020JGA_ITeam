@@ -32,13 +32,21 @@ namespace basecross {
 			CreateViewLight();
 			//ゲームタイトルスプライトを設置
 			AddGameObject<MeatUI>(Vec2(0,0),Vec3(300,300,1),L"BG_Title");
+			//背景用…
+			//AddGameObject<MeatUI>(Vec2(0,0),Vec3(300,300,1),L"BG_Title");
 		}
 		catch (...) {
 			throw;
 		}
 	}
 	void GameTitle::OnUpdate() {
-
+		auto pad = GamePadManager::GetGamePad();
+		if (pad[0].bConnected) {
+			if (pad[0].wPressedButtons & XINPUT_GAMEPAD_A) {
+				auto ptrScene = App::GetApp()->GetScene<Scene>();
+				PostEvent(0.0f,GetThis<ObjectInterface>(),ptrScene,L"ToSelectStage");
+			}
+		}
 	}
 
 	//背景のスプライト作成
