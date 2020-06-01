@@ -52,6 +52,7 @@ namespace basecross{
 			SetTexture(L"BG_Kitchen", L"Texture\\GameUIs\\", L"Kitchen.png");
 			SetTexture(L"BG_Flyer", L"Texture\\GameUIs\\", L"Flyer.png");
 			SetTexture(L"BG_Mass", L"Texture\\GameUIs\\", L"Masu.png");
+			SetTexture(L"BG_Title", L"Texture\\Titles\\", L"Title.png");
 			SetTexture(L"Select_BG", L"Texture\\UIs\\", L"Select_Background.png");
 			SetTexture(L"Select_Stage_TX", L"Texture\\UIs\\", L"Select_StageTx.png");
 			SetTexture(L"Pointer_TX", L"Texture\\UIs\\", L"pointer.png");
@@ -98,7 +99,7 @@ namespace basecross{
 			SetClearColor(Col);
 			//自分自身にイベントを送る
 			//これにより各ステージやオブジェクトがCreate時にシーンにアクセスできる
-			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToSelectStage");
+			PostEvent(0.0f, GetThis<ObjectInterface>(), GetThis<Scene>(), L"ToTitleStage");
 		}
 		catch (...) {
 			throw;
@@ -117,7 +118,7 @@ namespace basecross{
 			ResetActiveStage<SelectStage>();
 		}
 		if (event->m_MsgStr == L"ToTitleStage") {
-			//ResetActiveStage<TitleStage>();
+			ResetActiveStage<GameTitle>();
 		}
 		if (event->m_MsgStr == L"ToResultStage") {
 			//ResetActiveStage<ResultStage>();

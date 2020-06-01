@@ -12,7 +12,7 @@ namespace basecross {
 	//	ゲームステージクラス実体
 	//--------------------------------------------------------------------------------------
 	void GameTitle::CreateViewLight() {
-		const Vec3 eye(0.0f, 20.0f, -0.5f);
+		const Vec3 eye(0.0f, 5.0f, -5.0f);
 		const Vec3 at(0.0f);
 		auto PtrView = CreateView<SingleView>();
 		//ビューのカメラの設定
@@ -30,44 +30,20 @@ namespace basecross {
 		try {
 			//ビューとライトの作成
 			CreateViewLight();
+			//ゲームタイトルスプライトを設置
+			AddGameObject<MeatUI>(Vec2(0,0),Vec3(300,300,1),L"BG_Title");
 		}
 		catch (...) {
 			throw;
 		}
 	}
 	void GameTitle::OnUpdate() {
-		if (!m_trigger) {
-			FlyMaster::GetInstans().Create_GameField();
-			FlyMaster::GetInstans().Create_PossessionMeat(0);
-			m_trigger = true;
-		}
-
-				//----PAD情報取得----//
-		auto pad = App::GetApp()->GetInputDevice().GetControlerVec();
-
-		//------------------上下移動------------------//
-		if (pad[0].fThumbLX > 0.5f) {
-			FlyMaster::GetInstans().Move_PossessionMeat(RIGHT);
-		}else
-		if (pad[0].fThumbLX < -0.5f) {
-			FlyMaster::GetInstans().Move_PossessionMeat(LEFT);
-		}else
-		if (pad[0].fThumbLY > 0.5f) {
-			FlyMaster::GetInstans().Move_PossessionMeat(UP);
-		}else
-		if (pad[0].fThumbLY < -0.5f) {
-			FlyMaster::GetInstans().Move_PossessionMeat(DOWN);
-		}
-		//---------------------------------------------//
 
 	}
 
 	//背景のスプライト作成
 	void GameTitle::CreateBackgroundSprite() {
-		//AddGameObject<BackgroundSprite>(
-		//	L"", false,
-		//	Vec2(0.0f, 0.0f),
-		//	Vec3(0.0f, 0.0f, 0.0f));
+
 	}
 }
 //end basecross
