@@ -689,7 +689,7 @@ namespace basecross {
 	/// </summary>----------------------------------------
 	void FlyMaster::Fly_Timer() {
 		auto deltatime = App::GetApp()->GetElapsedTime();
-		m_flyTime -= 1 * deltatime;
+		m_flyTime -= 1 * deltatime;                                               
 		if (m_flyTime <= 0) {
 			m_flyTime = FLY_RECAST_TIME;
 			App::GetApp()->GetScene<Scene>()->MusicStop();

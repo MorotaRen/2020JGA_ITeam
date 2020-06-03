@@ -30,10 +30,14 @@ namespace basecross {
 		try {
 			//ビューとライトの作成
 			CreateViewLight();
-			//ゲームタイトルスプライトを設置
-			AddGameObject<MeatUI>(Vec2(0,0),Vec3(300,300,1),L"BG_Title");
 			//背景用…
-			//AddGameObject<MeatUI>(Vec2(0,0),Vec3(300,300,1),L"BG_Title");
+			AddGameObject<MeatUI>(Vec2(0,0),Vec3(700,400,1),L"BG_TitleBack");
+			//ゲームタイトルスプライトを設置
+			AddGameObject<MeatUI>(Vec2(0, 100), Vec3(300, 200, 1), L"BG_Title");
+			//スタートボタンスプライト
+			AddGameObject<MeatUI>(Vec2(0, -250), Vec3(150, 80, 1), L"BG_StartButton");
+			App::GetApp()->GetScene<Scene>()->MusicRoopsStart(L"BGM_Title",0.1f);
+
 		}
 		catch (...) {
 			throw;

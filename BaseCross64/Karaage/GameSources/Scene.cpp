@@ -53,6 +53,8 @@ namespace basecross{
 			SetTexture(L"BG_Flyer", L"Texture\\GameUIs\\", L"Flyer.png");
 			SetTexture(L"BG_Mass", L"Texture\\GameUIs\\", L"Masu.png");
 			SetTexture(L"BG_Title", L"Texture\\Titles\\", L"Title.png");
+			SetTexture(L"BG_TitleBack", L"Texture\\Titles\\", L"TitleBack.png");
+			SetTexture(L"BG_StartButton", L"Texture\\Titles\\", L"StartButton.png");
 			SetTexture(L"Select_BG", L"Texture\\UIs\\", L"Select_Background.png");
 			SetTexture(L"Select_Stage_TX", L"Texture\\UIs\\", L"Select_StageTx.png");
 			SetTexture(L"Pointer_TX", L"Texture\\UIs\\", L"pointer.png");
@@ -80,8 +82,8 @@ namespace basecross{
 			//‰¹Šy
 			SetSound(L"SE_Fly",L"Fly.wav");
 			SetSound(L"SE_Timer",L"Timer.wav");
-			SetSound(L"BGM_1",L"BGM_1.wav");
-			SetSound(L"BGM_2",L"BGM_2.wav");
+			SetSound(L"BGM_Game",L"BGM_1.wav");
+			SetSound(L"BGM_Title",L"BGM_2.wav");
 
 		}
 	};
