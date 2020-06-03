@@ -92,6 +92,16 @@ namespace basecross{
 		FlyMaster::GetInstans().Set_Num(countNum, m_MeetCount);
 	}
 
+	void Guest::DeleteGuest()
+	{
+		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
+
+		stage->RemoveGameObject<Guest>(GetThis<Guest>());
+		for (int i = 0; i < m_MeetCount.size(); i++) {
+			stage->RemoveGameObject<NumberUI>(m_MeetCount[i]);
+		}
+	}
+
 	//--------------------------------------------------------------------------------------
 	///	客のタイマー
 	//--------------------------------------------------------------------------------------
