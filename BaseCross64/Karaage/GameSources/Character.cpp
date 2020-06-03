@@ -17,6 +17,12 @@ namespace basecross{
 	{
 		m_timer = 0;
 		m_clear = false;
+
+		m_numberPos[0] = Vec2(position.x - 65.0f, position.y + 55.0f);
+		m_numberPos[1] = Vec2(position.x - 65.0f, position.y + 20.0f);
+		m_numberPos[2] = Vec2(position.x - 65.0f, position.y - 15.0f);
+		m_numberPos[3] = Vec2(position.x + 40.0f, position.y + 55.0f);
+		m_numberPos[4] = Vec2(position.x + 40.0f, position.y + 20.0f);
 	}
 
 	void Guest::OnCreate() 
@@ -39,12 +45,26 @@ namespace basecross{
 		ptrStage->AddGameObject<MultiSprite>(true, Vec2(300, 150), m_position, L"Guest1_TX");
 		ptrStage->AddGameObject<GuestTimerGauge>(m_position, false);
 		ptrStage->AddGameObject<GuestTimerGauge>(m_position, true);
+
+		for (int i = 0; i < m_MeetCount.size(); i++) {
+			m_MeetCount[i] = ptrStage->AddGameObject<NumberUI>(m_numberPos[i], Vec3(15.0f, 15.0f, 1.0f), L"Tex_Number");
+		}
+
+		int countNum = 0;
+		for (int i = 0; i < 5; i++) {
+			countNum += m_meet[i];
+			if(i != 5)
+			countNum *= 10;
+		}
+		FlyMaster::GetInstans().Set_Num(countNum, m_MeetCount);
 	}
 
 	void Guest::OnUpdate()
 	{
 		auto elapsed = App::GetApp()->GetElapsedTime();
 		m_timer -= elapsed;
+
+		Update_OrderCount();
 		ClearCheck();
 	}
 
@@ -59,6 +79,26 @@ namespace basecross{
 			else {
 				break;
 			}
+		}
+	}
+
+	void Guest::Update_OrderCount() {
+		int countNum = 0;
+		for (int i = 0; i < 5; i++) {
+			countNum += m_meet[i];
+			if (i != 5)
+				countNum *= 10;
+		}
+		FlyMaster::GetInstans().Set_Num(countNum, m_MeetCount);
+	}
+
+	void Guest::DeleteGuest()
+	{
+		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
+
+		stage->RemoveGameObject<Guest>(GetThis<Guest>());
+		for (int i = 0; i < m_MeetCount.size(); i++) {
+			stage->RemoveGameObject<NumberUI>(m_MeetCount[i]);
 		}
 	}
 
@@ -136,6 +176,26 @@ namespace basecross{
 		auto ptrTrans = GetComponent<Transform>();
 		Vec3 position = guestPos + Vec3(-125.0f, -50.0f, 0.0f);
 		ptrTrans->SetPosition(position);
+	}
+
+	//--------------------------------------------------------------------------------------
+	///	ãqÇÃíçï∂
+	//--------------------------------------------------------------------------------------
+	GuestOrder::GuestOrder(shared_ptr<Stage>&Stage, Vec3 position)
+		: GameObject(Stage),
+		m_position(position)
+	{
+
+	}
+
+	void GuestOrder::OnCreate()
+	{
+
+	}
+
+	void GuestOrder::OnUpdate()
+	{
+
 	}
 }
 

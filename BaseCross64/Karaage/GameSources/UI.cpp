@@ -38,6 +38,7 @@ namespace basecross {
 		//頂点とインデックスを指定してスプライト作成
 		auto ptrDraw = AddComponent<PTSpriteDraw>(m_backupVertices, indices);
 		ptrDraw->SetTextureResource(m_textureKey);
+		this->SetDrawLayer(1);
 	}
 
 	//--------------------------------------------------------------------------------------
