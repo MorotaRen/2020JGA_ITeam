@@ -38,6 +38,8 @@ namespace basecross {
 		void ClearCheck();
 		
 		void Update_OrderCount();
+
+		void DeleteGuest();
 	};
 
 	//--------------------------------------------------------------------------------------
