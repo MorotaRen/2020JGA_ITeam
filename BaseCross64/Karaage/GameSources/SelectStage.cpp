@@ -98,6 +98,7 @@ namespace basecross {
 		//頂点とインデックスを指定してスプライト作成
 		auto ptrDraw = AddComponent<PTSpriteDraw>(m_backupVertices, indices);
 		ptrDraw->SetTextureResource(L"Pointer_TX");
+		this->SetDrawLayer(2);
 	}
 
 	void Pointer::OnUpdate()

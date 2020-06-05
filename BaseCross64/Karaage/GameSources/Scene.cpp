@@ -64,6 +64,8 @@ namespace basecross{
 			SetTexture(L"Tex_Oil", L"Texture\\GameUIs\\", L"Oil.png");
 			SetTexture(L"TimerGauge_TX", L"Texture\\GameUIs\\", L"TimerGauge.png");
 			SetTexture(L"TimerGaugeFrame_TX", L"Texture\\GameUIs\\", L"TimerGaugeFrame.png");
+			SetTexture(L"DecisionalButton_TX", L"Texture\\", L"DecisionalButton.png");
+			SetTexture(L"BackButton_TX", L"Texture\\", L"BackButton.png");
 
 			//ì˜(ê¸Ç†ÇË)
 			SetMeat_Line(L"Meat_Drum_Line",L"Chicken_Drum3.png");
