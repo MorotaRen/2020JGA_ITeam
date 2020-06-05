@@ -23,6 +23,8 @@ namespace basecross{
 		m_numberPos[2] = Vec2(position.x - 65.0f, position.y - 15.0f);
 		m_numberPos[3] = Vec2(position.x + 40.0f, position.y + 55.0f);
 		m_numberPos[4] = Vec2(position.x + 40.0f, position.y + 20.0f);
+
+		m_active = true;
 	}
 
 	void Guest::OnCreate() 
@@ -42,9 +44,9 @@ namespace basecross{
 
 		auto ptrStage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
 
-		ptrStage->AddGameObject<MultiSprite>(true, Vec2(300, 150), m_position, L"Guest1_TX");
-		ptrStage->AddGameObject<GuestTimerGauge>(m_position, false);
-		ptrStage->AddGameObject<GuestTimerGauge>(m_position, true);
+		m_CharaImage[0] = ptrStage->AddGameObject<MultiSprite>(true, Vec2(300, 150), m_position, L"Guest1_TX");
+		m_TimerPtr[0] = ptrStage->AddGameObject<GuestTimerGauge>(m_position, false);
+		m_TimerPtr[1] = ptrStage->AddGameObject<GuestTimerGauge>(m_position, true);
 
 		for (int i = 0; i < m_MeetCount.size(); i++) {
 			m_MeetCount[i] = ptrStage->AddGameObject<NumberUI>(m_numberPos[i], Vec3(15.0f, 15.0f, 1.0f), L"Tex_Number");
@@ -61,9 +63,7 @@ namespace basecross{
 
 	void Guest::OnUpdate()
 	{
-		auto elapsed = App::GetApp()->GetElapsedTime();
-		m_timer -= elapsed;
-
+		SetTimer();
 		Update_OrderCount();
 		ClearCheck();
 	}
@@ -74,6 +74,7 @@ namespace basecross{
 			if (m_meet[i] == 0) {
 				if (i == 4) {
 					m_clear = true;
+					DeleteGuest();
 				}
 			}
 			else {
@@ -97,8 +98,23 @@ namespace basecross{
 		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
 
 		stage->RemoveGameObject<Guest>(GetThis<Guest>());
+		stage->RemoveGameObject<MultiSprite>(m_CharaImage[0]);
+		stage->RemoveGameObject<GuestTimerGauge>(m_TimerPtr[0]);
+		stage->RemoveGameObject<GuestTimerGauge>(m_TimerPtr[1]);
 		for (int i = 0; i < m_MeetCount.size(); i++) {
 			stage->RemoveGameObject<NumberUI>(m_MeetCount[i]);
+		}
+
+		m_active = false;
+	}
+
+	void Guest::SetTimer()
+	{
+		auto elapsed = App::GetApp()->GetElapsedTime();
+		m_timer -= elapsed;
+
+		if (m_timer < 0) {
+			DeleteGuest();
 		}
 	}
 
@@ -148,17 +164,14 @@ namespace basecross{
 	void GuestTimerGauge::OnUpdate()
 	{
 		if (!m_isFix) {
-			SetTime();
+			//SetTime();
 			ChangeScale();
 		}
 	}
 
-	void GuestTimerGauge::SetTime()
+	void GuestTimerGauge::SetTime(float time)
 	{
-		m_timer -= App::GetApp()->GetElapsedTime();
-		if (m_timer < 0) {
-			GetStage()->RemoveGameObject<GuestTimerGauge>(GetThis<GuestTimerGauge>());
-		}
+		m_timer = time;
 	}
 
 	void GuestTimerGauge::ChangeScale()
