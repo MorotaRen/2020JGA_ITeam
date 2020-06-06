@@ -45,7 +45,7 @@ namespace basecross{
 		auto ptrStage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
 
 		m_CharaImage[0] = ptrStage->AddGameObject<MultiSprite>(true, Vec2(300, 150), m_position, L"Guest1_TX");
-		m_TimerPtr[0] = ptrStage->AddGameObject<GuestTimerGauge>(m_position, false);
+		m_TimerPtr[0] = ptrStage->AddGameObject<GuestTimerGauge>(m_position, false, m_timer);
 		m_TimerPtr[1] = ptrStage->AddGameObject<GuestTimerGauge>(m_position, true);
 
 		for (int i = 0; i < m_MeetCount.size(); i++) {
@@ -112,6 +112,7 @@ namespace basecross{
 	{
 		auto elapsed = App::GetApp()->GetElapsedTime();
 		m_timer -= elapsed;
+				
 
 		if (m_timer < 0) {
 			DeleteGuest();
@@ -126,9 +127,15 @@ namespace basecross{
 		m_isFix(isFix)
 		//m_guest(guest)
 	{
-		m_timer = 20.0f;
-
 		m_guestPos = position;
+	}
+	GuestTimerGauge::GuestTimerGauge(shared_ptr<Stage>& Stage, const Vec3 position, bool isFix, float time)
+		: GameObject(Stage),
+		m_isFix(isFix)
+		//m_guest(guest)
+	{
+		m_guestPos = position;
+		m_timer = time;
 	}
 	void GuestTimerGauge::OnCreate()
 	{
@@ -164,14 +171,14 @@ namespace basecross{
 	void GuestTimerGauge::OnUpdate()
 	{
 		if (!m_isFix) {
-			//SetTime();
+			SetTime();
 			ChangeScale();
 		}
 	}
 
-	void GuestTimerGauge::SetTime(float time)
+	void GuestTimerGauge::SetTime()
 	{
-		m_timer = time;
+		m_timer -= App::GetApp()->GetElapsedTime();
 	}
 
 	void GuestTimerGauge::ChangeScale()

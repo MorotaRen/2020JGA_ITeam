@@ -68,11 +68,12 @@ namespace basecross {
 		//Guest m_guest;
 	public:
 		GuestTimerGauge(shared_ptr<Stage>& Stage, const Vec3 position, bool isFix);
+		GuestTimerGauge(shared_ptr<Stage>& Stage, const Vec3 position, bool isFix, float time);
 		virtual ~GuestTimerGauge() {};
 		virtual void OnCreate()override;
 		virtual void OnUpdate() override;
 		//void Damage();
-		void SetTime(float time);
+		void SetTime();
 		void ChangeScale();
 		void SetPosition(Vec3 guestPos);
 	};
