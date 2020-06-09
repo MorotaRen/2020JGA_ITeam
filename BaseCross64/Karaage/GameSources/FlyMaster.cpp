@@ -734,7 +734,10 @@ namespace basecross {
 	///	‹q‚Ì—v‹‚ğ–‚½‚·‚©‚ÌŠÇ—
 	/// </summary>----------------------------------------
 	void FlyMaster::Customers_Request() {
+		//—v‹”‚ÆİŒÉ”‚ÌŒ©”ä‚×
+		for (int i = 0; i < MAX_CUSTOMERS;i++) {
 
+		}
 	}
 }
 //end basecross
