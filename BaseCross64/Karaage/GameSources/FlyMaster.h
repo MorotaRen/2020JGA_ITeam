@@ -83,7 +83,11 @@ namespace basecross {
 		//タイマー終了時の判定(Game)
 		bool m_timerForGame;
 		//オーバーレイ用のスプライトポインタ
-		shared_ptr<GameObject> m_overSprite_Oil;		
+		shared_ptr<GameObject> m_overSprite_Oil;	
+		//お客達
+		vector<shared_ptr<Guest>> m_guests;
+		//お客の数
+		int m_nowCustomers = 0;
 		//------------肉の各種判定------------//
 		int Hit_Karaage[3][3] = {
 								{9,1,1},
@@ -168,6 +172,12 @@ namespace basecross {
 		bool Check_Comparison();
 		//フライヤータイマー
 		void Fly_Timer();
+		//客の総合管理
+		void Master_Customers();
+		//客の人数管理
+		void Customers_Count();
+		//客の要求を満たすかの管理
+		void Customers_Request();
 		//------------ゲッターセッター--------------//
 		void SetStockData(const MeatsData md) {
 			m_meatsStockData = md;

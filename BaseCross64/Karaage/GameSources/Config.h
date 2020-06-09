@@ -12,6 +12,7 @@
 //肉の種類の最大値
 #define MAX_MEATCOUNT 5
 
+
 //各種肉の金額
 #define PRICE_KARAAGE	70;		//唐揚げ	(70)
 #define PRICE_DRUM		100;	//脚		(100)
@@ -53,5 +54,6 @@
 #define MOVELIMIT_MAX_Y  150
 //配置状況の数値(9)
 #define Setup_FALSE 9
-
+//客の最大数
+#define MAX_CUSTOMERS 3
 //-----------------------------------------------//

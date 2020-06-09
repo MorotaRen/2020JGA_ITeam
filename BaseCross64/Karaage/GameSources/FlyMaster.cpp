@@ -704,5 +704,37 @@ namespace basecross {
 			m_timerForOil = true;
 		}
 	}
+	/// ----------------------------------------<summary>
+	///	‹q‚Ì‘‡ŠÇ—
+	/// </summary>----------------------------------------
+	void FlyMaster::Master_Customers() {
+
+	}
+	/// ----------------------------------------<summary>
+	///	‹q‚Ìl”ŠÇ—
+	/// </summary>----------------------------------------
+	void FlyMaster::Customers_Count() {
+		//Å‘å”ˆÈ‰º‚Ìê‡‹ó‚«‚É’Ç‰Á
+		if (m_nowCustomers < MAX_CUSTOMERS) {
+			auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
+			for (int i = 0; i < MAX_CUSTOMERS; i++)
+			{
+				//‹q‚ª‚¢‚È‚¢Š‚É’Ç‰Á
+				if (m_guests[i] == nullptr) {
+					m_guests[i] = stage->AddGameObject<Guest>();
+				}
+			}
+		}
+		//ÅŒã‚ÉˆÊ’u‚Ì’²®
+		m_guests[0]->GetComponent<Transform>()->SetPosition(Vec3(-430,50,0));
+		m_guests[1]->GetComponent<Transform>()->SetPosition(Vec3(-430,-100,0));
+		m_guests[2]->GetComponent<Transform>()->SetPosition(Vec3(-430,-150,0));
+	}
+	/// ----------------------------------------<summary>
+	///	‹q‚Ì—v‹‚ğ–‚½‚·‚©‚ÌŠÇ—
+	/// </summary>----------------------------------------
+	void FlyMaster::Customers_Request() {
+
+	}
 }
 //end basecross
