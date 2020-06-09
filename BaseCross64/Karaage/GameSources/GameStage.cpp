@@ -89,9 +89,9 @@ namespace basecross {
 
 	void GameStage::CreateGuest()
 	{
-		AddGameObject<Guest>(Vec3(400,320,0));
-		AddGameObject<Guest>(Vec3(400,170,0));
-		AddGameObject<Guest>(Vec3(400, 20,0));
+		AddGameObject<Guest>(Vec3(-430,50,0));
+		AddGameObject<Guest>(Vec3(-430,-100,0));
+		AddGameObject<Guest>(Vec3(-430,-250,0));
 	}
 
 	void GameStage::OnUpdate2() {
