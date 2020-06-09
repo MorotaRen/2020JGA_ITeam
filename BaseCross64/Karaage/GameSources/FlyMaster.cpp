@@ -27,24 +27,24 @@ namespace basecross {
 		}
 		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
 		//現在金額数字
-		m_Numbers[5] = (stage->AddGameObject<NumberUI>(Vec2(-520, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_Numbers[4] = (stage->AddGameObject<NumberUI>(Vec2(-420, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_Numbers[3] = (stage->AddGameObject<NumberUI>(Vec2(-470, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_Numbers[2] = (stage->AddGameObject<NumberUI>(Vec2(-370, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_Numbers[1] = (stage->AddGameObject<NumberUI>(Vec2(-320, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_Numbers[0] = (stage->AddGameObject<NumberUI>(Vec2(-270, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		m_Numbers[0] = (stage->AddGameObject<NumberUI>(Vec2(550, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		m_Numbers[1] = (stage->AddGameObject<NumberUI>(Vec2(500, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		m_Numbers[2] = (stage->AddGameObject<NumberUI>(Vec2(450, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		m_Numbers[3] = (stage->AddGameObject<NumberUI>(Vec2(400, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		m_Numbers[4] = (stage->AddGameObject<NumberUI>(Vec2(350, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		m_Numbers[5] = (stage->AddGameObject<NumberUI>(Vec2(300, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
 		//タイマー用数字
-		m_TimerNumbers[4] = (stage->AddGameObject<NumberUI>(Vec2(-540, 220), Vec3(20.0f, 20.0f, 1.0f), L"Tex_Number"));
-		m_TimerNumbers[3] = (stage->AddGameObject<NumberUI>(Vec2(-510, 220), Vec3(20.0f, 20.0f, 1.0f), L"Tex_Number"));
-		m_TimerNumbers[2] = (stage->AddGameObject<NumberUI>(Vec2(-480, 220), Vec3(20.0f, 20.0f, 1.0f), L"Tex_Number"));
-		m_TimerNumbers[1] = (stage->AddGameObject<NumberUI>(Vec2(-450, 220), Vec3(20.0f, 20.0f, 1.0f), L"Tex_Number"));
+		m_TimerNumbers[1] = (stage->AddGameObject<NumberUI>(Vec2(540, 220), Vec3(20.0f, 20.0f, 1.0f), L"Tex_Number"));
+		m_TimerNumbers[2] = (stage->AddGameObject<NumberUI>(Vec2(510, 220), Vec3(20.0f, 20.0f, 1.0f), L"Tex_Number"));
+		m_TimerNumbers[3] = (stage->AddGameObject<NumberUI>(Vec2(480, 220), Vec3(20.0f, 20.0f, 1.0f), L"Tex_Number"));
+		m_TimerNumbers[4] = (stage->AddGameObject<NumberUI>(Vec2(450, 220), Vec3(20.0f, 20.0f, 1.0f), L"Tex_Number"));
 		//目標金額数字
-		m_targetMoneyNumbers[5] = (stage->AddGameObject<NumberUI>(Vec2(-520, 30), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_targetMoneyNumbers[4] = (stage->AddGameObject<NumberUI>(Vec2(-420, 30), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_targetMoneyNumbers[3] = (stage->AddGameObject<NumberUI>(Vec2(-470, 30), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_targetMoneyNumbers[2] = (stage->AddGameObject<NumberUI>(Vec2(-370, 30), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_targetMoneyNumbers[1] = (stage->AddGameObject<NumberUI>(Vec2(-320, 30), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_targetMoneyNumbers[0] = (stage->AddGameObject<NumberUI>(Vec2(-270, 30), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		m_targetMoneyNumbers[0] = (stage->AddGameObject<NumberUI>(Vec2(550, 30), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		m_targetMoneyNumbers[1] = (stage->AddGameObject<NumberUI>(Vec2(500, 30), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		m_targetMoneyNumbers[2] = (stage->AddGameObject<NumberUI>(Vec2(450, 30), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		m_targetMoneyNumbers[3] = (stage->AddGameObject<NumberUI>(Vec2(400, 30), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		m_targetMoneyNumbers[4] = (stage->AddGameObject<NumberUI>(Vec2(350, 30), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		m_targetMoneyNumbers[5] = (stage->AddGameObject<NumberUI>(Vec2(300, 30), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
 		
 		//タイマーセット
 		Set_Timer(time, m_TimerNumbers);
@@ -72,7 +72,9 @@ namespace basecross {
 		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
 		stage->AddGameObject<MeatUI>(Vec2(0), Vec3(670.0f, 400.0f, 0.0f), L"BG_Kitchen");
 		stage->AddGameObject<MeatUI>(Vec2(-20, -17), Vec3(195.0f, 230.0f, 1.0f), L"BG_Flyer");
-		stage->AddGameObject<MeatUI>(Vec2(-500, 220), Vec3(100.0f, 100.0f, 1.0f), L"Tex_Timer");
+		stage->AddGameObject<MeatUI>(Vec2(500, 220), Vec3(100.0f, 100.0f, 1.0f), L"Tex_Timer");
+		stage->AddGameObject<MeatUI>(Vec2(240, 100), Vec3(30.0f, 30.0f, 1.0f), L"Icon_RegisterMark");
+
 	}
 	/// ----------------------------------------<summary>
 	/// 在庫数に追加する。追加した後は設置されている数はリセットされる

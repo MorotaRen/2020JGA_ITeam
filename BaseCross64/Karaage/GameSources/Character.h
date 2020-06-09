@@ -16,6 +16,7 @@ namespace basecross {
 		Vec3 m_position;
 
 		float m_timer;
+		//各肉の要求数
 		int m_meet[5] = { 0 };
 
 		bool m_clear;
@@ -40,6 +41,14 @@ namespace basecross {
 		void Update_OrderCount();
 
 		void DeleteGuest();
+
+		void GetRequestMeats(int a[5]){
+			a[0] = m_meet[0];//からあげ
+			a[1] = m_meet[1];//リブ
+			a[2] = m_meet[2];//ドラム
+			a[3] = m_meet[3];//キール
+			a[4] = m_meet[4];//ウィング
+		}
 	};
 
 	//--------------------------------------------------------------------------------------

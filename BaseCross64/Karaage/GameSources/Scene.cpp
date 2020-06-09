@@ -57,6 +57,7 @@ namespace basecross{
 			SetTexture(L"BG_StartButton", L"Texture\\Titles\\", L"StartButton.png");
 			SetTexture(L"Select_BG", L"Texture\\UIs\\", L"Select_Background.png");
 			SetTexture(L"Select_Stage_TX", L"Texture\\UIs\\", L"Select_StageTx.png");
+			SetTexture(L"Icon_RegisterMark", L"Texture\\UIs\\", L"RegisterMark.png");
 			SetTexture(L"Pointer_TX", L"Texture\\UIs\\", L"pointer.png");
 			SetTexture(L"Guest1_TX", L"Texture\\Characters\\", L"Guest1.png");
 			SetTexture(L"Tex_Number", L"Texture\\UIs\\", L"Number.png");
