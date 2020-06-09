@@ -296,7 +296,7 @@ namespace basecross {
 	void FlyMaster::Change_PossessionMeat() {
 		auto pad = App::GetApp()->GetInputDevice().GetControlerVec();
 		if (pad[0].wPressedButtons & XINPUT_GAMEPAD_LEFT_SHOULDER) {
-			if (m_possessionMeatID >= MAX_MEATCOUNT) {
+			if (m_possessionMeatID > MAX_MEATCOUNT) {
 				m_possessionMeatID = 0;
 			}
 			else {
