@@ -85,7 +85,6 @@ namespace basecross {
 		m_meatsStockData.Wing += m_meatsInstallationData.Wing;
 		m_meatsStockData.Lib += m_meatsInstallationData.Lib;
 		m_meatsStockData.Keel += m_meatsInstallationData.Keel;
-		Sales(m_meatsInstallationData);
 		Clear_InstallationMeat();
 	}
 	/// ----------------------------------------<summary>
@@ -97,6 +96,12 @@ namespace basecross {
 			stage->RemoveGameObject<GameObject>(m_installationMeat[i]);
 		}
 		m_installationMeat.clear();
+		//フィールドの初期化
+		for (int i = 0; i < GAMEFIELD_Y;i++) {
+			for (int t = 0; t < GAMEFIELD_X; t++) {
+				m_gameField[i][t] = 0;
+			}
+		}
 		m_meatsInstallationData.Karage = 0;
 		m_meatsInstallationData.Drum = 0;
 		m_meatsInstallationData.Wing = 0;
@@ -735,8 +740,25 @@ namespace basecross {
 	/// </summary>----------------------------------------
 	void FlyMaster::Customers_Request() {
 		//要求数と在庫数の見比べ
+		//要求数格納用
+		int tempReqMeats[5] = { 0 };
 		for (int i = 0; i < MAX_CUSTOMERS;i++) {
+			//まず客の要求数を取ってくる
+			m_guests[i]->GetRequestMeats(tempReqMeats);
+			//肉ごとに確認
+			if (tempReqMeats[0] <= m_meatsStockData.Karage) {
+				if (tempReqMeats[1] <= m_meatsStockData.Drum) {
+					if (tempReqMeats[2] <= m_meatsStockData.Wing) {
+						if (tempReqMeats[3] <= m_meatsStockData.Lib) {
+							if (tempReqMeats[4] <= m_meatsStockData.Keel) {
+								//ここまで来たら全部要求満たしてるから金額を計算して売上に加算してと…
+								Sales(m_meatsInstallationData);
 
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 }
