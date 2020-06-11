@@ -734,10 +734,6 @@ namespace basecross {
 				}
 			}
 		}
-		//ÅŒã‚ÉˆÊ’u‚Ì’²®
-		//m_guests[0]->GetComponent<Transform>()->SetWorldPosition(Vec3(-430,50,0));
-		//m_guests[1]->GetComponent<Transform>()->SetWorldPosition(Vec3(-430,-100,0));
-		//m_guests[2]->GetComponent<Transform>()->SetWorldPosition(Vec3(-430,-150,0));
 	}
 	/// ----------------------------------------<summary>
 	///	‹q‚Ì—v‹‚ğ–‚½‚·‚©‚ÌŠÇ—
@@ -765,5 +761,16 @@ namespace basecross {
 			}
 		}
 	}
+	/*
+	”æ
+	‚ê
+	‚½
+	‚Ù
+	‚Ú
+	‘S
+	•”
+	‚¨
+	r
+	*/
 }
 //end basecross
