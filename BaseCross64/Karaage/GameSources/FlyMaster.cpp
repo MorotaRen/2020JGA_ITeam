@@ -713,7 +713,7 @@ namespace basecross {
 	///	‹q‚Ì‘‡ŠÇ—
 	/// </summary>----------------------------------------
 	void FlyMaster::Master_Customers() {
-
+		Customers_Count();
 	}
 	/// ----------------------------------------<summary>
 	///	‹q‚Ìl”ŠÇ—
@@ -726,14 +726,18 @@ namespace basecross {
 			{
 				//‹q‚ª‚¢‚È‚¢Š‚É’Ç‰Á
 				if (m_guests[i] == nullptr) {
-					m_guests[i] = stage->AddGameObject<Guest>();
+						switch (i)
+						{
+						case 0 :
+							m_guests[0] = stage->AddGameObject<Guest>(Vec3(-430, 50, 0));
+						}
 				}
 			}
 		}
 		//ÅŒã‚ÉˆÊ’u‚Ì’²®
-		m_guests[0]->GetComponent<Transform>()->SetPosition(Vec3(-430,50,0));
-		m_guests[1]->GetComponent<Transform>()->SetPosition(Vec3(-430,-100,0));
-		m_guests[2]->GetComponent<Transform>()->SetPosition(Vec3(-430,-150,0));
+		//m_guests[0]->GetComponent<Transform>()->SetWorldPosition(Vec3(-430,50,0));
+		//m_guests[1]->GetComponent<Transform>()->SetWorldPosition(Vec3(-430,-100,0));
+		//m_guests[2]->GetComponent<Transform>()->SetWorldPosition(Vec3(-430,-150,0));
 	}
 	/// ----------------------------------------<summary>
 	///	‹q‚Ì—v‹‚ğ–‚½‚·‚©‚ÌŠÇ—

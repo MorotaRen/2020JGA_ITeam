@@ -39,6 +39,7 @@ namespace basecross {
 	void GameStage::OnUpdate() {
 		if (!m_trigger) {
 			FlyMaster::GetInstans().GAMESTART(700,7000);
+			FlyMaster::GetInstans().Master_Customers();
 			m_trigger = true;
 		}
 

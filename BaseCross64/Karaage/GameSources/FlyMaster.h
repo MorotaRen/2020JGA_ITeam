@@ -85,7 +85,7 @@ namespace basecross {
 		//オーバーレイ用のスプライトポインタ
 		shared_ptr<GameObject> m_overSprite_Oil;	
 		//お客達
-		vector<shared_ptr<Guest>> m_guests;
+		vector<shared_ptr<Guest>> m_guests = {0,0,0};
 		//お客の数
 		int m_nowCustomers = 0;
 		//------------肉の各種判定------------//
