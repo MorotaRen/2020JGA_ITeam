@@ -42,7 +42,7 @@ namespace basecross{
 
 		auto ptrStage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
 
-		ptrStage->AddGameObject<MultiSprite>(true, Vec2(300, 150), m_position, L"Guest1_TX");
+		ptrStage->AddGameObject<MultiSprite>(true, Vec2(300, 150), m_position, L"Chara_Normal");
 		ptrStage->AddGameObject<GuestTimerGauge>(m_position, false);
 		ptrStage->AddGameObject<GuestTimerGauge>(m_position, true);
 

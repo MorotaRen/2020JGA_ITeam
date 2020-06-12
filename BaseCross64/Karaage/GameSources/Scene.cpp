@@ -61,9 +61,9 @@ namespace basecross{
 			SetTexture(L"Pointer_TX", L"Texture\\UIs\\", L"pointer.png");
 
 			SetTexture(L"Chara_Normal", L"Texture\\Characters\\", L"Guests1-0.png");
-			SetTexture(L"Chara_Hurry", L"Texture\\Characters\\", L"Guests1-1.png");
-			SetTexture(L"Chara_Anger", L"Texture\\Characters\\", L"Guests1-2.png");
-			SetTexture(L"Chara_Happy", L"Texture\\Characters\\", L"Guests1-3.png");
+			//SetTexture(L"Chara_Hurry", L"Texture\\Characters\\", L"Guests1-1.png");
+			//SetTexture(L"Chara_Anger", L"Texture\\Characters\\", L"Guests1-2.png");
+			//SetTexture(L"Chara_Happy", L"Texture\\Characters\\", L"Guests1-3.png");
 
 			SetTexture(L"Tex_Number", L"Texture\\UIs\\", L"Number.png");
 			SetTexture(L"Tex_Timer", L"Texture\\GameUIs\\", L"Timer.png");
