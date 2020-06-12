@@ -30,6 +30,8 @@
 #include "GameStage.h"
 #include "SelectStage.h"
 #include "Scene.h"
+#include "GameTitle.h"
+#include "GameResults.h"
 
 
 

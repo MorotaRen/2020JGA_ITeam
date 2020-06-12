@@ -63,21 +63,5 @@ namespace basecross {
 		//---------------------------------------------//
 
 	}
-
-	//スコアのスプライト作成
-	void GameResults::CreateSocoreSprite() {
-		AddGameObject<ScoreSprite>(4,
-			L"", true,
-			Vec2(0.0f, 0.0f),
-			Vec3(0.0f, 0.0f, 0.0f));
-	}
-
-	//背景のスプライト作成
-	void GameResults::CreateBackgroundSprite() {
-		AddGameObject<BackgroundSprite>(
-			L"", false,
-			Vec2(0.0f, 0.0f),
-			Vec3(0.0f, 0.0f, 0.0f));
-	}
 }
 //end basecross

@@ -22,7 +22,6 @@ namespace basecross {
 		m_Startpos(Startpos),
 		m_Score(0.0f)
 	{}
-=======
 namespace basecross{
 	Customer::Customer(shared_ptr<Stage>&Stage, Vec3 scale, Vec3 rotation, Vec3 position)
 		: GameObject(Stage),
@@ -50,9 +49,6 @@ namespace basecross{
 
 			m_meet[meetNum]++;
 		}
-<<<<<<< HEAD
-=======
-
 		auto ptrStage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
 
 		ptrStage->AddGameObject<MultiSprite>(true, Vec2(300, 150), m_position, L"Chara_Normal");
@@ -70,14 +66,12 @@ namespace basecross{
 			countNum *= 10;
 		}
 		FlyMaster::GetInstans().Set_Num(countNum, m_MeetCount);
->>>>>>> Morota_ForHome
 	}
 
 	void Customer::OnUpdate()
 	{
 
 	}
->>>>>>> 2895b5c7c1f47d7f320016e98c96fb843d98e27d
 
 	void ScoreSprite::OnCreate() {
 		float Xpiecesize = 1.0f / (float)m_Truss;
