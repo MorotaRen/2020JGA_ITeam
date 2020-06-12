@@ -1,0 +1,11 @@
+diff a/BaseCross64/Karaage/Dx11/stdafx.h b/BaseCross64/Karaage/Dx11/stdafx.h	(rejected hunks)
+@@ -84,6 +84,9 @@
+ // XInput includes
+ #include <xinput.h>
+ 
++//���U���g�ƃ^�C�g��
++#include <GameResults.h>
++#include <GameTitle.h>
+ 
+ #pragma comment( lib, "d3d11.lib" )
+ #pragma comment( lib, "d2d1.lib" )
