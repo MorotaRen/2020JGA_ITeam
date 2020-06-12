@@ -50,6 +50,27 @@ namespace basecross{
 
 			m_meet[meetNum]++;
 		}
+<<<<<<< HEAD
+=======
+
+		auto ptrStage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
+
+		ptrStage->AddGameObject<MultiSprite>(true, Vec2(300, 150), m_position, L"Chara_Normal");
+		ptrStage->AddGameObject<GuestTimerGauge>(m_position, false);
+		ptrStage->AddGameObject<GuestTimerGauge>(m_position, true);
+
+		for (int i = 0; i < m_MeetCount.size(); i++) {
+			m_MeetCount[i] = ptrStage->AddGameObject<NumberUI>(m_numberPos[i], Vec3(15.0f, 15.0f, 1.0f), L"Tex_Number");
+		}
+
+		int countNum = 0;
+		for (int i = 0; i < 5; i++) {
+			countNum += m_meet[i];
+			if(i != 5)
+			countNum *= 10;
+		}
+		FlyMaster::GetInstans().Set_Num(countNum, m_MeetCount);
+>>>>>>> Morota_ForHome
 	}
 
 	void Customer::OnUpdate()

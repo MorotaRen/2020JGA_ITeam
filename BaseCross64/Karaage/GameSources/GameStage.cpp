@@ -41,8 +41,13 @@ namespace basecross {
 	}
 	void GameStage::OnUpdate() {
 		if (!m_trigger) {
+<<<<<<< HEAD
 			FlyMaster::GetInstans().Create_GameField();
 			FlyMaster::GetInstans().Create_PossessionMeat(0);
+=======
+			FlyMaster::GetInstans().GAMESTART(700,7000);
+			FlyMaster::GetInstans().Master_Customers();
+>>>>>>> Morota_ForHome
 			m_trigger = true;
 		}
 
@@ -78,12 +83,17 @@ namespace basecross {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//スコアのスプライト作成
 	void GameStage::CreateSocoreSprite() {
 		AddGameObject<ScoreSprite>(4,
 			L"", true,
 			Vec2(0.0f, 0.0f),
 			Vec3(0.0f, 0.0f, 0.0f));
+=======
+	void GameStage::CreateGuest()
+	{
+>>>>>>> Morota_ForHome
 	}
 
 	//背景のスプライト作成

@@ -47,6 +47,7 @@ namespace basecross{
 
 			//テクスチャ
 			//SetTexture(L"RANK_UI", L"Rank2.png");
+<<<<<<< HEAD
 			SetTexture(L"Black_TEST",L"Black.png");
 			SetTexture(L"White_TEST",L"White.png");
 			SetTexture(L"BG_Kitchen", L"Kitchen2.png");
@@ -55,6 +56,33 @@ namespace basecross{
 			SetTexture(L"Select_Stage_TX", L"Select_StageTx.png");
 			SetTexture(L"Pointer_TX", L"pointer.png");
 			SetTexture(L"Guest1_TX", L"Guest.png");
+=======
+			//SetTexture(L"Black_TEST",L"Black.png");
+			//SetTexture(L"White_TEST",L"White.png");
+			SetTexture(L"BG_Kitchen", L"Texture\\GameUIs\\", L"Kitchen.png");
+			SetTexture(L"BG_Flyer", L"Texture\\GameUIs\\", L"Flyer.png");
+			SetTexture(L"BG_Mass", L"Texture\\GameUIs\\", L"Masu.png");
+			SetTexture(L"BG_Title", L"Texture\\Titles\\", L"Title.png");
+			SetTexture(L"BG_TitleBack", L"Texture\\Titles\\", L"TitleBack.png");
+			SetTexture(L"BG_StartButton", L"Texture\\Titles\\", L"StartButton.png");
+			SetTexture(L"Select_BG", L"Texture\\UIs\\", L"Select_Background.png");
+			SetTexture(L"Select_Stage_TX", L"Texture\\UIs\\", L"Select_StageTx.png");
+			SetTexture(L"Icon_RegisterMark", L"Texture\\UIs\\", L"RegisterMark.png");
+			SetTexture(L"Pointer_TX", L"Texture\\UIs\\", L"pointer.png");
+
+			SetTexture(L"Chara_Normal", L"Texture\\Characters\\", L"Guests1-0.png");
+			//SetTexture(L"Chara_Hurry", L"Texture\\Characters\\", L"Guests1-1.png");
+			//SetTexture(L"Chara_Anger", L"Texture\\Characters\\", L"Guests1-2.png");
+			//SetTexture(L"Chara_Happy", L"Texture\\Characters\\", L"Guests1-3.png");
+
+			SetTexture(L"Tex_Number", L"Texture\\UIs\\", L"Number.png");
+			SetTexture(L"Tex_Timer", L"Texture\\GameUIs\\", L"Timer.png");
+			SetTexture(L"Tex_Oil", L"Texture\\GameUIs\\", L"Oil.png");
+			SetTexture(L"TimerGauge_TX", L"Texture\\GameUIs\\", L"TimerGauge.png");
+			SetTexture(L"TimerGaugeFrame_TX", L"Texture\\GameUIs\\", L"TimerGaugeFrame.png");
+			SetTexture(L"DecisionalButton_TX", L"Texture\\", L"DecisionalButton.png");
+			SetTexture(L"BackButton_TX", L"Texture\\", L"BackButton.png");
+>>>>>>> Morota_ForHome
 
 			//肉(線あり)
 			SetMeat_Line(L"Meat_Drum_Line",L"Chicken_Drum3.png");

@@ -84,6 +84,39 @@ namespace basecross {
 		int m_moveDistance[2]= { 0 };
 		//所持肉の回転数値
 		int m_RotationNum = 0;
+<<<<<<< HEAD
+=======
+		//目標金額
+		int m_targetMoney = 0;
+		//現在金額
+		int m_nowMoney = 0;
+		//現在時刻
+		float m_time = 0;
+		//フライヤータイマーの現在時間
+		float m_flyTime = FLY_RECAST_TIME;
+		//現在金額数字のポインタ
+		vector<shared_ptr<GameObject>> m_Numbers = {0,0,0,0,0,0};
+		//目標金額数字のポインタ
+		vector<shared_ptr<GameObject>> m_targetMoneyNumbers = {0,0,0,0,0,0};
+		//タイマー用数字
+		vector<shared_ptr<GameObject>> m_TimerNumbers = {0,0,0,0,0};
+		//適用する数字を分解したもの
+		int m_NowNumber[6];
+		//タイマー用の適用数字を分解したもの
+		int m_NowTime[4];
+		//ナンバーのUV座標達
+		vector<Rect2D<float>> m_numRects = vector<Rect2D<float>>(10);
+		//タイマー終了時の判定(油)
+		bool m_timerForOil;
+		//タイマー終了時の判定(Game)
+		bool m_timerForGame;
+		//オーバーレイ用のスプライトポインタ
+		shared_ptr<GameObject> m_overSprite_Oil;	
+		//お客達
+		vector<shared_ptr<Guest>> m_guests = {0,0,0};
+		//お客の数
+		int m_nowCustomers = 0;
+>>>>>>> Morota_ForHome
 		//------------肉の各種判定------------//
 		int Hit_Karaage[3][3] = {
 								{9,1,1},
@@ -147,6 +180,37 @@ namespace basecross {
 		bool Check_SetMeat();
 		//所持肉の回転
 		void Rot_PossessionMeat(int angle);
+<<<<<<< HEAD
+=======
+		//売上計算
+		void Sales(MeatsData md);
+		//配列の回転
+		void Rot_Array();
+		//ゲームを始める時
+		void GAMESTART(int targetMoney,int time);
+		//ゲームセット
+		void GAMESET();
+		//表示用数値の分解
+		void Set_Num(int num,vector<shared_ptr<GameObject>> changennumobj);
+		//数字変更
+		void Update_num(vector<shared_ptr<GameObject>> objs);
+		//数字変更に伴うスプライトのUV座標の変更
+		void Set_Rect(int num, shared_ptr<GameObject> numobj);
+		//タイマーセット
+		void Set_Timer(int time,vector<shared_ptr<GameObject>> changenumobj);
+		//タイマーの更新		
+		void Update_Timer();
+		//目標と現在を比較する
+		bool Check_Comparison();
+		//フライヤータイマー
+		void Fly_Timer();
+		//客の総合管理
+		void Master_Customers();
+		//客の人数管理
+		void Customers_Count();
+		//客の要求を満たすかの管理
+		void Customers_Request();
+>>>>>>> Morota_ForHome
 		//------------ゲッターセッター--------------//
 		void SetStockData(const MeatsData md) {
 			m_meatsStockData = md;

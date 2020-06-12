@@ -31,6 +31,7 @@ namespace basecross{
 		Vec3 m_position;
 
 		float m_timer;
+		//各肉の要求数
 		int m_meet[5] = { 0 };
 
 		bool m_clear;
@@ -41,6 +42,27 @@ namespace basecross{
 
 		virtual void OnCreate() override;
 		virtual void OnUpdate() override;
+<<<<<<< HEAD
+=======
+
+		float GetTime()
+		{
+			return m_timer;
+		}
+		void ClearCheck();
+		
+		void Update_OrderCount();
+
+		void DeleteGuest();
+
+		void GetRequestMeats(int a[5]){
+			a[0] = m_meet[0];//からあげ
+			a[1] = m_meet[2];//ドラム
+			a[2] = m_meet[4];//ウィング
+			a[3] = m_meet[1];//リブ
+			a[4] = m_meet[3];//キール
+		}
+>>>>>>> Morota_ForHome
 	};
 >>>>>>> 2895b5c7c1f47d7f320016e98c96fb843d98e27d
 
