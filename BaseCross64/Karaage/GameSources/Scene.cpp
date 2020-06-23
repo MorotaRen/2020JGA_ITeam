@@ -90,7 +90,10 @@ namespace basecross{
 			SetSound(L"SE_Timer",L"Timer.wav");
 			SetSound(L"BGM_Game",L"BGM_1.wav");
 			SetSound(L"BGM_Title",L"BGM_2.wav");
-
+			SetSound(L"SE_Decision", L"decision.wav");
+			SetSound(L"SE_Decision2", L"decision2.wav");
+			SetSound(L"SE_Cursor", L"cursor.wav");
+			SetSound(L"SE_Back", L"back.wav");
 		}
 	};
 

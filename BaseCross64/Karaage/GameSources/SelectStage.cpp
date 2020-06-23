@@ -112,12 +112,16 @@ namespace basecross {
 			if (pad[0].wPressedButtons & XINPUT_GAMEPAD_A) {
 				auto ptrScene = App::GetApp()->GetScene<Scene>();
 				PostEvent(0.0f, GetThis<ObjectInterface>(), ptrScene, L"ToGameStage");
+
+				App::GetApp()->GetScene<Scene>()->MusicOnecStart(L"SE_Decision", 7.0f);
 			}
 
 			//–ß‚é
 			if (pad[0].wPressedButtons & XINPUT_GAMEPAD_B) {
 				auto ptrScene = App::GetApp()->GetScene<Scene>();
 				PostEvent(0.0f, GetThis<ObjectInterface>(), ptrScene, L"ToTitleStage");
+
+				App::GetApp()->GetScene<Scene>()->MusicOnecStart(L"SE_Back", 7.0f);
 			}
 		}
 
