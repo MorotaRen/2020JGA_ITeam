@@ -49,7 +49,12 @@ namespace basecross {
 			posY -= height;
 		}
 
+		//ポインター
 		AddGameObject<Pointer>(true, Vec2(68, 88), Vec3(-466, 266, 0), pointerPos);
+
+		//決定、戻るのUI
+		AddGameObject<MultiSprite>(true, Vec2(180, 80), Vec3(-500, 350, 0), L"BackButton_TX");
+
 	}
 
 
