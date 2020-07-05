@@ -21,4 +21,8 @@ namespace basecross {
 		ptrDraw->SetTextureResource(L"BG_Mass");
 		SetAlphaActive(true);
 	}
+	void MapChip::Set_BadMass() {
+		auto ptrDraw = GetComponent<PCTSpriteDraw>();
+		ptrDraw->SetTextureResource(L"BG_BadMass");
+	}
 }
