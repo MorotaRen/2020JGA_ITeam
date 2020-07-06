@@ -189,19 +189,19 @@ namespace basecross {
 		//客の要求を満たすかの管理
 		void Customers_Request();
 		//------------ゲッターセッター--------------//
-		void SetStockData(const MeatsData md) {
+		void SetStockData(const MeatsData &md) {
 			m_meatsStockData = md;
 		}
 		MeatsData GetStockData() {
 			return m_meatsStockData;
 		}
-		void SetMeatsInstallationData(const MeatsData md) {
+		void SetMeatsInstallationData(const MeatsData &md) {
 			m_meatsInstallationData = md;
 		}
 		MeatsData GetMeatsInstallationData() {
 			return m_meatsInstallationData;
 		}
-		void SetPossessionMeat(shared_ptr<GameObject> obj) {
+		void SetPossessionMeat(shared_ptr<GameObject>& obj) {
 			m_possessionMeat = obj;
 		}
 		shared_ptr<GameObject> GetPossessionMeat() {
@@ -213,7 +213,7 @@ namespace basecross {
 		vector<Rect2D<float>> GetRects() {
 			return m_numRects;
 		}
-		void SetTimeForOil(bool bl) {
+		void SetTimeForOil(bool &bl) {
 			m_timerForOil = bl;
 		}
 		bool GetTimerForOil() {

@@ -27,25 +27,24 @@ namespace basecross {
 		}
 		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
 		//現在金額数字
-		m_Numbers[0] = (stage->AddGameObject<NumberUI>(Vec2(550, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_Numbers[1] = (stage->AddGameObject<NumberUI>(Vec2(500, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_Numbers[2] = (stage->AddGameObject<NumberUI>(Vec2(450, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_Numbers[3] = (stage->AddGameObject<NumberUI>(Vec2(400, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_Numbers[4] = (stage->AddGameObject<NumberUI>(Vec2(350, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_Numbers[5] = (stage->AddGameObject<NumberUI>(Vec2(300, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		Vec2 nowMoneyStartPos = Vec2(NOWMONEY_STARTPOS_X,NOWMONEY_STARTPOS_Y);
+		for (int i = 0; i < m_Numbers.size(); i++)
+		{
+			m_Numbers[i] = (stage->AddGameObject<NumberUI>(Vec2(nowMoneyStartPos.x,nowMoneyStartPos.y), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+			nowMoneyStartPos.x -= NOWMONEY_INTERVAL;
+		}
 		//タイマー用数字
-		m_TimerNumbers[1] = (stage->AddGameObject<NumberUI>(Vec2(540, 220), Vec3(20.0f, 20.0f, 1.0f), L"Tex_Number"));
-		m_TimerNumbers[2] = (stage->AddGameObject<NumberUI>(Vec2(510, 220), Vec3(20.0f, 20.0f, 1.0f), L"Tex_Number"));
-		m_TimerNumbers[3] = (stage->AddGameObject<NumberUI>(Vec2(480, 220), Vec3(20.0f, 20.0f, 1.0f), L"Tex_Number"));
-		m_TimerNumbers[4] = (stage->AddGameObject<NumberUI>(Vec2(450, 220), Vec3(20.0f, 20.0f, 1.0f), L"Tex_Number"));
+		Vec2 timerStartPos = Vec2(TIMER_STARTPOS_X,TIMER_STARTPOS_Y);
+		for (int i = 1; i < m_TimerNumbers.size();i++) {
+			m_TimerNumbers[i] = (stage->AddGameObject<NumberUI>(Vec2(timerStartPos.x,timerStartPos.y), Vec3(20.0f, 20.0f, 1.0f), L"Tex_Number"));
+			timerStartPos.x -= TIMER_INTERVAL;
+		}
 		//目標金額数字
-		m_targetMoneyNumbers[0] = (stage->AddGameObject<NumberUI>(Vec2(550, 30), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_targetMoneyNumbers[1] = (stage->AddGameObject<NumberUI>(Vec2(500, 30), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_targetMoneyNumbers[2] = (stage->AddGameObject<NumberUI>(Vec2(450, 30), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_targetMoneyNumbers[3] = (stage->AddGameObject<NumberUI>(Vec2(400, 30), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_targetMoneyNumbers[4] = (stage->AddGameObject<NumberUI>(Vec2(350, 30), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_targetMoneyNumbers[5] = (stage->AddGameObject<NumberUI>(Vec2(300, 30), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-
+		Vec2 targetMoneyStartPos = Vec2(TARGET_STARTPOS_X,TARGET_STARTPOS_Y);
+		for (int i = 0; i < m_targetMoneyNumbers.size();i++) {
+			m_targetMoneyNumbers[i] = (stage->AddGameObject<NumberUI>(Vec2(targetMoneyStartPos.x,targetMoneyStartPos.y), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+			targetMoneyStartPos.x -= TARGET_INTERVAL;
+		}
 		//タイマーセット
 		Set_Timer(time, m_TimerNumbers);
 		Set_Num(targetMoney,m_targetMoneyNumbers);

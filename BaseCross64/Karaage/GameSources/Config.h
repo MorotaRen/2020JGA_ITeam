@@ -35,7 +35,7 @@
 
 //ゲームフィールドの縦横(X5Y10)
 #define GAMEFIELD_X 5
-#define GAMEFIELD_Y 6	
+#define GAMEFIELD_Y 6
 //マップチップのサイズ(XY60)
 #define MAPCHIP_SIZE_X 60.0f
 #define MAPCHIP_SIZE_Y 60.0f
@@ -56,4 +56,17 @@
 #define Setup_FALSE 9
 //客の最大数
 #define MAX_CUSTOMERS 3
+//現在金額表示座標の開始点と数字間隔
+#define NOWMONEY_STARTPOS_X 550
+#define NOWMONEY_STARTPOS_Y 100
+#define NOWMONEY_INTERVAL 50;
+//タイマー表示座標の開始点と数字間隔
+#define TIMER_STARTPOS_X 540
+#define TIMER_STARTPOS_Y 220
+#define TIMER_INTERVAL 30;
+//目標金額表示座標の開始点と数字間隔
+#define TARGET_STARTPOS_X 550
+#define TARGET_STARTPOS_Y 30
+#define TARGET_INTERVAL 50;
+
 //-----------------------------------------------//
