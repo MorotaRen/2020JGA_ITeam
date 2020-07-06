@@ -35,13 +35,13 @@
 
 //ゲームフィールドの縦横(X5Y10)
 #define GAMEFIELD_X 5
-#define GAMEFIELD_Y 6
+#define GAMEFIELD_Y 4
 //マップチップのサイズ(XY60)
 #define MAPCHIP_SIZE_X 60.0f
 #define MAPCHIP_SIZE_Y 60.0f
 //マップチップの開始地点(X-140Y250)
 #define MAPCHIP_START_X -140.0f
-#define MAPCHIP_START_Y 150.0f
+#define MAPCHIP_START_Y 125.0f
 //左右(4682)
 #define LEFT	4
 #define RIGHT	6
