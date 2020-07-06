@@ -45,7 +45,7 @@ namespace basecross {
 		m_targetMoneyNumbers[3] = (stage->AddGameObject<NumberUI>(Vec2(400, 30), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
 		m_targetMoneyNumbers[4] = (stage->AddGameObject<NumberUI>(Vec2(350, 30), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
 		m_targetMoneyNumbers[5] = (stage->AddGameObject<NumberUI>(Vec2(300, 30), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		
+
 		//タイマーセット
 		Set_Timer(time, m_TimerNumbers);
 		Set_Num(targetMoney,m_targetMoneyNumbers);
@@ -60,7 +60,7 @@ namespace basecross {
 		m_overSprite_Oil->SetDrawActive(false);
 	}
 	/// ----------------------------------------<summary>
-	/// ゲームセット	
+	/// ゲームセット
 	/// </summary>----------------------------------------
 	void FlyMaster::GAMESET() {
 
@@ -127,7 +127,7 @@ namespace basecross {
 		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
 		for (int y = 0; y < GAMEFIELD_Y;y++) {
 			for (int x = 0; x < GAMEFIELD_X;x++) {
-				stage->AddGameObject<MapChip>(Vec2(MAPCHIP_START_X + x * MAPCHIP_SIZE_X, 
+				stage->AddGameObject<MapChip>(Vec2(MAPCHIP_START_X + x * MAPCHIP_SIZE_X,
 												   MAPCHIP_START_Y + -y *MAPCHIP_SIZE_Y),
 												   0);
 			}
@@ -152,7 +152,7 @@ namespace basecross {
 		tempMoney += md.Drum * PRICE_DRUM;
 		tempMoney += md.Wing * PRICE_WING;
 		tempMoney += md.Lib * PRICE_LIB;
-		tempMoney += md.Keel * PRICE_KEEL;	
+		tempMoney += md.Keel * PRICE_KEEL;
 
 		m_nowMoney += tempMoney;
 		Set_Num(m_nowMoney,m_Numbers);
@@ -169,7 +169,7 @@ namespace basecross {
 		}else {
 			return false;
 		}
-		
+
 	}
 	/// ----------------------------------------<summary>
 	/// 渡された座標からマップ方向にレイを飛ばし接触したオブジェクトのマップ番号を返す
@@ -209,7 +209,7 @@ namespace basecross {
 			newMeat = stage->AddGameObject<Wing>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), quat);
 			Reset_PossessionMeat(newMeat);
 			break;
-		
+
 		default:
 			break;
 		}
@@ -315,7 +315,7 @@ namespace basecross {
 	/// ----------------------------------------<summary>
 	/// 所持肉をステージに設置する
 	/// </summary>----------------------------------------
-	void FlyMaster::Set_PossessionMeat() {		
+	void FlyMaster::Set_PossessionMeat() {
 		//まずは設置する所を取得して
 		Vec3 SetupPos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
 		Quat newMeatRot;
@@ -376,7 +376,7 @@ namespace basecross {
 			//始点
 			auto StartPosX = m_moveDistance[1];
 			auto StartPosY = m_moveDistance[0];
-
+			unsigned int Counter = 0;
 			//所持肉IDで
 			switch (m_possessionMeatID)
 			{
@@ -400,6 +400,7 @@ namespace basecross {
 				}
 				return true;
 				break;
+
 			case drum:
 				for (int y = 0; y < 3; y++) {
 					for (int x = 0; x < 3; x++) {
@@ -415,6 +416,10 @@ namespace basecross {
 					for (int x = 0; x < 3; x++) {
 						if (m_gameField[StartPosY + y][StartPosX + x] == 0 && Hit_Drum[y][x] == 9) {
 							m_gameField[StartPosY + y][StartPosX + x] = 9;
+							Counter++;
+							if (Counter >= Drum_SetCount) {
+								break;
+							}
 						}
 					}
 				}
@@ -434,6 +439,11 @@ namespace basecross {
 					for (int x = 0; x < 3; x++) {
 						if (m_gameField[StartPosY + y][StartPosX + x] == 0 && Hit_Keel[y][x] == 9) {
 							m_gameField[StartPosY + y][StartPosX + x] = 9;
+							Counter++;
+							if (Counter >= Keel_SetCount) {
+								break;
+							}
+
 						}
 					}
 				}
@@ -453,6 +463,11 @@ namespace basecross {
 					for (int x = 0; x < 3; x++) {
 						if (m_gameField[StartPosY + y][StartPosX + x] == 0 && Hit_Rib[y][x] == 9) {
 							m_gameField[StartPosY + y][StartPosX + x] = 9;
+							Counter++;
+							if (Counter >= Rib_SetCount) {
+								break;
+							}
+
 						}
 					}
 				}
@@ -472,6 +487,10 @@ namespace basecross {
 					for (int x = 0; x < 3; x++) {
 						if (m_gameField[StartPosY + y][StartPosX + x] == 0 && Hit_Wing[y][x] == 9) {
 							m_gameField[StartPosY + y][StartPosX + x] = 9;
+							Counter++;
+							if (Counter >= Wing_SetCount) {
+								break;
+							}
 						}
 					}
 				}
@@ -697,7 +716,7 @@ namespace basecross {
 	/// </summary>----------------------------------------
 	void FlyMaster::Fly_Timer() {
 		auto deltatime = App::GetApp()->GetElapsedTime();
-		m_flyTime -= 1 * deltatime;                                               
+		m_flyTime -= 1 * deltatime;
 		if (m_flyTime <= 0) {
 			m_flyTime = FLY_RECAST_TIME;
 			App::GetApp()->GetScene<Scene>()->MusicStop();

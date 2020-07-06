@@ -83,7 +83,7 @@ namespace basecross {
 		//タイマー終了時の判定(Game)
 		bool m_timerForGame;
 		//オーバーレイ用のスプライトポインタ
-		shared_ptr<GameObject> m_overSprite_Oil;	
+		shared_ptr<GameObject> m_overSprite_Oil;
 		//お客達
 		vector<shared_ptr<Guest>> m_guests = {0,0,0};
 		//お客の数
@@ -94,23 +94,33 @@ namespace basecross {
 								{1,1,1},
 								{1,1,1}
 		};
+		//これいらんかもしれん…
+		unsigned int Karaage_SetCount = 1;
+
 		int Hit_Drum[2][2] = {
 								{9,1},
 								{9,1},
 		};
+		unsigned int Drum_SetCount = 2;
+
 		int Hit_Wing[2][2] = {
 								{9,9},
 								{9,1},
 		};
+		unsigned int Wing_SetCount = 3;
+
 		int Hit_Rib[2][2] = {
 								{9,9},
 								{9,9},
 		};
+		unsigned int Rib_SetCount = 4;
+
 		int Hit_Keel[3][3] = {
 								{9,9,9},
 								{9,9,9},
 								{1,9,1}
 		};
+		unsigned int Keel_SetCount = 6;
 		//------------------------------------//
 		//----------------------------------------//
 
@@ -166,7 +176,7 @@ namespace basecross {
 		void Set_Rect(int num, shared_ptr<GameObject> numobj);
 		//タイマーセット
 		void Set_Timer(int time,vector<shared_ptr<GameObject>> changenumobj);
-		//タイマーの更新		
+		//タイマーの更新
 		void Update_Timer();
 		//目標と現在を比較する
 		bool Check_Comparison();
