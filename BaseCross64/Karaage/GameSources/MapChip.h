@@ -23,6 +23,7 @@ namespace basecross {
 			: GameObject(stage),m_pos(pos),m_OnWhite(w) {};
 		~MapChip() {};
 		virtual void OnCreate() override;
+		void Set_BadMass();
 
 	};
 }
