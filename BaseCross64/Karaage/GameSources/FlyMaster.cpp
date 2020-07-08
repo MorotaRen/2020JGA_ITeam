@@ -73,7 +73,6 @@ namespace basecross {
 		stage->AddGameObject<MeatUI>(Vec2(-20, -17), Vec3(195.0f, 230.0f, 1.0f), L"BG_Flyer");
 		stage->AddGameObject<MeatUI>(Vec2(500, 220), Vec3(100.0f, 100.0f, 1.0f), L"Tex_Timer");
 		stage->AddGameObject<MeatUI>(Vec2(240, 100), Vec3(30.0f, 30.0f, 1.0f), L"Icon_RegisterMark");
-
 	}
 	/// ----------------------------------------<summary>
 	/// 在庫数に追加する。追加した後は設置されている数はリセットされる
@@ -91,6 +90,7 @@ namespace basecross {
 	/// </summary>----------------------------------------
 	void FlyMaster::Clear_InstallationMeat() {
 		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
+		//ステージに設置されてる肉の削除
 		for (int i = 0; i < m_installationMeat.size(); i++) {
 			stage->RemoveGameObject<GameObject>(m_installationMeat[i]);
 		}
@@ -231,7 +231,7 @@ namespace basecross {
 				switch (direction)
 				{
 				case RIGHT:
-					if (possessionMeatPos.x < MOVELIMIT_MAX_X) {
+					if (m_moveDistance[1] <= (GAMEFIELD_X-3)) {
 						pos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
 						pos.x += MAPCHIP_SIZE_X;
 						m_possessionMeat->GetComponent<Transform>()->SetPosition(pos);
@@ -240,7 +240,7 @@ namespace basecross {
 					}
 					break;
 				case LEFT:
-					if (possessionMeatPos.x > MOVELIMIT_MIN_X) {
+					if (m_moveDistance[1] > 0) {
 						pos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
 						pos.x -= MAPCHIP_SIZE_X;
 						m_possessionMeat->GetComponent<Transform>()->SetPosition(pos);
@@ -249,7 +249,7 @@ namespace basecross {
 					}
 					break;
 				case UP:
-					if (possessionMeatPos.y < MOVELIMIT_MAX_Y) {
+					if (m_moveDistance[0] > 0) {
 						pos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
 						pos.y += MAPCHIP_SIZE_Y;
 						m_possessionMeat->GetComponent<Transform>()->SetPosition(pos);
@@ -258,7 +258,7 @@ namespace basecross {
 					}
 					break;
 				case DOWN:
-					if (possessionMeatPos.y > MOVELIMIT_MIN_Y) {
+					if (m_moveDistance[0] <= GAMEFIELD_Y) {
 						pos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
 						pos.y -= MAPCHIP_SIZE_Y;
 						m_possessionMeat->GetComponent<Transform>()->SetPosition(pos);
@@ -706,16 +706,5 @@ namespace basecross {
 			}
 		}
 	}
-	/*
-	疲
-	れ
-	た
-	ほ
-	ぼ
-	全
-	部
-	お
-	r
-	*/
 }
 //end basecross

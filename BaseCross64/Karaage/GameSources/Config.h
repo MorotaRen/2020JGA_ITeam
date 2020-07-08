@@ -47,11 +47,7 @@
 #define RIGHT	6
 #define UP		8
 #define DOWN	2
-//移動リミット(-140,-270,60,250)
-#define MOVELIMIT_MIN_X -140
-#define MOVELIMIT_MIN_Y -110
-#define MOVELIMIT_MAX_X  60
-#define MOVELIMIT_MAX_Y  150
+
 //配置状況の数値(9)
 #define Setup_FALSE 9
 //客の最大数
