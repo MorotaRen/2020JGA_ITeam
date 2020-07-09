@@ -231,7 +231,7 @@ namespace basecross {
 				switch (direction)
 				{
 				case RIGHT:
-					if (m_moveDistance[1] <= (GAMEFIELD_X-3)) {
+					if (m_moveDistance[1] <= (GAMEFIELD_X-2)) {
 						pos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
 						pos.x += MAPCHIP_SIZE_X;
 						m_possessionMeat->GetComponent<Transform>()->SetPosition(pos);
@@ -258,7 +258,7 @@ namespace basecross {
 					}
 					break;
 				case DOWN:
-					if (m_moveDistance[0] <= GAMEFIELD_Y) {
+					if (m_moveDistance[0] <= (GAMEFIELD_Y-2)) {
 						pos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
 						pos.y -= MAPCHIP_SIZE_Y;
 						m_possessionMeat->GetComponent<Transform>()->SetPosition(pos);
@@ -300,6 +300,8 @@ namespace basecross {
 			else {
 				m_possessionMeatID++;
 			}
+			m_moveDistance[0] = 0;
+			m_moveDistance[1] = 0;
 			FlyMaster::Create_PossessionMeat(m_possessionMeatID);
 		}
 	}
@@ -319,6 +321,7 @@ namespace basecross {
 			//所持肉の位置
 			Vec3 possessoionPos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
 			shared_ptr<GameObject> newMeat;
+			Debug_Map();
 			//所持肉IDで
 			switch (m_possessionMeatID)
 			{
@@ -393,25 +396,24 @@ namespace basecross {
 				break;
 
 			case drum:
-				for (int y = 0; y < 3; y++) {
-					for (int x = 0; x < 3; x++) {
+				for (int y = 0; y < 2; y++) {
+					for (int x = 0; x < 2; x++) {
 						if (m_gameField[StartPosY + y][StartPosX + x] == Hit_Drum[y][x]) {
 							return false;
 							break;
 						}
 					}
 				}
-				//設置済みにするときにブレイクしてないからずれる
 				//おく所を設置済みにする
-				for (int y = 0; y < 3; y++) {
-					for (int x = 0; x < 3; x++) {
+				for (int y = 0; y < 2; y++) {
+					for (int x = 0; x < 2; x++) {
 						if (m_gameField[StartPosY + y][StartPosX + x] == 0 && Hit_Drum[y][x] == 9) {
 							m_gameField[StartPosY + y][StartPosX + x] = 9;
 							Counter++;
-							if (Counter >= Drum_SetCount) {
-								break;
-							}
 						}
+					}
+					if (Counter >= Drum_SetCount) {
+						break;
 					}
 				}
 				return true;
@@ -431,18 +433,17 @@ namespace basecross {
 						if (m_gameField[StartPosY + y][StartPosX + x] == 0 && Hit_Keel[y][x] == 9) {
 							m_gameField[StartPosY + y][StartPosX + x] = 9;
 							Counter++;
-							if (Counter >= Keel_SetCount) {
-								break;
-							}
-
 						}
+					}
+					if (Counter >= Keel_SetCount) {
+						break;
 					}
 				}
 				return true;
 				break;
 			case rib:
-				for (int y = 0; y < 3; y++) {
-					for (int x = 0; x < 3; x++) {
+				for (int y = 0; y < 2; y++) {
+					for (int x = 0; x < 2; x++) {
 						if (m_gameField[StartPosY + y][StartPosX + x] == Hit_Rib[y][x]) {
 							return false;
 							break;
@@ -450,23 +451,22 @@ namespace basecross {
 					}
 				}
 				//おく所を設置済みにする
-				for (int y = 0; y < 3; y++) {
-					for (int x = 0; x < 3; x++) {
+				for (int y = 0; y < 2; y++) {
+					for (int x = 0; x < 2; x++) {
 						if (m_gameField[StartPosY + y][StartPosX + x] == 0 && Hit_Rib[y][x] == 9) {
 							m_gameField[StartPosY + y][StartPosX + x] = 9;
 							Counter++;
-							if (Counter >= Rib_SetCount) {
-								break;
-							}
-
 						}
+					}
+					if (Counter >= Rib_SetCount) {
+						break;
 					}
 				}
 				return true;
 				break;
 			case wing:
-				for (int y = 0; y < 3; y++) {
-					for (int x = 0; x < 3; x++) {
+				for (int y = 0; y < 2; y++) {
+					for (int x = 0; x < 2; x++) {
 						if (m_gameField[StartPosY + y][StartPosX + x] == Hit_Wing[y][x]) {
 							return false;
 							break;
@@ -474,15 +474,15 @@ namespace basecross {
 					}
 				}
 				//おく所を設置済みにする
-				for (int y = 0; y < 3; y++) {
-					for (int x = 0; x < 3; x++) {
+				for (int y = 0; y < 2; y++) {
+					for (int x = 0; x < 2; x++) {
 						if (m_gameField[StartPosY + y][StartPosX + x] == 0 && Hit_Wing[y][x] == 9) {
 							m_gameField[StartPosY + y][StartPosX + x] = 9;
 							Counter++;
-							if (Counter >= Wing_SetCount) {
-								break;
-							}
 						}
+					}
+					if (Counter >= Wing_SetCount) {
+						break;
 					}
 				}
 				return true;
@@ -705,6 +705,20 @@ namespace basecross {
 				}
 			}
 		}
+	}
+	/// ----------------------------------------<summary>
+	///	MAPの状態表示のデバック
+	/// </summary>----------------------------------------
+	void FlyMaster::Debug_Map() {
+		wstring str;
+		for (int i = 0; i < GAMEFIELD_Y;i++) {
+			for (int t = 0; t < GAMEFIELD_X; t++) {
+				str += Util::FloatToWStr(m_gameField[i][t]) += L",";
+			}
+			str += L"\n";
+		}
+		auto ptrString = m_Numbers[0]->AddComponent<StringSprite>();
+		ptrString->SetText(str);
 	}
 }
 //end basecross

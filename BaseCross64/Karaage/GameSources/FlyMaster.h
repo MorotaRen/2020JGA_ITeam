@@ -188,6 +188,8 @@ namespace basecross {
 		void Customers_Count();
 		//客の要求を満たすかの管理
 		void Customers_Request();
+		//デバック表示
+		void Debug_Map();
 		//------------ゲッターセッター--------------//
 		void SetStockData(const MeatsData &md) {
 			m_meatsStockData = md;
