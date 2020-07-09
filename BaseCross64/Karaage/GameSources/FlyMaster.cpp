@@ -634,7 +634,7 @@ namespace basecross {
 	void FlyMaster::Update_Timer() {
 		auto deltatime = App::GetApp()->GetElapsedTime();
 		m_time -=  1 * deltatime;
-		Set_Timer(m_time,m_TimerNumbers);
+		Set_Timer((int)m_time,m_TimerNumbers);
 	}
 	/// ----------------------------------------<summary>
 	///	フライヤータイマー
@@ -691,11 +691,11 @@ namespace basecross {
 			//まず客の要求数を取ってくる
 			m_guests[i]->GetRequestMeats(tempReqMeats);
 			//肉ごとに確認
-			if (tempReqMeats[0] <= m_meatsStockData.Karage) {
-				if (tempReqMeats[1] <= m_meatsStockData.Drum) {
-					if (tempReqMeats[2] <= m_meatsStockData.Wing) {
-						if (tempReqMeats[3] <= m_meatsStockData.Lib) {
-							if (tempReqMeats[4] <= m_meatsStockData.Keel) {
+			if (tempReqMeats[0] <= (int)m_meatsStockData.Karage) {
+				if (tempReqMeats[1] <= (int)m_meatsStockData.Drum) {
+					if (tempReqMeats[2] <= (int)m_meatsStockData.Wing) {
+						if (tempReqMeats[3] <= (int)m_meatsStockData.Lib) {
+							if (tempReqMeats[4] <= (int)m_meatsStockData.Keel) {
 								//ここまで来たら全部要求満たしてるから金額を計算して売上に加算してと…
 								Sales(m_meatsInstallationData);
 
