@@ -53,7 +53,8 @@ namespace basecross {
 		AddGameObject<Pointer>(true, Vec2(68, 88), Vec3(-466, 266, 0), pointerPos);
 
 		//åàíËÅAñﬂÇÈÇÃUI
-		AddGameObject<MultiSprite>(true, Vec2(180, 80), Vec3(-500, 350, 0), L"BackButton_TX");
+		AddGameObject<MultiSprite>(true, Vec2(180, 80), Vec3(-550, 360, 0), L"BackButton_TX");
+		AddGameObject<MultiSprite>(true, Vec2(180, 80), Vec3(-350, 360, 0), L"DecisionalButton_TX");
 
 	}
 
