@@ -64,7 +64,7 @@ namespace basecross {
 		}
 	}
 
-	Pointer::Pointer(const shared_ptr<Stage>& Stage, bool trace, const Vec2& startScale, const Vec3& startPos, Vec3 posArray[9]) 
+	Pointer::Pointer(const shared_ptr<Stage>& Stage, bool trace, const Vec2& startScale, const Vec3& startPos, Vec3 posArray[9])
 		: GameObject(Stage),
 		m_trace(trace),
 		m_startScale(startScale),
@@ -105,11 +105,12 @@ namespace basecross {
 	{
 		m_frameCount += App::GetApp()->GetElapsedTime();
 		auto pad = GamePadManager::GetGamePad();
-		
-		
-		if (pad[0].bConnected) {
+		auto keystate = App::GetApp()->GetInputDevice().GetKeyState();
+
+
+		//if (pad[0].bConnected) {
 			//Œˆ’è
-			if (pad[0].wPressedButtons & XINPUT_GAMEPAD_A) {
+			if (pad[0].wPressedButtons & XINPUT_GAMEPAD_A || keystate.m_bPressedKeyTbl[VK_SPACE]) {
 				auto ptrScene = App::GetApp()->GetScene<Scene>();
 				PostEvent(0.0f, GetThis<ObjectInterface>(), ptrScene, L"ToGameStage");
 			}
@@ -119,12 +120,12 @@ namespace basecross {
 				auto ptrScene = App::GetApp()->GetScene<Scene>();
 				PostEvent(0.0f, GetThis<ObjectInterface>(), ptrScene, L"ToTitleStage");
 			}
-		}
+		//}
 
 		//‘I‘ð
 		auto ptrTrans = GetComponent<Transform>();
 		if (0.5f < m_frameCount) {
-			if (pad[0].fThumbLX >= 0.8f) {
+			if (pad[0].fThumbLX >= 0.8f || keystate.m_bPressedKeyTbl['D']) {
 				m_selectNum++;
 				if (m_selectNum > 8) {
 					m_selectNum = 0;
@@ -132,7 +133,7 @@ namespace basecross {
 				ptrTrans->SetPosition(m_posArray[m_selectNum]);
 				m_frameCount = 0.0f;
 			}
-			if (pad[0].fThumbLX <= -0.8) {
+			if (pad[0].fThumbLX <= -0.8 || keystate.m_bPressedKeyTbl['A']){
 				m_selectNum--;
 				if (m_selectNum < 0) {
 					m_selectNum = 8;

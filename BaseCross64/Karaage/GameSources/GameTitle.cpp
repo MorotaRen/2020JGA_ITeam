@@ -45,12 +45,13 @@ namespace basecross {
 	}
 	void GameTitle::OnUpdate() {
 		auto pad = GamePadManager::GetGamePad();
-		if (pad[0].bConnected) {
-			if (pad[0].wPressedButtons & XINPUT_GAMEPAD_A) {
+		auto keystate = App::GetApp()->GetInputDevice().GetKeyState();
+		//if (pad[0].bConnected) {
+			if (pad[0].wPressedButtons & XINPUT_GAMEPAD_A || keystate.m_bPressedKeyTbl[VK_SPACE]) {
 				auto ptrScene = App::GetApp()->GetScene<Scene>();
 				PostEvent(0.0f,GetThis<ObjectInterface>(),ptrScene,L"ToSelectStage");
 			}
-		}
+		//}
 	}
 
 	//背景のスプライト作成
