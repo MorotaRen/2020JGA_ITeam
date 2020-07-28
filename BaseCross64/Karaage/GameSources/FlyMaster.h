@@ -62,8 +62,6 @@ namespace basecross {
 		int m_targetMoney = 0;
 		//現在金額
 		int m_nowMoney = 0;
-		//現在時刻
-		float m_time = 0;
 		//フライヤータイマーの現在時間
 		float m_flyTime = FLY_RECAST_TIME;
 		//現在金額数字のポインタ
@@ -88,6 +86,12 @@ namespace basecross {
 		vector<shared_ptr<Guest>> m_guests = {0,0,0};
 		//お客の数
 		int m_nowCustomers = 0;
+		//設定分
+		int m_Nowmin = 0;
+
+		int m_Nowsec = 0;
+		//現在時刻
+		float m_time = 0;
 		//------------肉の各種判定------------//
 		int Hit_Karaage[3][3] = {
 								{9,1,1},

@@ -618,18 +618,19 @@ namespace basecross {
 	///	タイマーの設定
 	/// </summary>----------------------------------------
 	void FlyMaster::Set_Timer(int time, vector<shared_ptr<GameObject>> changenumobj) {
-		m_time = (float)time;
-		unsigned int min = time / 60;
-		unsigned int s = time % 60;
-
-		//分数
-		m_NowTime[0] = (time % 10); time /= 10;
-		m_NowTime[1] = (time % 10); time /= 10;
-		//秒数
-		m_NowTime[2] = (time % 10); time /= 10;
-		m_NowTime[3] = (time % 10); time /= 10;
-
-		for (int i = 1; i < changenumobj.size();i++) {
+		//初期分設定…
+		if (time != 999) {
+			m_Nowmin = time;
+			m_time = 59;
+		}
+		m_NowTime[3] = m_Nowmin;
+		m_NowTime[1] = (m_Nowsec % 10); m_Nowsec /= 10;
+		m_NowTime[2] = (m_Nowsec % 10); m_Nowsec /= 10;
+		if (m_NowTime[1] == 0 && m_NowTime[2] == 0) {
+			m_Nowmin--;
+			m_time = 59;
+		}
+ 		for (int i = 1; i < changenumobj.size();i++) {
 			Set_Rect(m_NowTime[i],changenumobj[i]);
 		}
 	}
@@ -639,7 +640,12 @@ namespace basecross {
 	void FlyMaster::Update_Timer() {
 		auto deltatime = App::GetApp()->GetElapsedTime();
 		m_time -=  1 * deltatime;
-		Set_Timer((int)m_time,m_TimerNumbers);
+		if (m_Nowmin == 0 && m_time <= 0) {
+			//タイマー完全終わり
+			MessageBox(0, 0, 0, 0);
+		}
+		m_Nowsec = m_time;
+		Set_Timer(999,m_TimerNumbers);
 	}
 	/// ----------------------------------------<summary>
 	///	フライヤータイマー
