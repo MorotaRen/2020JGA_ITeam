@@ -48,8 +48,8 @@
 #define UP		8
 #define DOWN	2
 
-//各ゲームステージの制限時間
-#define STAGE_1 7
+//各ゲームステージの制限時間：分(+59秒)
+#define STAGE_1 1
 
 //配置状況の数値(9)
 #define Setup_FALSE 9

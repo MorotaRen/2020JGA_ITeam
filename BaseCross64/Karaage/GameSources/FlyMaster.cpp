@@ -626,10 +626,15 @@ namespace basecross {
 		m_NowTime[3] = m_Nowmin;
 		m_NowTime[1] = (m_Nowsec % 10); m_Nowsec /= 10;
 		m_NowTime[2] = (m_Nowsec % 10); m_Nowsec /= 10;
-		if (m_NowTime[1] == 0 && m_NowTime[2] == 0) {
+		if (m_Nowmin == 0 && m_time <= 1) {
+			//タイマー完全終わり
+			MessageBox(0, 0, 0, 0);
+		}
+		if (m_NowTime[1] == 0 && m_time <= 1) {
 			m_Nowmin--;
 			m_time = 59;
 		}
+
  		for (int i = 1; i < changenumobj.size();i++) {
 			Set_Rect(m_NowTime[i],changenumobj[i]);
 		}
@@ -640,10 +645,7 @@ namespace basecross {
 	void FlyMaster::Update_Timer() {
 		auto deltatime = App::GetApp()->GetElapsedTime();
 		m_time -=  1 * deltatime;
-		if (m_Nowmin == 0 && m_time <= 0) {
-			//タイマー完全終わり
-			MessageBox(0, 0, 0, 0);
-		}
+
 		m_Nowsec = m_time;
 		Set_Timer(999,m_TimerNumbers);
 	}
