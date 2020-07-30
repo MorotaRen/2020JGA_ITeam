@@ -61,7 +61,7 @@ namespace basecross{
 			SetTexture(L"Icon_RegisterMark", L"Texture\\UIs\\", L"RegisterMark.png");
 			SetTexture(L"Pointer_TX", L"Texture\\UIs\\", L"pointer.png");
 
-			SetTexture(L"Chara_Normal", L"Texture\\Characters\\", L"Guests1-0.png");
+			SetTexture(L"Chara_Normal", L"Texture\\Characters\\", L"Guest1-1.png");
 			//SetTexture(L"Chara_Hurry", L"Texture\\Characters\\", L"Guests1-1.png");
 			//SetTexture(L"Chara_Anger", L"Texture\\Characters\\", L"Guests1-2.png");
 			//SetTexture(L"Chara_Happy", L"Texture\\Characters\\", L"Guests1-3.png");
@@ -103,7 +103,7 @@ namespace basecross{
 			//リソース設定
 			CreateResourse resourse;
 			resourse.CreateResourses();
-			
+
 			//クリアする色を設定
 			Col4 Col;
 			Col.set(31.0f / 255.0f, 30.0f / 255.0f, 71.0f / 255.0f, 255.0f / 255.0f);

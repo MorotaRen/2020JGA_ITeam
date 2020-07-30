@@ -92,6 +92,8 @@ namespace basecross {
 		int m_Nowsec = 0;
 		//現在時刻
 		float m_time = 0;
+		//現在のステージナンバー
+		unsigned int m_stageNumber = 0;
 		//------------肉の各種判定------------//
 		int Hit_Karaage[3][3] = {
 								{9,1,1},

@@ -37,7 +37,7 @@ namespace basecross {
 			return m_timer;
 		}
 		void ClearCheck();
-		
+
 		void Update_OrderCount();
 
 		void DeleteGuest();
@@ -81,7 +81,7 @@ namespace basecross {
 	{
 		Vec2 m_position;
 		Vec2 m_scale;
-		
+
 	public :
 		GuestOrder(shared_ptr<Stage>&Stage, Vec3 position);
 		~GuestOrder() {};

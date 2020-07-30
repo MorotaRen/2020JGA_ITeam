@@ -73,6 +73,7 @@ namespace basecross {
 		stage->AddGameObject<MeatUI>(Vec2(-20, -17), Vec3(195.0f, 230.0f, 1.0f), L"BG_Flyer");
 		stage->AddGameObject<MeatUI>(Vec2(500, 220), Vec3(100.0f, 100.0f, 1.0f), L"Tex_Timer");
 		stage->AddGameObject<MeatUI>(Vec2(240, 100), Vec3(30.0f, 30.0f, 1.0f), L"Icon_RegisterMark");
+
 	}
 	/// ----------------------------------------<summary>
 	/// 在庫数に追加する。追加した後は設置されている数はリセットされる
@@ -687,7 +688,7 @@ namespace basecross {
 						switch (i)
 						{
 						case 0 :
-							m_guests[0] = stage->AddGameObject<Guest>(Vec3(-430, 50, 0));
+							m_guests[0] = stage->AddGameObject<Guest>(Vec3(240, 30,0.0f));
 						}
 				}
 			}
@@ -697,26 +698,36 @@ namespace basecross {
 	///	客の要求を満たすかの管理
 	/// </summary>----------------------------------------
 	void FlyMaster::Customers_Request() {
-		//要求数と在庫数の見比べ
-		//要求数格納用
-		int tempReqMeats[5] = { 0 };
-		for (int i = 0; i < MAX_CUSTOMERS;i++) {
-			//まず客の要求数を取ってくる
-			m_guests[i]->GetRequestMeats(tempReqMeats);
-			//肉ごとに確認
-			if (tempReqMeats[0] <= (int)m_meatsStockData.Karage) {
-				if (tempReqMeats[1] <= (int)m_meatsStockData.Drum) {
-					if (tempReqMeats[2] <= (int)m_meatsStockData.Wing) {
-						if (tempReqMeats[3] <= (int)m_meatsStockData.Lib) {
-							if (tempReqMeats[4] <= (int)m_meatsStockData.Keel) {
-								//ここまで来たら全部要求満たしてるから金額を計算して売上に加算してと…
-								Sales(m_meatsInstallationData);
-
-							}
-						}
-					}
-				}
+		//客の目的金額なので…コンフィグに設定金額を指定してそれで比較するか
+		switch (m_stageNumber)
+		{
+		case 1:
+			if (m_nowMoney >= STAGE_MONEY_1) {
+				//すてーじ1くりあ！
 			}
+			break;
+		case 2:
+			if (m_nowMoney >= STAGE_MONEY_2) {
+				//すてーじ2くりあ！
+			}
+			break;
+		case 3:
+			if (m_nowMoney >= STAGE_MONEY_3) {
+				//すてーじ3くりあ！
+			}
+			break;
+		case 4:
+			if (m_nowMoney >= STAGE_MONEY_4) {
+				//すてーじ4くりあ！
+			}
+			break;
+		case 5:
+			if (m_nowMoney >= STAGE_MONEY_5) {
+				//すてーじ5くりあ！
+			}
+			break;
+		default:
+			break;
 		}
 	}
 	/// ----------------------------------------<summary>

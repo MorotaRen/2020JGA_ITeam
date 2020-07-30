@@ -48,9 +48,6 @@
 #define UP		8
 #define DOWN	2
 
-//各ゲームステージの制限時間：分(+59秒)
-#define STAGE_1 1
-
 //配置状況の数値(9)
 #define Setup_FALSE 9
 //客の最大数
@@ -69,3 +66,18 @@
 #define TARGET_INTERVAL 50;
 
 //-----------------------------------------------//
+
+
+//------------------ゲーム管理用------------------//
+//ゲームステージの制限時間：分(+59秒)
+#define STAGE_TIME_1 5
+#define STAGE_TIME_2 4
+#define STAGE_TIME_3 3
+#define STAGE_TIME_4 2
+#define STAGE_TIME_5 1
+//ゲームステージの目標金額
+#define STAGE_MONEY_1 500
+#define STAGE_MONEY_2 700
+#define STAGE_MONEY_3 500
+#define STAGE_MONEY_4 800
+#define STAGE_MONEY_5 1000
