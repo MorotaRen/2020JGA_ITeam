@@ -14,6 +14,7 @@ namespace basecross {
 	class SelectStage : public Stage {
 		//ƒrƒ…[‚Ìì¬
 		void CreateViewLight();
+		//vector<shared_ptr<GameObject>> m_ptrNum = {0,0,0,0,0,0,0,0,0};
 	public:
 		//\’z‚Æ”jŠü
 		SelectStage() :Stage() {}
@@ -49,6 +50,21 @@ namespace basecross {
 		virtual void OnCreate() override;
 		virtual void OnUpdate() override;
 
+	};
+
+	class StageNumUI : public GameObject
+	{
+	private:
+		Vec3 m_pos, m_scale;
+		wstring m_texkey;
+		int m_num;
+	public:
+		StageNumUI(const shared_ptr<Stage>& stagePtr, const Vec2& pos, const Vec3& scale, wstring texkey,int num)
+			: GameObject(stagePtr), m_pos(pos.x, pos.y, 0.0f), m_scale(scale), m_texkey(texkey), m_num(num)
+		{
+		}
+
+		void OnCreate() override;
 	};
 }
 //end basecross
