@@ -7,6 +7,8 @@ namespace basecross {
 	/// これを起動でゲームが始まる
 	/// </summary>----------------------------------------
 	void FlyMaster::GAMESTART(int targetMoney,int time) {
+		//ゲームを始めるからステータスをtrueに
+		m_gameStatus = true;
 		//目標金額の設定
 		m_targetMoney = targetMoney;
 		//数字UIの範囲
@@ -62,6 +64,9 @@ namespace basecross {
 	/// ゲームセット
 	/// </summary>----------------------------------------
 	void FlyMaster::GAMESET() {
+		//終わりってことだからステータスをfalse
+		m_gameStatus = false;
+		//操作止めたからそこまでの画像を表示、横からスクロールさせるか
 
 	}
 	/// ----------------------------------------<summary>
@@ -704,26 +709,31 @@ namespace basecross {
 		case 1:
 			if (m_nowMoney >= STAGE_MONEY_1) {
 				//すてーじ1くりあ！
+				m_cleared = true;
 			}
 			break;
 		case 2:
 			if (m_nowMoney >= STAGE_MONEY_2) {
 				//すてーじ2くりあ！
+				m_cleared = true;
 			}
 			break;
 		case 3:
 			if (m_nowMoney >= STAGE_MONEY_3) {
 				//すてーじ3くりあ！
+				m_cleared = true;
 			}
 			break;
 		case 4:
 			if (m_nowMoney >= STAGE_MONEY_4) {
 				//すてーじ4くりあ！
+				m_cleared = true;
 			}
 			break;
 		case 5:
 			if (m_nowMoney >= STAGE_MONEY_5) {
 				//すてーじ5くりあ！
+				m_cleared = true;
 			}
 			break;
 		default:

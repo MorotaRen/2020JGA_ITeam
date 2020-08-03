@@ -34,6 +34,8 @@ namespace basecross {
 
 		//-------------------変数------------------//
 
+		//ゲームの状態
+		bool m_gameStatus = false;
 		//各種肉の在庫
 		MeatsData m_meatsStockData;
 		//今設置されてる各種肉
@@ -88,12 +90,14 @@ namespace basecross {
 		int m_nowCustomers = 0;
 		//設定分
 		int m_Nowmin = 0;
-
+		//設定秒
 		int m_Nowsec = 0;
 		//現在時刻
 		float m_time = 0;
 		//現在のステージナンバー
 		unsigned int m_stageNumber = 0;
+		//クリア判定
+		bool m_cleared = false;
 		//------------肉の各種判定------------//
 		int Hit_Karaage[3][3] = {
 								{9,1,1},
@@ -202,6 +206,9 @@ namespace basecross {
 		}
 		MeatsData GetStockData() {
 			return m_meatsStockData;
+		}
+		bool GetGameStautas() {
+			return m_gameStatus;
 		}
 		void SetMeatsInstallationData(const MeatsData &md) {
 			m_meatsInstallationData = md;

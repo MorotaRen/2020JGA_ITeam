@@ -46,9 +46,6 @@ namespace basecross{
 			App::GetApp()->GetAssetsDirectory(dataDir);
 
 			//テクスチャ
-			//SetTexture(L"RANK_UI", L"Rank2.png");
-			//SetTexture(L"Black_TEST",L"Black.png");
-			//SetTexture(L"White_TEST",L"White.png");
 			SetTexture(L"BG_Kitchen", L"Texture\\GameUIs\\", L"Kitchen.png");
 			SetTexture(L"BG_Flyer", L"Texture\\GameUIs\\", L"Flyer.png");
 			SetTexture(L"BG_Mass", L"Texture\\GameUIs\\", L"Masu.png");

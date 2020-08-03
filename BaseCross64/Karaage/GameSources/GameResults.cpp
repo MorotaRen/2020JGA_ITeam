@@ -30,6 +30,7 @@ namespace basecross {
 		try {
 			//ビューとライトの作成
 			CreateViewLight();
+			CreateBackgroundSprite();
 		}
 		catch (...) {
 			throw;
@@ -48,10 +49,7 @@ namespace basecross {
 
 	//背景のスプライト作成
 	void GameResults::CreateBackgroundSprite() {
-		//AddGameObject<BackgroundSprite>(
-		//	L"", false,
-		//	Vec2(0.0f, 0.0f),
-		//	Vec3(0.0f, 0.0f, 0.0f));
+		AddGameObject<MultiSprite>(true, Vec2(1280, 800), Vec3(0, 0, 0), L"Select_BG");
 	}
 }
 //end basecross
