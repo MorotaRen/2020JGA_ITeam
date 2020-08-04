@@ -57,6 +57,7 @@ namespace basecross{
 			SetTexture(L"Select_Stage_TX", L"Texture\\UIs\\", L"Select_StageTx.png");
 			SetTexture(L"Icon_RegisterMark", L"Texture\\UIs\\", L"RegisterMark.png");
 			SetTexture(L"Pointer_TX", L"Texture\\UIs\\", L"pointer.png");
+			SetTexture(L"Sokomade_TX", L"Texture\\UIs\\", L"sokomade!.png");
 
 			SetTexture(L"Chara_Normal", L"Texture\\Characters\\", L"Guest1-1.png");
 			//SetTexture(L"Chara_Hurry", L"Texture\\Characters\\", L"Guests1-1.png");

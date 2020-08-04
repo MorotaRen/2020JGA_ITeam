@@ -98,6 +98,9 @@ namespace basecross {
 		unsigned int m_stageNumber = 0;
 		//クリア判定
 		bool m_cleared = false;
+		//クリア時間
+		int m_C_min = 0;
+		int m_C_sec = 0;
 		//------------肉の各種判定------------//
 		int Hit_Karaage[3][3] = {
 								{9,1,1},

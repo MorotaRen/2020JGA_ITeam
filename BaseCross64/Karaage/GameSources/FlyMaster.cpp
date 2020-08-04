@@ -67,7 +67,11 @@ namespace basecross {
 		//終わりってことだからステータスをfalse
 		m_gameStatus = false;
 		//操作止めたからそこまでの画像を表示、横からスクロールさせるか
-
+		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
+		stage->AddGameObject<MultiSprite>(true, Vec2(640, 400), Vec3(0, 0, 0), L"Sokomade_TX");
+		//残り時間を格納してそれをリザルトで見るか…
+		m_C_min = m_Nowmin;
+		m_C_sec = m_Nowsec;
 	}
 	/// ----------------------------------------<summary>
 	/// ゲームのUIの作成

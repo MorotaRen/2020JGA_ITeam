@@ -79,6 +79,12 @@ namespace basecross {
 					FlyMaster::GetInstans().Fly();
 				}
 				//---------------------------------------------//
+				//---------------デバック用--------------------//
+				auto keystate = App::GetApp()->GetInputDevice().GetKeyState();
+				if (keystate.m_bPressedKeyTbl[VK_SPACE]) {
+					FlyMaster::GetInstans().GAMESET();
+				}
+				//---------------デバック用--------------------//
 
 				FlyMaster::GetInstans().Change_PossessionMeat();
 				FlyMaster::GetInstans().Recast_Move();
@@ -91,12 +97,14 @@ namespace basecross {
 	}
 
 	void GameStage::OnUpdate2() {
-		//ゲーム時間
-		FlyMaster::GetInstans().Update_Timer();
-		//揚げ時間のタイマー
-		bool isRecast = FlyMaster::GetInstans().GetTimerForOil();
-		if (isRecast) {
-			FlyMaster::GetInstans().Fly_Timer();
+		if (FlyMaster::GetInstans().GetGameStautas()) {
+			//ゲーム時間
+			FlyMaster::GetInstans().Update_Timer();
+			//揚げ時間のタイマー
+			bool isRecast = FlyMaster::GetInstans().GetTimerForOil();
+			if (isRecast) {
+				FlyMaster::GetInstans().Fly_Timer();
+			}
 		}
 	}
 }
