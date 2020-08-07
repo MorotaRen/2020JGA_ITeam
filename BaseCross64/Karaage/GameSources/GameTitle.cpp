@@ -49,6 +49,8 @@ namespace basecross {
 			if (pad[0].wPressedButtons & XINPUT_GAMEPAD_A) {
 				auto ptrScene = App::GetApp()->GetScene<Scene>();
 				PostEvent(0.0f,GetThis<ObjectInterface>(),ptrScene,L"ToSelectStage");
+
+				App::GetApp()->GetScene<Scene>()->MusicOnecStart(L"SE_Decision", 7.0f);
 			}
 		}
 	}
