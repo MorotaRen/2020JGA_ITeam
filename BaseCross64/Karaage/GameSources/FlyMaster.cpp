@@ -68,10 +68,18 @@ namespace basecross {
 		m_gameStatus = false;
 		//操作止めたからそこまでの画像を表示、横からスクロールさせるか
 		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
-		stage->AddGameObject<MultiSprite>(true, Vec2(640, 400), Vec3(0, 0, 0), L"Sokomade_TX");
+		auto obj = stage->AddGameObject<MultiSprite>(true, Vec2(640, 400), Vec3(0, 0, 0), L"Sokomade_TX");
 		//残り時間を格納してそれをリザルトで見るか…
 		m_C_min = m_Nowmin;
 		m_C_sec = m_Nowsec;
+		//なんかボタン押されたらリザルトへ移行
+		auto pad = App::GetApp()->GetInputDevice().GetControlerVec();
+		if (pad[0].wPressedButtons) {
+			//ここでscene移動で
+			auto scene = App::GetApp()->GetScene<Scene>();
+			auto stage = scene->GetActiveStage();
+			stage->PostEvent(0.0f, stage->GetThis<ObjectInterface>(), scene, L"ToResultStage")
+		}
 	}
 	/// ----------------------------------------<summary>
 	/// ゲームのUIの作成

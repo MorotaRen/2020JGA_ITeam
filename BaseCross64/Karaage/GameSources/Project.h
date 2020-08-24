@@ -27,6 +27,7 @@
 #include "FlyMaster.h"
 #include "MouseManager.h"
 #include "UI.h"
+#include <time.h>
 
 //シーンやステージ
 #include "Scene.h"

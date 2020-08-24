@@ -130,7 +130,7 @@ namespace basecross{
 			ResetActiveStage<GameTitle>();
 		}
 		if (event->m_MsgStr == L"ToResultStage") {
-			//ResetActiveStage<ResultStage>();
+			ResetActiveStage<GameResults>();
 		}
 	}
 
