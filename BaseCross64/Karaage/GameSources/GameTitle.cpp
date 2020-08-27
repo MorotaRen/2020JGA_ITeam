@@ -37,7 +37,10 @@ namespace basecross {
 			//スタートボタンスプライト
 			AddGameObject<MeatUI>(Vec2(0, -250), Vec3(150, 80, 1), L"BG_StartButton");
 			App::GetApp()->GetScene<Scene>()->MusicRoopsStart(L"BGM_Title",0.1f);
-
+			auto mode = BOOL_ISDEBUG;
+			if (mode) {
+				MessageBox(0,L"デバックモードが有効です",0,0);
+			}
 		}
 		catch (...) {
 			throw;

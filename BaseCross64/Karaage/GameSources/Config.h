@@ -11,7 +11,8 @@
 
 //肉の種類の最大値
 #define MAX_MEATCOUNT 5
-
+//デバックモード切替
+#define BOOL_ISDEBUG true;
 
 //各種肉の金額
 #define PRICE_KARAAGE	70;		//唐揚げ	(70)

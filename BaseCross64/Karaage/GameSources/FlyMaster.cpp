@@ -74,11 +74,23 @@ namespace basecross {
 		m_C_sec = m_Nowsec;
 		//なんかボタン押されたらリザルトへ移行
 		auto pad = App::GetApp()->GetInputDevice().GetControlerVec();
-		if (pad[0].wPressedButtons) {
-			//ここでscene移動で
-			auto scene = App::GetApp()->GetScene<Scene>();
-			auto stage = scene->GetActiveStage();
-			stage->PostEvent(0.0f, stage->GetThis<ObjectInterface>(), scene, L"ToResultStage")
+		auto mode = BOOL_ISDEBUG;
+		if (mode) {
+			auto keystate = App::GetApp()->GetInputDevice().GetKeyState();
+			if (keystate.m_bPressedKeyTbl[VK_SPACE]) {
+				//ここでscene移動で
+				auto scene = App::GetApp()->GetScene<Scene>();
+				auto stage = scene->GetActiveStage();
+				stage->PostEvent(0.0f, stage->GetThis<ObjectInterface>(), scene, L"ToResultStage");
+			}
+		}
+		else {
+			if (pad[0].wPressedButtons) {
+				//ここでscene移動で
+				auto scene = App::GetApp()->GetScene<Scene>();
+				auto stage = scene->GetActiveStage();
+				stage->PostEvent(0.0f, stage->GetThis<ObjectInterface>(), scene, L"ToResultStage");
+			}
 		}
 	}
 	/// ----------------------------------------<summary>

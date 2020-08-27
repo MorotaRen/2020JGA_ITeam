@@ -81,8 +81,11 @@ namespace basecross {
 				//---------------------------------------------//
 				//---------------デバック用--------------------//
 				auto keystate = App::GetApp()->GetInputDevice().GetKeyState();
-				if (keystate.m_bPressedKeyTbl[VK_SPACE]) {
-					FlyMaster::GetInstans().GAMESET();
+				auto mode = BOOL_ISDEBUG;
+				if (mode) {
+					if (keystate.m_bPressedKeyTbl[VK_SPACE]) {
+						FlyMaster::GetInstans().GAMESET();
+					}
 				}
 				//---------------デバック用--------------------//
 
