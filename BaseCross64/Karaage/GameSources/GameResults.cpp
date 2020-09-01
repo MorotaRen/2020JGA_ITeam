@@ -31,6 +31,7 @@ namespace basecross {
 			//ビューとライトの作成
 			CreateViewLight();
 			CreateBackgroundSprite();
+			CreateScoreSprite();
 		}
 		catch (...) {
 			throw;
@@ -40,7 +41,7 @@ namespace basecross {
 	}
 
 	//スコアのスプライト作成
-	void GameResults::CreateSocoreSprite() {
+	void GameResults::CreateScoreSprite() {
 
 	}
 
