@@ -42,12 +42,19 @@ namespace basecross {
 
 	//スコアのスプライト作成
 	void GameResults::CreateScoreSprite() {
-
+		//クリアフラグとってくる
+		bool clearFlag = FlyMaster::GetInstans().GetIsCleared();
+		if (clearFlag) {
+			//クリアのテキストたちの表示
+			AddGameObject<MeatUI>(Vec2(0, 250), Vec3(150, 80, 1), L"Title_Success");
+			AddGameObject<MeatUI>(Vec2(0, -250), Vec3(150, 80, 1), L"Text_Success");
+		}
 	}
 
 	//背景のスプライト作成
 	void GameResults::CreateBackgroundSprite() {
-		AddGameObject<MultiSprite>(true, Vec2(1280, 800), Vec3(0, 0, 0), L"Select_BG");
+		auto bg = AddGameObject<MultiSprite>(true, Vec2(1280, 800), Vec3(0, 0, 0), L"Select_BG");
+		bg->SetDrawLayer(0);
 	}
 }
 //end basecross

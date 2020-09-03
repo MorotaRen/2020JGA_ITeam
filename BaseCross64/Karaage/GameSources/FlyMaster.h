@@ -237,6 +237,9 @@ namespace basecross {
 		bool GetTimerForOil() {
 			return m_timerForOil;
 		}
+		bool GetIsCleared() {
+			return m_cleared;
+		}
 		//----------------------------------------//
 
 	};
