@@ -47,7 +47,7 @@ namespace basecross {
 		if (clearFlag) {
 			//クリアのテキストたちの表示
 			AddGameObject<MeatUI>(Vec2(0, 250), Vec3(150, 80, 1), L"Title_Success");
-			AddGameObject<MeatUI>(Vec2(0, -250), Vec3(150, 80, 1), L"Text_Success");
+			AddGameObject<MeatUI>(Vec2(0, -250), Vec3(150, 0, 1), L"Text_Success");
 		}
 	}
 
