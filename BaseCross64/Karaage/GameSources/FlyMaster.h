@@ -34,6 +34,8 @@ namespace basecross {
 
 		//-------------------変数------------------//
 
+		//ゲームの状態
+		bool m_gameStatus = false;
 		//各種肉の在庫
 		MeatsData m_meatsStockData;
 		//今設置されてる各種肉
@@ -62,8 +64,6 @@ namespace basecross {
 		int m_targetMoney = 0;
 		//現在金額
 		int m_nowMoney = 0;
-		//現在時刻
-		float m_time = 0;
 		//フライヤータイマーの現在時間
 		float m_flyTime = FLY_RECAST_TIME;
 		//現在金額数字のポインタ
@@ -83,34 +83,57 @@ namespace basecross {
 		//タイマー終了時の判定(Game)
 		bool m_timerForGame;
 		//オーバーレイ用のスプライトポインタ
-		shared_ptr<GameObject> m_overSprite_Oil;	
+		shared_ptr<GameObject> m_overSprite_Oil;
 		//お客達
 		vector<shared_ptr<Guest>> m_guests = {0,0,0};
 		//お客の数
 		int m_nowCustomers = 0;
+		//設定分
+		int m_Nowmin = 0;
+		//設定秒
+		int m_Nowsec = 0;
+		//現在時刻
+		float m_time = 0;
+		//現在のステージナンバー
+		unsigned int m_stageNumber = 0;
+		//クリア判定
+		bool m_cleared = false;
+		//クリア時間
+		int m_C_min = 0;
+		int m_C_sec = 0;
 		//------------肉の各種判定------------//
 		int Hit_Karaage[3][3] = {
 								{9,1,1},
 								{1,1,1},
 								{1,1,1}
 		};
+		//これいらんかもしれん…
+		unsigned int Karaage_SetCount = 1;
+
 		int Hit_Drum[2][2] = {
 								{9,1},
 								{9,1},
 		};
+		unsigned int Drum_SetCount = 2;
+
 		int Hit_Wing[2][2] = {
 								{9,9},
 								{9,1},
 		};
+		unsigned int Wing_SetCount = 3;
+
 		int Hit_Rib[2][2] = {
 								{9,9},
 								{9,9},
 		};
+		unsigned int Rib_SetCount = 4;
+
 		int Hit_Keel[3][3] = {
 								{9,9,9},
 								{9,9,9},
 								{1,9,1}
 		};
+		unsigned int Keel_SetCount = 6;
 		//------------------------------------//
 		//----------------------------------------//
 
@@ -166,7 +189,7 @@ namespace basecross {
 		void Set_Rect(int num, shared_ptr<GameObject> numobj);
 		//タイマーセット
 		void Set_Timer(int time,vector<shared_ptr<GameObject>> changenumobj);
-		//タイマーの更新		
+		//タイマーの更新
 		void Update_Timer();
 		//目標と現在を比較する
 		bool Check_Comparison();
@@ -178,20 +201,25 @@ namespace basecross {
 		void Customers_Count();
 		//客の要求を満たすかの管理
 		void Customers_Request();
+		//デバック表示
+		void Debug_Map();
 		//------------ゲッターセッター--------------//
-		void SetStockData(const MeatsData md) {
+		void SetStockData(const MeatsData &md) {
 			m_meatsStockData = md;
 		}
 		MeatsData GetStockData() {
 			return m_meatsStockData;
 		}
-		void SetMeatsInstallationData(const MeatsData md) {
+		bool GetGameStautas() {
+			return m_gameStatus;
+		}
+		void SetMeatsInstallationData(const MeatsData &md) {
 			m_meatsInstallationData = md;
 		}
 		MeatsData GetMeatsInstallationData() {
 			return m_meatsInstallationData;
 		}
-		void SetPossessionMeat(shared_ptr<GameObject> obj) {
+		void SetPossessionMeat(shared_ptr<GameObject>& obj) {
 			m_possessionMeat = obj;
 		}
 		shared_ptr<GameObject> GetPossessionMeat() {
@@ -203,11 +231,14 @@ namespace basecross {
 		vector<Rect2D<float>> GetRects() {
 			return m_numRects;
 		}
-		void SetTimeForOil(bool bl) {
+		void SetTimeForOil(bool &bl) {
 			m_timerForOil = bl;
 		}
 		bool GetTimerForOil() {
 			return m_timerForOil;
+		}
+		bool GetIsCleared() {
+			return m_cleared;
 		}
 		//----------------------------------------//
 

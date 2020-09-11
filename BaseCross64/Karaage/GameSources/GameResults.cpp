@@ -30,6 +30,8 @@ namespace basecross {
 		try {
 			//ビューとライトの作成
 			CreateViewLight();
+			CreateBackgroundSprite();
+			CreateScoreSprite();
 		}
 		catch (...) {
 			throw;
@@ -39,19 +41,20 @@ namespace basecross {
 	}
 
 	//スコアのスプライト作成
-	void GameResults::CreateSocoreSprite() {
-		//AddGameObject<ScoreSprite>(4,
-		//	L"", true,
-		//	Vec2(0.0f, 0.0f),
-		//	Vec3(0.0f, 0.0f, 0.0f));
+	void GameResults::CreateScoreSprite() {
+		//クリアフラグとってくる
+		bool clearFlag = FlyMaster::GetInstans().GetIsCleared();
+		if (clearFlag) {
+			//クリアのテキストたちの表示
+			AddGameObject<MeatUI>(Vec2(0, 250), Vec3(150, 80, 1), L"Title_Success");
+			AddGameObject<MeatUI>(Vec2(0, -250), Vec3(150, 0, 1), L"Text_Success");
+		}
 	}
 
 	//背景のスプライト作成
 	void GameResults::CreateBackgroundSprite() {
-		//AddGameObject<BackgroundSprite>(
-		//	L"", false,
-		//	Vec2(0.0f, 0.0f),
-		//	Vec3(0.0f, 0.0f, 0.0f));
+		auto bg = AddGameObject<MultiSprite>(true, Vec2(1280, 800), Vec3(0, 0, 0), L"Select_BG");
+		bg->SetDrawLayer(0);
 	}
 }
 //end basecross

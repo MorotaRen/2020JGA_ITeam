@@ -11,7 +11,8 @@
 
 //肉の種類の最大値
 #define MAX_MEATCOUNT 5
-
+//デバックモード切替
+#define BOOL_ISDEBUG true;
 
 //各種肉の金額
 #define PRICE_KARAAGE	70;		//唐揚げ	(70)
@@ -35,25 +36,49 @@
 
 //ゲームフィールドの縦横(X5Y10)
 #define GAMEFIELD_X 5
-#define GAMEFIELD_Y 6	
+#define GAMEFIELD_Y 4
 //マップチップのサイズ(XY60)
 #define MAPCHIP_SIZE_X 60.0f
 #define MAPCHIP_SIZE_Y 60.0f
 //マップチップの開始地点(X-140Y250)
 #define MAPCHIP_START_X -140.0f
-#define MAPCHIP_START_Y 150.0f
+#define MAPCHIP_START_Y 125.0f
 //左右(4682)
 #define LEFT	4
 #define RIGHT	6
 #define UP		8
 #define DOWN	2
-//移動リミット(-140,-270,60,250)
-#define MOVELIMIT_MIN_X -140
-#define MOVELIMIT_MIN_Y -110
-#define MOVELIMIT_MAX_X  60
-#define MOVELIMIT_MAX_Y  150
+
 //配置状況の数値(9)
 #define Setup_FALSE 9
 //客の最大数
 #define MAX_CUSTOMERS 3
+//現在金額表示座標の開始点と数字間隔
+#define NOWMONEY_STARTPOS_X 550
+#define NOWMONEY_STARTPOS_Y 100
+#define NOWMONEY_INTERVAL 50;
+//タイマー表示座標の開始点と数字間隔
+#define TIMER_STARTPOS_X 540
+#define TIMER_STARTPOS_Y 220
+#define TIMER_INTERVAL 30;
+//目標金額表示座標の開始点と数字間隔
+#define TARGET_STARTPOS_X 550
+#define TARGET_STARTPOS_Y 30
+#define TARGET_INTERVAL 50;
+
 //-----------------------------------------------//
+
+
+//------------------ゲーム管理用------------------//
+//ゲームステージの制限時間：分(+59秒)
+#define STAGE_TIME_1 5
+#define STAGE_TIME_2 4
+#define STAGE_TIME_3 3
+#define STAGE_TIME_4 2
+#define STAGE_TIME_5 1
+//ゲームステージの目標金額
+#define STAGE_MONEY_1 500
+#define STAGE_MONEY_2 700
+#define STAGE_MONEY_3 500
+#define STAGE_MONEY_4 800
+#define STAGE_MONEY_5 1000

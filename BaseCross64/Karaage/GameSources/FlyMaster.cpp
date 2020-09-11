@@ -7,6 +7,8 @@ namespace basecross {
 	/// これを起動でゲームが始まる
 	/// </summary>----------------------------------------
 	void FlyMaster::GAMESTART(int targetMoney,int time) {
+		//ゲームを始めるからステータスをtrueに
+		m_gameStatus = true;
 		//目標金額の設定
 		m_targetMoney = targetMoney;
 		//数字UIの範囲
@@ -27,25 +29,24 @@ namespace basecross {
 		}
 		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
 		//現在金額数字
-		m_Numbers[0] = (stage->AddGameObject<NumberUI>(Vec2(550, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_Numbers[1] = (stage->AddGameObject<NumberUI>(Vec2(500, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_Numbers[2] = (stage->AddGameObject<NumberUI>(Vec2(450, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_Numbers[3] = (stage->AddGameObject<NumberUI>(Vec2(400, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_Numbers[4] = (stage->AddGameObject<NumberUI>(Vec2(350, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_Numbers[5] = (stage->AddGameObject<NumberUI>(Vec2(300, 100), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+		Vec2 nowMoneyStartPos = Vec2(NOWMONEY_STARTPOS_X,NOWMONEY_STARTPOS_Y);
+		for (int i = 0; i < m_Numbers.size(); i++)
+		{
+			m_Numbers[i] = (stage->AddGameObject<NumberUI>(Vec2(nowMoneyStartPos.x,nowMoneyStartPos.y), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+			nowMoneyStartPos.x -= NOWMONEY_INTERVAL;
+		}
 		//タイマー用数字
-		m_TimerNumbers[1] = (stage->AddGameObject<NumberUI>(Vec2(540, 220), Vec3(20.0f, 20.0f, 1.0f), L"Tex_Number"));
-		m_TimerNumbers[2] = (stage->AddGameObject<NumberUI>(Vec2(510, 220), Vec3(20.0f, 20.0f, 1.0f), L"Tex_Number"));
-		m_TimerNumbers[3] = (stage->AddGameObject<NumberUI>(Vec2(480, 220), Vec3(20.0f, 20.0f, 1.0f), L"Tex_Number"));
-		m_TimerNumbers[4] = (stage->AddGameObject<NumberUI>(Vec2(450, 220), Vec3(20.0f, 20.0f, 1.0f), L"Tex_Number"));
+		Vec2 timerStartPos = Vec2(TIMER_STARTPOS_X,TIMER_STARTPOS_Y);
+		for (int i = 1; i < m_TimerNumbers.size();i++) {
+			m_TimerNumbers[i] = (stage->AddGameObject<NumberUI>(Vec2(timerStartPos.x,timerStartPos.y), Vec3(20.0f, 20.0f, 1.0f), L"Tex_Number"));
+			timerStartPos.x -= TIMER_INTERVAL;
+		}
 		//目標金額数字
-		m_targetMoneyNumbers[0] = (stage->AddGameObject<NumberUI>(Vec2(550, 30), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_targetMoneyNumbers[1] = (stage->AddGameObject<NumberUI>(Vec2(500, 30), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_targetMoneyNumbers[2] = (stage->AddGameObject<NumberUI>(Vec2(450, 30), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_targetMoneyNumbers[3] = (stage->AddGameObject<NumberUI>(Vec2(400, 30), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_targetMoneyNumbers[4] = (stage->AddGameObject<NumberUI>(Vec2(350, 30), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		m_targetMoneyNumbers[5] = (stage->AddGameObject<NumberUI>(Vec2(300, 30), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
-		
+		Vec2 targetMoneyStartPos = Vec2(TARGET_STARTPOS_X,TARGET_STARTPOS_Y);
+		for (int i = 0; i < m_targetMoneyNumbers.size();i++) {
+			m_targetMoneyNumbers[i] = (stage->AddGameObject<NumberUI>(Vec2(targetMoneyStartPos.x,targetMoneyStartPos.y), Vec3(30.0f, 30.0f, 1.0f), L"Tex_Number"));
+			targetMoneyStartPos.x -= TARGET_INTERVAL;
+		}
 		//タイマーセット
 		Set_Timer(time, m_TimerNumbers);
 		Set_Num(targetMoney,m_targetMoneyNumbers);
@@ -60,10 +61,38 @@ namespace basecross {
 		m_overSprite_Oil->SetDrawActive(false);
 	}
 	/// ----------------------------------------<summary>
-	/// ゲームセット	
+	/// ゲームセット
 	/// </summary>----------------------------------------
 	void FlyMaster::GAMESET() {
-
+		//終わりってことだからステータスをfalse
+		m_gameStatus = false;
+		//操作止めたからそこまでの画像を表示、横からスクロールさせるか
+		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
+		auto obj = stage->AddGameObject<MultiSprite>(true, Vec2(640, 400), Vec3(0, 0, 0), L"Sokomade_TX");
+		//残り時間を格納してそれをリザルトで見るか…いやここで成功か失敗か見る
+		m_C_min = m_Nowmin;
+		m_C_sec = m_Nowsec;
+		m_cleared = true;
+		//なんかボタン押されたらリザルトへ移行
+		auto pad = App::GetApp()->GetInputDevice().GetControlerVec();
+		auto mode = BOOL_ISDEBUG;
+		if (mode) {
+			auto keystate = App::GetApp()->GetInputDevice().GetKeyState();
+			if (keystate.m_bPressedKeyTbl[VK_SPACE]) {
+				//ここでscene移動で
+				auto scene = App::GetApp()->GetScene<Scene>();
+				auto stage = scene->GetActiveStage();
+				stage->PostEvent(0.0f, stage->GetThis<ObjectInterface>(), scene, L"ToResultStage");
+			}
+		}
+		else {
+			if (pad[0].wPressedButtons) {
+				//ここでscene移動で
+				auto scene = App::GetApp()->GetScene<Scene>();
+				auto stage = scene->GetActiveStage();
+				stage->PostEvent(0.0f, stage->GetThis<ObjectInterface>(), scene, L"ToResultStage");
+			}
+		}
 	}
 	/// ----------------------------------------<summary>
 	/// ゲームのUIの作成
@@ -92,6 +121,7 @@ namespace basecross {
 	/// </summary>----------------------------------------
 	void FlyMaster::Clear_InstallationMeat() {
 		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
+		//ステージに設置されてる肉の削除
 		for (int i = 0; i < m_installationMeat.size(); i++) {
 			stage->RemoveGameObject<GameObject>(m_installationMeat[i]);
 		}
@@ -102,22 +132,14 @@ namespace basecross {
 				m_gameField[i][t] = 0;
 			}
 		}
-		m_meatsInstallationData.Karage = 0;
-		m_meatsInstallationData.Drum = 0;
-		m_meatsInstallationData.Wing = 0;
-		m_meatsInstallationData.Lib = 0;
-		m_meatsInstallationData.Keel = 0;
+		m_meatsInstallationData = {};
 
 	}
 	/// ----------------------------------------<summary>
 	/// 在庫肉の初期化
 	/// </summary>----------------------------------------
 	void FlyMaster::Clear_StockMeat() {
-		m_meatsStockData.Karage = 0;
-		m_meatsStockData.Drum = 0;
-		m_meatsStockData.Wing = 0;
-		m_meatsStockData.Lib = 0;
-		m_meatsStockData.Keel = 0;
+		m_meatsStockData = {};
 	}
 	/// ----------------------------------------<summary>
 	/// ゲームフィールドの作成
@@ -127,7 +149,7 @@ namespace basecross {
 		auto stage = App::GetApp()->GetScene<Scene>()->GetActiveStage();
 		for (int y = 0; y < GAMEFIELD_Y;y++) {
 			for (int x = 0; x < GAMEFIELD_X;x++) {
-				stage->AddGameObject<MapChip>(Vec2(MAPCHIP_START_X + x * MAPCHIP_SIZE_X, 
+				stage->AddGameObject<MapChip>(Vec2(MAPCHIP_START_X + x * MAPCHIP_SIZE_X,
 												   MAPCHIP_START_Y + -y *MAPCHIP_SIZE_Y),
 												   0);
 			}
@@ -152,7 +174,7 @@ namespace basecross {
 		tempMoney += md.Drum * PRICE_DRUM;
 		tempMoney += md.Wing * PRICE_WING;
 		tempMoney += md.Lib * PRICE_LIB;
-		tempMoney += md.Keel * PRICE_KEEL;	
+		tempMoney += md.Keel * PRICE_KEEL;
 
 		m_nowMoney += tempMoney;
 		Set_Num(m_nowMoney,m_Numbers);
@@ -169,7 +191,7 @@ namespace basecross {
 		}else {
 			return false;
 		}
-		
+
 	}
 	/// ----------------------------------------<summary>
 	/// 渡された座標からマップ方向にレイを飛ばし接触したオブジェクトのマップ番号を返す
@@ -209,7 +231,7 @@ namespace basecross {
 			newMeat = stage->AddGameObject<Wing>(Vec3(1, 0, 1), Vec3(MAPCHIP_START_X, MAPCHIP_START_Y, 6), quat);
 			Reset_PossessionMeat(newMeat);
 			break;
-		
+
 		default:
 			break;
 		}
@@ -240,7 +262,7 @@ namespace basecross {
 				switch (direction)
 				{
 				case RIGHT:
-					if (possessionMeatPos.x < MOVELIMIT_MAX_X) {
+					if (m_moveDistance[1] <= (GAMEFIELD_X-2)) {
 						pos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
 						pos.x += MAPCHIP_SIZE_X;
 						m_possessionMeat->GetComponent<Transform>()->SetPosition(pos);
@@ -249,7 +271,7 @@ namespace basecross {
 					}
 					break;
 				case LEFT:
-					if (possessionMeatPos.x > MOVELIMIT_MIN_X) {
+					if (m_moveDistance[1] > 0) {
 						pos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
 						pos.x -= MAPCHIP_SIZE_X;
 						m_possessionMeat->GetComponent<Transform>()->SetPosition(pos);
@@ -258,7 +280,7 @@ namespace basecross {
 					}
 					break;
 				case UP:
-					if (possessionMeatPos.y < MOVELIMIT_MAX_Y) {
+					if (m_moveDistance[0] > 0) {
 						pos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
 						pos.y += MAPCHIP_SIZE_Y;
 						m_possessionMeat->GetComponent<Transform>()->SetPosition(pos);
@@ -267,7 +289,7 @@ namespace basecross {
 					}
 					break;
 				case DOWN:
-					if (possessionMeatPos.y > MOVELIMIT_MIN_Y) {
+					if (m_moveDistance[0] <= (GAMEFIELD_Y-2)) {
 						pos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
 						pos.y -= MAPCHIP_SIZE_Y;
 						m_possessionMeat->GetComponent<Transform>()->SetPosition(pos);
@@ -309,13 +331,15 @@ namespace basecross {
 			else {
 				m_possessionMeatID++;
 			}
+			m_moveDistance[0] = 0;
+			m_moveDistance[1] = 0;
 			FlyMaster::Create_PossessionMeat(m_possessionMeatID);
 		}
 	}
 	/// ----------------------------------------<summary>
 	/// 所持肉をステージに設置する
 	/// </summary>----------------------------------------
-	void FlyMaster::Set_PossessionMeat() {		
+	void FlyMaster::Set_PossessionMeat() {
 		//まずは設置する所を取得して
 		Vec3 SetupPos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
 		Quat newMeatRot;
@@ -328,6 +352,7 @@ namespace basecross {
 			//所持肉の位置
 			Vec3 possessoionPos = m_possessionMeat->GetComponent<Transform>()->GetPosition();
 			shared_ptr<GameObject> newMeat;
+			Debug_Map();
 			//所持肉IDで
 			switch (m_possessionMeatID)
 			{
@@ -376,7 +401,7 @@ namespace basecross {
 			//始点
 			auto StartPosX = m_moveDistance[1];
 			auto StartPosY = m_moveDistance[0];
-
+			unsigned int Counter = 0;
 			//所持肉IDで
 			switch (m_possessionMeatID)
 			{
@@ -400,22 +425,26 @@ namespace basecross {
 				}
 				return true;
 				break;
+
 			case drum:
-				for (int y = 0; y < 3; y++) {
-					for (int x = 0; x < 3; x++) {
+				for (int y = 0; y < 2; y++) {
+					for (int x = 0; x < 2; x++) {
 						if (m_gameField[StartPosY + y][StartPosX + x] == Hit_Drum[y][x]) {
 							return false;
 							break;
 						}
 					}
 				}
-				//設置済みにするときにブレイクしてないからずれる
 				//おく所を設置済みにする
-				for (int y = 0; y < 3; y++) {
-					for (int x = 0; x < 3; x++) {
+				for (int y = 0; y < 2; y++) {
+					for (int x = 0; x < 2; x++) {
 						if (m_gameField[StartPosY + y][StartPosX + x] == 0 && Hit_Drum[y][x] == 9) {
 							m_gameField[StartPosY + y][StartPosX + x] = 9;
+							Counter++;
 						}
+					}
+					if (Counter >= Drum_SetCount) {
+						break;
 					}
 				}
 				return true;
@@ -434,14 +463,18 @@ namespace basecross {
 					for (int x = 0; x < 3; x++) {
 						if (m_gameField[StartPosY + y][StartPosX + x] == 0 && Hit_Keel[y][x] == 9) {
 							m_gameField[StartPosY + y][StartPosX + x] = 9;
+							Counter++;
 						}
+					}
+					if (Counter >= Keel_SetCount) {
+						break;
 					}
 				}
 				return true;
 				break;
 			case rib:
-				for (int y = 0; y < 3; y++) {
-					for (int x = 0; x < 3; x++) {
+				for (int y = 0; y < 2; y++) {
+					for (int x = 0; x < 2; x++) {
 						if (m_gameField[StartPosY + y][StartPosX + x] == Hit_Rib[y][x]) {
 							return false;
 							break;
@@ -449,18 +482,22 @@ namespace basecross {
 					}
 				}
 				//おく所を設置済みにする
-				for (int y = 0; y < 3; y++) {
-					for (int x = 0; x < 3; x++) {
+				for (int y = 0; y < 2; y++) {
+					for (int x = 0; x < 2; x++) {
 						if (m_gameField[StartPosY + y][StartPosX + x] == 0 && Hit_Rib[y][x] == 9) {
 							m_gameField[StartPosY + y][StartPosX + x] = 9;
+							Counter++;
 						}
+					}
+					if (Counter >= Rib_SetCount) {
+						break;
 					}
 				}
 				return true;
 				break;
 			case wing:
-				for (int y = 0; y < 3; y++) {
-					for (int x = 0; x < 3; x++) {
+				for (int y = 0; y < 2; y++) {
+					for (int x = 0; x < 2; x++) {
 						if (m_gameField[StartPosY + y][StartPosX + x] == Hit_Wing[y][x]) {
 							return false;
 							break;
@@ -468,11 +505,15 @@ namespace basecross {
 					}
 				}
 				//おく所を設置済みにする
-				for (int y = 0; y < 3; y++) {
-					for (int x = 0; x < 3; x++) {
+				for (int y = 0; y < 2; y++) {
+					for (int x = 0; x < 2; x++) {
 						if (m_gameField[StartPosY + y][StartPosX + x] == 0 && Hit_Wing[y][x] == 9) {
 							m_gameField[StartPosY + y][StartPosX + x] = 9;
+							Counter++;
 						}
+					}
+					if (Counter >= Wing_SetCount) {
+						break;
 					}
 				}
 				return true;
@@ -594,93 +635,38 @@ namespace basecross {
 	/// </summary>----------------------------------------
 	void FlyMaster::Set_Rect(int num, shared_ptr<GameObject> numobj) {
 		vector<VertexPositionColorTexture> vertices;
-		switch (num)
-		{
-		case 0:
-			vertices.push_back(VertexPositionColorTexture(Vec3(-1.0f, 1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[0].left, 0.0f)));
-			vertices.push_back(VertexPositionColorTexture(Vec3(1.0f, 1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[0].top, 0.0f)));
-			vertices.push_back(VertexPositionColorTexture(Vec3(-1.0f, -1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[0].right, 1.0f)));
-			vertices.push_back(VertexPositionColorTexture(Vec3(1.0f, -1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[0].bottom, 1.0f)));
-			numobj->GetComponent<PCTSpriteDraw>()->UpdateVertices(vertices);
-			break;
-		case 1:
-			vertices.push_back(VertexPositionColorTexture(Vec3(-1.0f, 1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[1].left, 0.0f)));
-			vertices.push_back(VertexPositionColorTexture(Vec3(1.0f, 1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[1].top, 0.0f)));
-			vertices.push_back(VertexPositionColorTexture(Vec3(-1.0f, -1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[1].right, 1.0f)));
-			vertices.push_back(VertexPositionColorTexture(Vec3(1.0f, -1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[1].bottom, 1.0f)));
-			numobj->GetComponent<PCTSpriteDraw>()->UpdateVertices(vertices);
-			break;
-		case 2:
-			vertices.push_back(VertexPositionColorTexture(Vec3(-1.0f, 1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[2].left, 0.0f)));
-			vertices.push_back(VertexPositionColorTexture(Vec3(1.0f, 1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[2].top, 0.0f)));
-			vertices.push_back(VertexPositionColorTexture(Vec3(-1.0f, -1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[2].right, 1.0f)));
-			vertices.push_back(VertexPositionColorTexture(Vec3(1.0f, -1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[2].bottom, 1.0f)));
-			numobj->GetComponent<PCTSpriteDraw>()->UpdateVertices(vertices);
-			break;
-		case 3:
-			vertices.push_back(VertexPositionColorTexture(Vec3(-1.0f, 1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[3].left, 0.0f)));
-			vertices.push_back(VertexPositionColorTexture(Vec3(1.0f, 1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[3].top, 0.0f)));
-			vertices.push_back(VertexPositionColorTexture(Vec3(-1.0f, -1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[3].right, 1.0f)));
-			vertices.push_back(VertexPositionColorTexture(Vec3(1.0f, -1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[3].bottom, 1.0f)));
-			numobj->GetComponent<PCTSpriteDraw>()->UpdateVertices(vertices);
-			break;
-		case 4:
-			vertices.push_back(VertexPositionColorTexture(Vec3(-1.0f, 1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[4].left, 0.0f)));
-			vertices.push_back(VertexPositionColorTexture(Vec3(1.0f, 1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[4].top, 0.0f)));
-			vertices.push_back(VertexPositionColorTexture(Vec3(-1.0f, -1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[4].right, 1.0f)));
-			vertices.push_back(VertexPositionColorTexture(Vec3(1.0f, -1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[4].bottom, 1.0f)));
-			numobj->GetComponent<PCTSpriteDraw>()->UpdateVertices(vertices);
-			break;
-		case 5:
-			vertices.push_back(VertexPositionColorTexture(Vec3(-1.0f, 1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[5].left, 0.0f)));
-			vertices.push_back(VertexPositionColorTexture(Vec3(1.0f, 1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[5].top, 0.0f)));
-			vertices.push_back(VertexPositionColorTexture(Vec3(-1.0f, -1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[5].right, 1.0f)));
-			vertices.push_back(VertexPositionColorTexture(Vec3(1.0f, -1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[5].bottom, 1.0f)));
-			numobj->GetComponent<PCTSpriteDraw>()->UpdateVertices(vertices);
-			break;
-		case 6:
-			vertices.push_back(VertexPositionColorTexture(Vec3(-1.0f, 1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[6].left, 0.0f)));
-			vertices.push_back(VertexPositionColorTexture(Vec3(1.0f, 1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[6].top, 0.0f)));
-			vertices.push_back(VertexPositionColorTexture(Vec3(-1.0f, -1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[6].right, 1.0f)));
-			vertices.push_back(VertexPositionColorTexture(Vec3(1.0f, -1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[6].bottom, 1.0f)));
-			numobj->GetComponent<PCTSpriteDraw>()->UpdateVertices(vertices);
-			break;
-		case 7:
-			vertices.push_back(VertexPositionColorTexture(Vec3(-1.0f, 1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[7].left, 0.0f)));
-			vertices.push_back(VertexPositionColorTexture(Vec3(1.0f, 1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[7].top, 0.0f)));
-			vertices.push_back(VertexPositionColorTexture(Vec3(-1.0f, -1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[7].right, 1.0f)));
-			vertices.push_back(VertexPositionColorTexture(Vec3(1.0f, -1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[7].bottom, 1.0f)));
-			numobj->GetComponent<PCTSpriteDraw>()->UpdateVertices(vertices);
-			break;
-		case 8:
-			vertices.push_back(VertexPositionColorTexture(Vec3(-1.0f, 1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[8].left, 0.0f)));
-			vertices.push_back(VertexPositionColorTexture(Vec3(1.0f, 1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[8].top, 0.0f)));
-			vertices.push_back(VertexPositionColorTexture(Vec3(-1.0f, -1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[8].right, 1.0f)));
-			vertices.push_back(VertexPositionColorTexture(Vec3(1.0f, -1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[8].bottom, 1.0f)));
-			numobj->GetComponent<PCTSpriteDraw>()->UpdateVertices(vertices);
-			break;
-		case 9:
-			vertices.push_back(VertexPositionColorTexture(Vec3(-1.0f, 1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[9].left, 0.0f)));
-			vertices.push_back(VertexPositionColorTexture(Vec3(1.0f, 1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[9].top, 0.0f)));
-			vertices.push_back(VertexPositionColorTexture(Vec3(-1.0f, -1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[9].right, 1.0f)));
-			vertices.push_back(VertexPositionColorTexture(Vec3(1.0f, -1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[9].bottom, 1.0f)));
-			numobj->GetComponent<PCTSpriteDraw>()->UpdateVertices(vertices);
-			break;
-		default:
-			break;
+		if (num < 0 || num > 9) {
+			return;
 		}
+		vertices.push_back(VertexPositionColorTexture(Vec3(-1.0f, 1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[num].left, 0.0f)));
+		vertices.push_back(VertexPositionColorTexture(Vec3(1.0f, 1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[num].top, 0.0f)));
+		vertices.push_back(VertexPositionColorTexture(Vec3(-1.0f, -1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[num].right, 1.0f)));
+		vertices.push_back(VertexPositionColorTexture(Vec3(1.0f, -1.0f, 0), Col4(1.0f, 1.0f, 1.0f, 1.0f), Vec2(m_numRects[num].bottom, 1.0f)));
+		numobj->GetComponent<PCTSpriteDraw>()->UpdateVertices(vertices);
+
 	}
 	/// ----------------------------------------<summary>
 	///	タイマーの設定
 	/// </summary>----------------------------------------
 	void FlyMaster::Set_Timer(int time, vector<shared_ptr<GameObject>> changenumobj) {
-		m_time = (float)time;
-		m_NowTime[0] = (time % 10); time /= 10;
-		m_NowTime[1] = (time % 10); time /= 10;
-		m_NowTime[2] = (time % 10); time /= 10;
-		m_NowTime[3] = (time % 10); time /= 10;
+		//初期分設定…
+		if (time != 999) {
+			m_Nowmin = time;
+			m_time = 59;
+		}
+		m_NowTime[3] = m_Nowmin;
+		m_NowTime[1] = (m_Nowsec % 10); m_Nowsec /= 10;
+		m_NowTime[2] = (m_Nowsec % 10); m_Nowsec /= 10;
+		if (m_Nowmin == 0 && m_time <= 1) {
+			//タイマー完全終わり
+			MessageBox(0, 0, 0, 0);
+		}
+		if (m_NowTime[1] == 0 && m_time <= 1) {
+			m_Nowmin--;
+			m_time = 59;
+		}
 
-		for (int i = 1; i < changenumobj.size();i++) {
+ 		for (int i = 1; i < changenumobj.size();i++) {
 			Set_Rect(m_NowTime[i],changenumobj[i]);
 		}
 	}
@@ -690,14 +676,16 @@ namespace basecross {
 	void FlyMaster::Update_Timer() {
 		auto deltatime = App::GetApp()->GetElapsedTime();
 		m_time -=  1 * deltatime;
-		Set_Timer(m_time,m_TimerNumbers);
+
+		m_Nowsec = m_time;
+		Set_Timer(999,m_TimerNumbers);
 	}
 	/// ----------------------------------------<summary>
 	///	フライヤータイマー
 	/// </summary>----------------------------------------
 	void FlyMaster::Fly_Timer() {
 		auto deltatime = App::GetApp()->GetElapsedTime();
-		m_flyTime -= 1 * deltatime;                                               
+		m_flyTime -= 1 * deltatime;
 		if (m_flyTime <= 0) {
 			m_flyTime = FLY_RECAST_TIME;
 			App::GetApp()->GetScene<Scene>()->MusicStop();
@@ -730,7 +718,7 @@ namespace basecross {
 						switch (i)
 						{
 						case 0 :
-							m_guests[0] = stage->AddGameObject<Guest>(Vec3(-430, 50, 0));
+							m_guests[0] = stage->AddGameObject<Guest>(Vec3(240, 30,0.0f));
 						}
 				}
 			}
@@ -740,38 +728,56 @@ namespace basecross {
 	///	客の要求を満たすかの管理
 	/// </summary>----------------------------------------
 	void FlyMaster::Customers_Request() {
-		//要求数と在庫数の見比べ
-		//要求数格納用
-		int tempReqMeats[5] = { 0 };
-		for (int i = 0; i < MAX_CUSTOMERS;i++) {
-			//まず客の要求数を取ってくる
-			m_guests[i]->GetRequestMeats(tempReqMeats);
-			//肉ごとに確認
-			if (tempReqMeats[0] <= m_meatsStockData.Karage) {
-				if (tempReqMeats[1] <= m_meatsStockData.Drum) {
-					if (tempReqMeats[2] <= m_meatsStockData.Wing) {
-						if (tempReqMeats[3] <= m_meatsStockData.Lib) {
-							if (tempReqMeats[4] <= m_meatsStockData.Keel) {
-								//ここまで来たら全部要求満たしてるから金額を計算して売上に加算してと…
-								Sales(m_meatsInstallationData);
-
-							}
-						}
-					}
-				}
+		//客の目的金額なので…コンフィグに設定金額を指定してそれで比較するか
+		switch (m_stageNumber)
+		{
+		case 1:
+			if (m_nowMoney >= STAGE_MONEY_1) {
+				//すてーじ1くりあ！
+				m_cleared = true;
 			}
+			break;
+		case 2:
+			if (m_nowMoney >= STAGE_MONEY_2) {
+				//すてーじ2くりあ！
+				m_cleared = true;
+			}
+			break;
+		case 3:
+			if (m_nowMoney >= STAGE_MONEY_3) {
+				//すてーじ3くりあ！
+				m_cleared = true;
+			}
+			break;
+		case 4:
+			if (m_nowMoney >= STAGE_MONEY_4) {
+				//すてーじ4くりあ！
+				m_cleared = true;
+			}
+			break;
+		case 5:
+			if (m_nowMoney >= STAGE_MONEY_5) {
+				//すてーじ5くりあ！
+				m_cleared = true;
+			}
+			break;
+		default:
+			break;
 		}
 	}
-	/*
-	疲
-	れ
-	た
-	ほ
-	ぼ
-	全
-	部
-	お
-	r
-	*/
+	/// ----------------------------------------<summary>
+	///	MAPの状態表示のデバック
+	/// </summary>----------------------------------------
+	void FlyMaster::Debug_Map() {
+		wstring str;
+		for (int i = 0; i < GAMEFIELD_Y;i++) {
+			for (int t = 0; t < GAMEFIELD_X; t++) {
+				str += Util::FloatToWStr(m_gameField[i][t]) += L",";
+			}
+			str += L"\n";
+		}
+		auto ptrString = m_Numbers[0]->AddComponent<StringSprite>();
+		ptrString->SetText(str);
+	}
 }
 //end basecross

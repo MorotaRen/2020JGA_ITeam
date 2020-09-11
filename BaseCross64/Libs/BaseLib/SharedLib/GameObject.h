@@ -71,9 +71,9 @@ namespace basecross {
 	public:
 		void Rotation() {
 			auto trancomp = GetComponent<Transform>();
-			auto rot = trancomp->GetRotation();
-			rot.z += 90;
-			trancomp->SetRotation(rot);
+			bsm::Quat quat = bsm::Quat(0,0,1,90);
+			trancomp->SetQuaternion(quat);
+
 		}
 		//--------------------------------------------------------------------------------------
 		/*!
@@ -798,7 +798,7 @@ namespace basecross {
 	struct ParticleSprite {
 		bool m_Active;				//アクティブかどうか
 		bsm::Col4 m_Color;				//色（透けさせる場合はaを0にする）
-		bsm::Vec2 m_LocalScale;		//ローカルスケーリング（Zは1.0固定）		
+		bsm::Vec2 m_LocalScale;		//ローカルスケーリング（Zは1.0固定）
 		bsm::Quat m_LocalQt;		//ローカル回転。手動のときのみ使用
 		bsm::Vec3 m_LocalPos;			//ローカル位置
 		bsm::Vec2 m_UVLeftTop;		//UVの左上

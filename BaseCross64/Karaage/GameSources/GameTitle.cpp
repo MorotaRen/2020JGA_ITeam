@@ -37,7 +37,10 @@ namespace basecross {
 			//スタートボタンスプライト
 			AddGameObject<MeatUI>(Vec2(0, -250), Vec3(150, 80, 1), L"BG_StartButton");
 			App::GetApp()->GetScene<Scene>()->MusicRoopsStart(L"BGM_Title",0.1f);
-
+			auto mode = BOOL_ISDEBUG;
+			if (mode) {
+				MessageBox(0,L"デバックモードが有効です",0,0);
+			}
 		}
 		catch (...) {
 			throw;
@@ -45,14 +48,15 @@ namespace basecross {
 	}
 	void GameTitle::OnUpdate() {
 		auto pad = GamePadManager::GetGamePad();
-		if (pad[0].bConnected) {
-			if (pad[0].wPressedButtons & XINPUT_GAMEPAD_A) {
+		auto keystate = App::GetApp()->GetInputDevice().GetKeyState();
+		//if (pad[0].bConnected) {
+			if (pad[0].wPressedButtons & XINPUT_GAMEPAD_A || keystate.m_bPressedKeyTbl[VK_SPACE]) {
 				auto ptrScene = App::GetApp()->GetScene<Scene>();
 				PostEvent(0.0f,GetThis<ObjectInterface>(),ptrScene,L"ToSelectStage");
 
 				App::GetApp()->GetScene<Scene>()->MusicOnecStart(L"SE_Decision", 7.0f);
 			}
-		}
+		//}
 	}
 
 	//背景のスプライト作成

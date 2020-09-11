@@ -16,7 +16,7 @@ namespace basecross {
 		void CreateViewLight();
 
 		//スコアのスプライト作成
-		void CreateSocoreSprite();
+		void CreateScoreSprite();
 
 		//背景のスプライト作成
 		void CreateBackgroundSprite();

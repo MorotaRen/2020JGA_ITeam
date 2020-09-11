@@ -46,9 +46,6 @@ namespace basecross{
 			App::GetApp()->GetAssetsDirectory(dataDir);
 
 			//テクスチャ
-			//SetTexture(L"RANK_UI", L"Rank2.png");
-			//SetTexture(L"Black_TEST",L"Black.png");
-			//SetTexture(L"White_TEST",L"White.png");
 			SetTexture(L"BG_Kitchen", L"Texture\\GameUIs\\", L"Kitchen.png");
 			SetTexture(L"BG_Flyer", L"Texture\\GameUIs\\", L"Flyer.png");
 			SetTexture(L"BG_Mass", L"Texture\\GameUIs\\", L"Masu.png");
@@ -60,8 +57,9 @@ namespace basecross{
 			SetTexture(L"Select_Stage_TX", L"Texture\\UIs\\", L"Select_StageTx.png");
 			SetTexture(L"Icon_RegisterMark", L"Texture\\UIs\\", L"RegisterMark.png");
 			SetTexture(L"Pointer_TX", L"Texture\\UIs\\", L"pointer.png");
+			SetTexture(L"Sokomade_TX", L"Texture\\UIs\\", L"sokomade!.png");
 
-			SetTexture(L"Chara_Normal", L"Texture\\Characters\\", L"Guests1-0.png");
+			SetTexture(L"Chara_Normal", L"Texture\\Characters\\", L"Guest1-1.png");
 			//SetTexture(L"Chara_Hurry", L"Texture\\Characters\\", L"Guests1-1.png");
 			//SetTexture(L"Chara_Anger", L"Texture\\Characters\\", L"Guests1-2.png");
 			//SetTexture(L"Chara_Happy", L"Texture\\Characters\\", L"Guests1-3.png");
@@ -73,6 +71,12 @@ namespace basecross{
 			SetTexture(L"TimerGaugeFrame_TX", L"Texture\\GameUIs\\", L"TimerGaugeFrame.png");
 			SetTexture(L"DecisionalButton_TX", L"Texture\\", L"DecisionalButton.png");
 			SetTexture(L"BackButton_TX", L"Texture\\", L"BackButton.png");
+			//リザルトで使用するもの達
+			SetTexture(L"Title_Fail", L"Texture\\UIs\\", L"Fail.png");
+			SetTexture(L"Text_Fail", L"Texture\\UIs\\", L"FailText.png");
+			SetTexture(L"Title_Success", L"Texture\\UIs\\", L"Success.png");
+			SetTexture(L"Text_Success", L"Texture\\UIs\\", L"SuccessText.png");
+
 
 			//肉(線あり)
 			SetMeat_Line(L"Meat_Drum_Line",L"Chicken_Drum3.png");
@@ -106,7 +110,7 @@ namespace basecross{
 			//リソース設定
 			CreateResourse resourse;
 			resourse.CreateResourses();
-			
+
 			//クリアする色を設定
 			Col4 Col;
 			Col.set(31.0f / 255.0f, 30.0f / 255.0f, 71.0f / 255.0f, 255.0f / 255.0f);
@@ -135,7 +139,7 @@ namespace basecross{
 			ResetActiveStage<GameTitle>();
 		}
 		if (event->m_MsgStr == L"ToResultStage") {
-			//ResetActiveStage<ResultStage>();
+			ResetActiveStage<GameResults>();
 		}
 	}
 
